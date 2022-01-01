@@ -1,0 +1,14 @@
+
+.card{
+    position: relative;
+    top: 40%;
+}
+.custom-checkbox{
+    display: flex;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+.custom-check-box{
+    
+    margin-right: 15px;
+}

@@ -1,0 +1,58 @@
+#langDropdown {
+    width: 10rem !important;
+}
+
+.lang-flag a {
+    height: 3.375rem !important;
+    color: #3a3b45 !important;
+}
+#messagesDropdown img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.lang-flag a:first-of-type::before {
+    content: "";
+    background-image: url("../../img/flags/us.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+.lang-flag a:nth-of-type(2)::before {
+    content: "";
+    background-image: url("../../img/flags/tr.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+.lang-flag a:last-of-type::before {
+    content: "";
+    background-image: url("../../img/flags/sa.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+
+.img-profile {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+.list-active-background {
+    background-color: #ade2cf !important;
+}
+
+.sidebar {
+    transition: 0.5s !important;
+}
+@media (min-width: 768px) {
+    .sidebar.toggled .nav-item .collapse .collapse-inner {
+        box-shadow: none !important;
+    }
+}

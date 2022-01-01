@@ -1,0 +1,81 @@
+<br><br>
+<!-- Custom styles for this page -->
+<link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+
+<div class="post-table card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">{{ __('home.my_post') }}</h6>
+        <a data-toggle="modal" data-target="#ModalPostAdd">
+            <button type="button" class="btn btn-warning add-button">
+                <i class="fas fa-plus "></i>{{ __('home.add_new_post') }}
+            </button>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead style="text-align: center">
+                    <tr>
+                        <th scope="col">{{ __('home.title') }}</th>
+                        <th scope="col">{{ __('home.description') }}</th>
+                        <th scope="col">{{ __('home.category_type') }}</th>
+                        <th scope="col">{{ __('home.created_at') }}</th>
+                        <th scope="col">{{ __('home.photo') }}</th>
+                        <th scope="col" colspan="2">{{ __('home.operation') }}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    @if (isset($posts) && $posts->count() > 0)
+
+                        @foreach ($posts as $post)
+                            <tr>
+                                <td scope="row">{{ $post->translate(app()->getLocale())->title }}</td>
+                                <td scope="row">{{ $post->translate(app()->getLocale())->description }}</td>
+
+                                <td scope="row">
+                                    {{ $post->categoryes->name }}
+                                </td>
+
+                                <td scope="row">{{ $post->created_at }}</td>
+                                <td scope="row">
+                                    <img style="width: 75px; height:75px"
+                                        src="{{ asset('uploads/images/' . $post->image) }}">
+                                </td>
+                                <td scope="row">
+                                    <a href="{{ route('edit.post', $post->id) }}">
+                                        <button type="button" class="btn btn-primary">
+                                            {{ __('home.update') }}
+                                        </button>
+                                    </a>
+                                </td>
+
+                                <td scope="row">
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#deletePost{{ $post->id }}">
+                                        {{ __('home.delete') }}
+                                    </button>
+
+                                    @include('modal.delete')
+
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+
+
+                </tbody>
+                
+            </table>
+            {{$posts->links()}}
+        </div>
+    </div>
+</div>
+
+@include('modal.post.add_post_modal')
+    <!-- Page level plugins -->
+    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
+
+

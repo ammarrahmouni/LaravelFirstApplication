@@ -1,0 +1,38 @@
+/* Start Add Post */
+
+#display-img{
+    display: none;
+    width: 40%;
+    height: 300px;
+    margin-top: 20px;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+}
+strong{
+    color: tomato;
+    display: flex;
+    flex-direction: revert;
+}
+.rmg-chracter {
+    display: flex;
+    color: #c249ad;
+}
+
+.form-group label{
+
+    display: flex;
+    color: #000;
+}
+.image-field{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.home-container a{
+    background-color: #1cc88a;
+    border: 1px solid #a6d0f4;
+    box-shadow: 0 .4rem 1rem rgba(0,0,0,.15),
+                0 -.4rem 1rem rgba(0,0,0,.15);
+}
+/* End Add Post */
