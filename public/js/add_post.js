@@ -23,9 +23,8 @@
 
     }
 
-    
+    // Show Remamingn Character To The User When Typing In Textarea Field
     $postLength = $('.post-description').val.length;
-
     $('.post-description textarea').on('keyup', function(e){
 
         var textlength = $(this).val().length;
@@ -40,6 +39,7 @@
         $(this).find('a').addClass('active');
     });
 
+    //  Hide And Show Title And Description Tables
     if(window.location.href.includes('/ar') && $('.nav-tabs .nav-item:nth-of-type(2) a').hasClass('active')){
         $('.form-english').hide();
         $('.form-turkish').hide();
@@ -74,32 +74,37 @@
         $('.form-english').hide();
 
     })
+
+
+    // Display Image And Change Label Text When The User Choose Image In Input File 
+    $('#image').on("change", function(){
+       
+        $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
+        $('#display-img').fadeIn(500);
+        var reader = new FileReader();
+        reader.onload = function() {
+            var output = document.getElementById('display-img');
+            output.src = reader.result;
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+
+    
+
+
+
     
 }());
 
-const img_input = document.querySelector('#image');
-var upload_img = "";
+// const img_input = document.querySelector('#image');
+// var upload_img = "";
 
-img_input.addEventListener('change', function(){
-    const reader = new FileReader();
-    reader.addEventListener('load', () => {
-       upload_img = reader.result;
-       $('#display-img').fadeIn(900);
-       document.querySelector('#display-img').style.backgroundImage = `url(${upload_img})`;
-    });
-    reader.readAsDataURL(this.files[0]);
-})
-
-var profilePic = document.getElementById('image'); /* finds the input */
-
-function changeLabelText() {
-    var profilePicValue = profilePic.value; /* gets the filepath and filename from the input */
-    var fileNameStart = profilePicValue.lastIndexOf('\\'); /* finds the end of the filepath */
-    profilePicValue = profilePicValue.substr(fileNameStart + 1); /* isolates the filename */
-    var profilePicLabelText = document.querySelector('label[for="inputGroupFile01"]'); /* finds the label text */
-    if (profilePicValue !== '') {
-        profilePicLabelText.textContent = profilePicValue; /* changes the label text */
-    }
-}
-
-profilePic.addEventListener('change',changeLabelText,false); /* runs the function whenever the filename in the input is changed */
+// img_input.addEventListener('change', function(){
+//     const reader = new FileReader();
+//     reader.addEventListener('load', () => {
+//        upload_img = reader.result;
+//        $('#display-img').fadeIn(900);
+//        document.querySelector('#display-img').style.backgroundImage = `url(${upload_img})`;
+//     });
+//     reader.readAsDataURL(this.files[0]);
+// })

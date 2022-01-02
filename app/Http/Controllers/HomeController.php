@@ -34,6 +34,7 @@ class HomeController extends Controller
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
+
         return view('home', compact('posts', 'categories'));
     }
 

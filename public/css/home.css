@@ -15,18 +15,18 @@
     flex-direction: column;
     align-items: center;
 }
-.home-container a{
+.home-container .add-post{
     display: block;
     color: #000;
     font-size: 23px;
     width: 25%;
 }
-.home-container a:hover{
+.home-container .add-post:hover{
     color: #FFF;
 }
 
 @media only screen and (max-width: 768px){
-    .home-container a{
+    .home-container .add-post{
         width: 86%;
     }
 }

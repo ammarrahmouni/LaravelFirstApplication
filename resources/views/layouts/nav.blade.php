@@ -156,9 +156,6 @@
                         {{ __('home.profile') }}
                     </a>
 
-
-                    <div class="dropdown-divider"></div>
-
                     {{-- My Post Button --}}
                     <a class="dropdown-item" href="{{route('show.post', Auth::user()->id)}}">
                         <i class="fas fa-paste fa-sm fa-fw mr-2 text-gray-400"></i>

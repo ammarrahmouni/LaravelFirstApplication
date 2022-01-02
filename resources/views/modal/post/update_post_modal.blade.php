@@ -21,18 +21,17 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <div id="display-img" class="img-thumbnail"
-                                style="display:block; background-image: url('{{ asset('uploads/images/' . $post->image) }}')">
-                            </div>
+                            <img  class="rounded " width="300" height="300"  id="dispaly-img-update" src="{{asset('uploads/images/' . $post->image)}}"/>
 
                             <br>
 
                             <div class="custom-file">
-                                <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
-                                    id="image" accept=" image/jpg,jpeg,png ">
+                                <input  accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
+                                    id="image{{ $post->id }}" accept=" image/jpg,jpeg,png ">
                                 <label class="custom-file-label"
-                                    for="inputGroupFile01">{{ __('home.choose_img') }}</label>
-                                <small class="form-text text-danger" id="image_error_update"></small>
+                                    for="image-label{{ $post->id }}">{{ __('home.choose_img') }}</label>
+                                    
+                                <strong class="form-text text-danger" id="image_error_update"></strong>
                             </div>
 
                         </div>
@@ -52,7 +51,7 @@
                                 @endif
 
                             </select>
-                            <small class="form-text text-danger" id="category_error_update"></small>
+                            <strong class="form-text text-danger" id="category_error_update"></strong>
 
 
                         </div>
@@ -83,7 +82,7 @@
                             <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title') }}"
                                 value="{{ $post->translate('en')->title }}">
-                            <small class="form-text text-danger" id="title_en_error_update"></small>
+                            <strong class="form-text text-danger" id="title_en_error_update"></strong>
                         </div>
 
                         <div class="form-group post-description  form-english">
@@ -92,7 +91,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_en_error_update"></small>
+                            <strong class="form-text text-danger" id="description_en_error_update"></strong>
 
                         </div>
 
@@ -101,7 +100,7 @@
                             <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
-                            <small class="form-text text-danger" id="title_tr_error"></small>
+                            <strong class="form-text text-danger" id="title_tr_error"></strong>
 
                         </div>
 
@@ -111,7 +110,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_tr_error_update"></small>
+                            <strong class="form-text text-danger" id="description_tr_error_update"></strong>
 
                         </div>
 
@@ -121,7 +120,7 @@
                             <input id="title_ar" name="title_ar" type="text" class="form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}"
                                 value="{{ $post->translate('ar')->title }}">
-                            <small class="form-text text-danger" id="title_ar_error_update"></small>
+                            <strong class="form-text text-danger" id="title_ar_error_update"></strong>
 
                         </div>
 
@@ -131,7 +130,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_ar_error_update"></small>
+                            <strong class="form-text text-danger" id="description_ar_error_update"></strong>
 
                         </div>
 
@@ -147,7 +146,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-bs-dismiss="modal">{{ __('home.close') }}</button>
-                    <button id="btn-update-post{{$post->id}}" type="submit"
+                    <button id="btn-update-post{{ $post->id }}" type="submit"
                         class="btn btn-primary ">{{ __('home.save_change') }}</button>
                 </div>
 
@@ -160,12 +159,25 @@
 </form>
 
 <script>
+
     $(document).ready(function() {
 
-        $('#btn-update-post{{$post->id}}').on('click', function(e) {
+        $('#image{{ $post->id }}').on("change", function() {
+            $('label[for="image-label{{ $post->id }}"]').text($(this).val().split('\\').pop());
+            
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('dispaly-img-update');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        });
+
+
+        $('#btn-update-post{{ $post->id }}').on('click', function(e) {
 
             e.preventDefault();
-            let formData = new FormData($('#postFormUpdate{{$post->id}}')[0]);
+            let formData = new FormData($('#postFormUpdate{{ $post->id }}')[0]);
             $.ajax({
                 type: "POST",
                 url: "{{ route('update.post', ['post_id' => $post->id, 'user_id' => Auth::user()->id]) }}",

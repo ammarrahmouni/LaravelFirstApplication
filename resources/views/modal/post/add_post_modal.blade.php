@@ -22,16 +22,19 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <div id="display-img" class="img-thumbnail"></div>
+                            <img  class="rounded " width="300" height="300"  id="display-img"/>
+
+                            <br>
+
                             <div class="custom-file">
                                 <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
-                                    id="image" accept=" image/jpg ">
+                                    id="image">
                                 <label class="custom-file-label"
                                     for="inputGroupFile01">{{ __('home.choose_img') }}</label>
-                                    <small class="form-text text-danger" id="image_error"></small>
+                                <strong class="form-text text-danger" id="image_error"></strong>
 
                             </div>
-                           
+
                         </div>
                         <br>
 
@@ -46,8 +49,8 @@
                                 @endif
 
                             </select>
-                            <small class="form-text text-danger" id="category_error"></small>
-                            
+                            <strong class="form-text text-danger" id="category_error"></strong>
+
 
                         </div>
 
@@ -74,23 +77,26 @@
 
                         <div class="form-group form-english">
                             <label>{{ __('home.post_title') }}</label>
-                            <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"placeholder=" {{ __('home.post_title') }}">
-                            <small class="form-text text-danger" id="title_en_error"></small>
-                            
+                            <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"
+                                placeholder=" {{ __('home.post_title') }}">
+                            <strong class="form-text text-danger" id="title_en_error"></strong>
+
                         </div>
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="300" name="description_en" class="form-control form-control-lg" rows="3" placeholder=" {{ __('home.post_description') }}"></textarea>
+                            <textarea maxlength="300" name="description_en" class="form-control form-control-lg"
+                                rows="3" placeholder=" {{ __('home.post_description') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_en_error"></small>
+                            <strong class="form-text text-danger" id="description_en_error"></strong>
 
                         </div>
 
                         <div class="form-group form-turkish">
                             <label>{{ __('home.post_title_tr') }}</label>
-                            <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg" placeholder=" {{ __('home.post_title_tr') }}" >
-                                <small class="form-text text-danger" id="title_tr_error"></small>
+                            <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg"
+                                placeholder=" {{ __('home.post_title_tr') }}">
+                            <strong class="form-text text-danger" id="title_tr_error"></strong>
 
                         </div>
 
@@ -99,7 +105,7 @@
                             <textarea maxlength="300" name="description_tr" class="form-control form-control-lg"
                                 rows="3" placeholder=" {{ __('home.post_description_tr') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_tr_error"></small>
+                            <strong class="form-text text-danger" id="description_tr_error"></strong>
 
                         </div>
 
@@ -108,15 +114,16 @@
                             <label>{{ __('home.post_title_ar') }}</label>
                             <input id="title_ar" name="title_ar" type="text" class="form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}">
-                                <small class="form-text text-danger" id="title_ar_error"></small>
+                            <strong class="form-text text-danger" id="title_ar_error"></strong>
 
                         </div>
 
                         <div class="form-group form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="300" name="description_ar" class="form-control form-control-lg" rows="3" placeholder=" {{ __('home.post_description_ar') }}"></textarea>
+                            <textarea maxlength="300" name="description_ar" class="form-control form-control-lg"
+                                rows="3" placeholder=" {{ __('home.post_description_ar') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <small class="form-text text-danger" id="description_ar_error"></small>
+                            <strong class="form-text text-danger" id="description_ar_error"></strong>
 
                         </div>
 
@@ -155,19 +162,19 @@
                 url: "{{ route('save.post', Auth::user()->id) }}",
                 data: formData,
                 contentType: false,
-                processData : false,
+                processData: false,
                 success: function(response) {
-                    if(response.status == true){
+                    if (response.status == true) {
                         alert(response.msg);
                         $(".close span").click();
 
-                    }
-                    else if(response.status == false){
+                    } else if (response.status == false) {
                         alert(response.msg);
                     }
-                }, error: function(reject){
+                },
+                error: function(reject) {
                     var response = $.parseJSON(reject.responseText);
-                    $.each(response.errors, function(key, val){
+                    $.each(response.errors, function(key, val) {
                         $('#' + key + '_error').text(val[0]);
                     });
                 }

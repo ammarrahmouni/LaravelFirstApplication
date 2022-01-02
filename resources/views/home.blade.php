@@ -20,7 +20,7 @@
                 <div id="content">
                     @include('layouts.nav')
                     <div class="container-fluid home-container ">
-                        <a  data-toggle="modal" data-target="#ModalPostAdd" class="btn "  >
+                        <a  data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post"  >
                             {{ __('home.add_post') }}
                         </a>
                         @section('category')
