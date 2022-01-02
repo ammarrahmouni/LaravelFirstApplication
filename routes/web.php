@@ -37,9 +37,9 @@ Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
 
     Route::get('/show-post/{user_id}', [PostController::class, 'showPost'])->name('show.post');
 
-    Route::get('/edit-post/{post_id}', [PostController::class, 'editPost'])->name('edit.post');
+    Route::get('/edit-post/{post_id}/{user_id}', [PostController::class, 'editPost'])->name('edit.post');
 
-    Route::post('/update-post/{post_id}', [PostController::class, 'updatePost'])->name('update.post');
+    Route::post('/update-post/{post_id}/{user_id}', [PostController::class, 'updatePost'])->name('update.post');
 
     Route::post('/delete-post/{post_id}', [PostController::class, 'deletePost'])->name('delete.post');
 });

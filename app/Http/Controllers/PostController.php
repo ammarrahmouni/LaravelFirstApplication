@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
 
-define("POST_NUMBER", 3);
+
 
 class PostController extends MainController
 {
@@ -120,59 +120,74 @@ class PostController extends MainController
 
     }
 
-    public function editPost($post_id)
+    public function editPost($post_id, $user_id)
     {
-        $posts = Post::with(['categoryes' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->findOrFail($post_id);
-        // dd($posts->categoryes);
-        $categoryId = $posts->category_id;
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-
-
-        return view('post.edit_post', compact('posts', 'categories'));
-    }
-
-    public function updatePost(PostRequest $request, $post_id)
-    {
-
-        $path = '';
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('');
-            $request->file('image')->move('uploads/images', $path);
+        if($user_id == Auth::user()->id){
+            $post = Post::with(['categoryes' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . ' as name');
+            }])->findOrFail($post_id);
+            // dd($posts->categoryes);
+            $categoryId = $post->categoryes_id;
+            
+            dd($post->categoryes->id);
+            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+    
+    
+            return view('post.edit_post', compact('post', 'categories'));
+        }
+        else{
+            return __('home.dont_have_premission');
         }
 
-        $posts = Post::find($post_id);
-        $posts->update([
-            'image'         => $path,
-            'category_id'   => $request->category,
-            'en' => [
-                'title' => $request->title_en,
-                'description' => $request->description_en
-            ],
-            'ar' => [
-                'title' => $request->title_ar,
-                'description' => $request->description_ar
-            ],
-            'tr' => [
-                'title' => $request->title_tr,
-                'description' => $request->description_tr
-            ],
+    }
 
-        ]);
+    public function updatePost(PostRequest $request, $post_id, $user_id)
+    {
+        if($user_id == Auth::user()->id){
 
-        // return $request;
-        $user = Post::with(['users' => function ($q) {
-            $q->select('id');
-        }])->find($post_id);
+            $path = '';
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('');
+                $request->file('image')->move('uploads/images', $path);
+            }
+    
+            $post = Post::findOrFail($post_id);
+            
 
-        $user_id = $user->users->id;
+            $post->update([
+                'image'         => $path,
+                'category_id'   => $request->category,
+                'en' => [
+                    'title' => $request->title_en,
+                    'description' => $request->description_en
+                ],
+                'ar' => [
+                    'title' => $request->title_ar,
+                    'description' => $request->description_ar
+                ],
+                'tr' => [
+                    'title' => $request->title_tr,
+                    'description' => $request->description_tr
+                ],
+    
+            ]);
+    
 
-        return redirect()->route('show.post', $user_id)->with('update_post', __('home.update_post'));
+            return response()->json([
+                'status' => true,
+                'msg' => __('home.update_post'),
+            ]);
+        }
+        else{
+            return __('home.dont_have_premission');
+        }
+
+ 
     }
 
     public function deletePost($post_id)
-    {
+    {   
+        
 
         $post = Post::find($post_id);
 

@@ -1,4 +1,4 @@
-<form id="userFormUpdated" action="{{ route('save.post', Auth::user()->id) }}" method="POST"
+<form id="postFormAdd" action="{{ route('save.post', Auth::user()->id) }}" method="POST"
     enctype="multipart/form-data">
     @csrf
     <div id="ModalPostAdd" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -149,7 +149,7 @@
         $('#btn-add-post').on('click', function(e) {
 
             e.preventDefault();
-            let formData = new FormData($('#userFormUpdated')[0]);
+            let formData = new FormData($('#postFormAdd')[0]);
             $.ajax({
                 type: "POST",
                 url: "{{ route('save.post', Auth::user()->id) }}",

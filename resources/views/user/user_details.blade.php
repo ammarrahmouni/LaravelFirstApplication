@@ -47,7 +47,7 @@
 
         <div class="post-count">
             <span>{{ __('home.post_count') }}</span>
-            <span>{{ 15 }}</span>
+            <span>{{ $posts->total() }}</span>
             <span></span>
             <span></span>
         </div>

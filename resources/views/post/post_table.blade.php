@@ -2,18 +2,21 @@
 <!-- Custom styles for this page -->
 <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
+
 <div class="post-table card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">{{ __('home.my_post') }}</h6>
         <a data-toggle="modal" data-target="#ModalPostAdd">
-            <button type="button" class="btn btn-warning add-button">
+            <button type="button" class="btn btn-success add-button">
                 <i class="fas fa-plus "></i>{{ __('home.add_new_post') }}
             </button>
         </a>
     </div>
+    @include('modal.post.add_post_modal')
+
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered " id="dataTable" width="100%" cellspacing="0">
                 <thead style="text-align: center">
                     <tr>
                         <th scope="col">{{ __('home.title') }}</th>
@@ -43,13 +46,15 @@
                                     <img style="width: 75px; height:75px"
                                         src="{{ asset('uploads/images/' . $post->image) }}">
                                 </td>
+
                                 <td scope="row">
-                                    <a href="{{ route('edit.post', $post->id) }}">
-                                        <button type="button" class="btn btn-primary">
-                                            {{ __('home.update') }}
-                                        </button>
-                                    </a>
+                                    <button data-bs-toggle="modal" data-bs-target="#ModalPostUpdate{{ $post->id }}"
+                                        type="button" class="btn btn-primary">
+                                        {{ __('home.update') }}
+                                    </button>
+                                    @include('modal.post.update_post_modal')
                                 </td>
+
 
                                 <td scope="row">
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -57,8 +62,7 @@
                                         {{ __('home.delete') }}
                                     </button>
 
-                                    @include('modal.delete')
-
+                                    @include('modal.post.delete_post_modal')
                                 </td>
                             </tr>
                         @endforeach
@@ -66,16 +70,18 @@
 
 
                 </tbody>
-                
+
             </table>
-            {{$posts->links()}}
+
+            @if ($posts->total() > 0)
+                <div class="paginate-footer">
+                    {{ $posts->links() }}
+                    {{ __('home.show') }} {{ $posts->firstItem() }} {{ __('home.to') }}
+                    {{ $posts->lastItem() }}
+                    {{ __('home.of') }} {{ $posts->total() }} {{ __('home.entries') }}
+                </div>
+            @endif
+
         </div>
     </div>
 </div>
-
-@include('modal.post.add_post_modal')
-    <!-- Page level plugins -->
-    <script src="{{asset('vendor/datatables/jquery.dataTables.min.js')}}"></script>
-    <script src="{{asset('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
-
-

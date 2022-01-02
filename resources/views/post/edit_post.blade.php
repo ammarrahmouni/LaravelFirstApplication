@@ -12,7 +12,7 @@
 
 
     <div class="post-content">
-        <form method="POST" enctype="multipart/form-data" action="{{ route('update.post', $posts->id) }}">
+        <form method="POST" enctype="multipart/form-data" action="{{ route('update.post', $post->id) }}">
             @csrf
 
             <ul class="nav nav-tabs">
@@ -31,11 +31,11 @@
             <div class="form-group ">
                 <label for="exampleFormControlSelect1">{{ __('home.select_category') }}</label>
                 <select class="form-control form-control-lg" id="exampleFormControlSelect1" name="category">
-                    <option>----- {{ __('home.select_post') }} -----</option>
+                    <option disabled>----- {{ __('home.select_post') }} -----</option>
 
                     @if (isset($categories) && $categories->count() > 0)
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}" {{$posts->category_id == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
+                            <option value="{{ $category->id }}" {{$post->categoryes->id == $category->id ? 'selected' : ''}}>{{ $category->name }}</option>
                         @endforeach
                     @endif
 
@@ -55,7 +55,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_title') }}</label>
                 <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" {{ __('home.post_title') }}"
-                    value="{{ $posts->translate('en')->title }}">
+                    value="{{ $post->translate('en')->title }}">
                 @error('title_en')
                     <span role="alert">
                         <strong>{{ $message }}</strong>
@@ -68,7 +68,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_description') }}</label>
                 <textarea maxlength="300" name="description_en" class="form-control form-control-lg"
                     id="exampleFormControlTextarea1" rows="3"
-                    placeholder=" {{ __('home.post_description') }}">{{ $posts->translate('en')->description }}</textarea>
+                    placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                 <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                 @error('description_en')
                     <span role="alert">
@@ -81,7 +81,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_title_tr') }}</label>
                 <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg"
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" {{ __('home.post_title_tr') }}"
-                    value="{{ $posts->translate('tr')->title }}">
+                    value="{{ $post->translate('tr')->title }}">
                 @error('title_tr')
                     <span role="alert">
                         <strong>{{ $message }}</strong>
@@ -93,7 +93,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_description_tr') }}</label>
                 <textarea maxlength="300" name="description_tr" class="form-control form-control-lg"
                     id="exampleFormControlTextarea1" rows="3"
-                    placeholder=" {{ __('home.post_description_tr') }}">{{ $posts->translate('tr')->description }}</textarea>
+                    placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                 <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                 @error('description_tr')
                     <span role="alert">
@@ -106,7 +106,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_title_ar') }}</label>
                 <input id="title_ar" name="title_ar" type="text" class="form-control form-control-lg"
                     id="exampleInputEmail1" aria-describedby="emailHelp" placeholder=" {{ __('home.post_title') }}"
-                    value="{{ $posts->translate('ar')->title }}">
+                    value="{{ $post->translate('ar')->title }}">
                 @error('title_ar')
                     <span role="alert">
                         <strong>{{ $message }}</strong>
@@ -118,7 +118,7 @@
                 <label for="exampleInputEmail1">{{ __('home.post_description_ar') }}</label>
                 <textarea maxlength="300" name="description_ar" class="form-control form-control-lg"
                     id="exampleFormControlTextarea1" rows="3"
-                    placeholder=" {{ __('home.post_description_ar') }}">{{ $posts->translate('ar')->description }}</textarea>
+                    placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                 <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                 @error('description_ar')
                     <span role="alert">
@@ -138,7 +138,7 @@
                 @enderror
             </div>
             <div id="display-img"
-                style="display:block; background-image: url('{{ asset('uploads/images/' . $posts->image) }}')">
+                style="display:block; background-image: url('{{ asset('uploads/images/' . $post->image) }}')">
             </div>
 
             <button type="submit" class="btn btn-warning">{{ __('home.update') }}</button>

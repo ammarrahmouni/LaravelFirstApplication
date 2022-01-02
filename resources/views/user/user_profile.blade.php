@@ -12,10 +12,11 @@
 
 
         <body id="page-top">
-            @include('layouts.login_footer')
+           
             <div id="wrapper">
                 @include('layouts.sidebar')
                 <div id="content-wrapper" class="d-flex flex-column">
+                    @include('layouts.login_footer')
                     <!-- Main Content -->
                     <div id="content">
                         @include('layouts.nav')
@@ -32,7 +33,6 @@
     
 
 @endsection
-
 @section('script')
     <script src="{{asset('js/user/user_details.js')}}"></script>
 @endsection

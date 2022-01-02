@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
 
-class UserController extends Controller
+class UserController extends MainController
 {
     public function __construct()
     {
@@ -21,7 +22,15 @@ class UserController extends Controller
     {
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
-        return view('user.user_profile', compact('categories'));
+        if($user_id == Auth::user()->id){
+            $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
+            return view('user.user_profile', compact('categories', 'posts'));
+        }
+        else{
+            return __('home.dont_have_premission');
+        }
+
+        
     }
 
     public function editUserInfo(UserUpdateRequest $request)

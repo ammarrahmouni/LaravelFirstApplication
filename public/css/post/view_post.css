@@ -13,7 +13,17 @@
 .post-table{
     width: 90%;
 }*/
-table{
+/* table.table-bordered{
+    border:1px solid #0dcaf0;
+    margin-top:20px;
+}
+table.table-bordered > thead > tr > th{
+    border:1px solid #0dcaf0;
+}
+table.table-bordered > tbody > tr > td{
+    border:1px solid #0dcaf0;
+} */
+table {
     color: #000 !important;
 }
 .card-header{
@@ -35,3 +45,11 @@ table{
     color: #000 !important;
     font-weight: 600 !important;
 } 
+.add-button:hover{
+    color: #FFF !important;
+}
+.paginate-footer {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}

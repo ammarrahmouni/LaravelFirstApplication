@@ -12,7 +12,6 @@
 
 @section('content')
 
-
     <body id="page-top">
         <div id="wrapper">
             @include('layouts.sidebar')

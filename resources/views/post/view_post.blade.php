@@ -37,12 +37,13 @@
 
 
     <body id="page-top">
-        @include('layouts.login_footer')
+     
         <div id="wrapper">
             @include('layouts.sidebar')
             <div id="content-wrapper" class="d-flex flex-column">
                 <!-- Main Content -->
                 <div id="content">
+                    @include('layouts.login_footer')
                     @include('layouts.nav')
                     <div class="container-fluid view-post-container ">
                         @include('post.post_table')

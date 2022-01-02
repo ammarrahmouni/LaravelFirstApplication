@@ -157,7 +157,6 @@
                     </a>
 
 
-
                     <div class="dropdown-divider"></div>
 
                     {{-- My Post Button --}}
