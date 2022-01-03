@@ -77,9 +77,12 @@ return [
     'edit_image'            => 'Edit Image',
     'add'                   => 'Add',
     'user_nt_found'         => 'Error! User Not Found',
-    'dont_have_premission'  => 'You do not have permission to view this page',
+    'dont_have_premission'  => 'You doen\'t have permission to view this page',
     'show'                  => 'Showing ',
     'to'                    => 'to ',
     'of'                    => 'of ',
-    'entries'               => 'Entries'
+    'entries'               => 'Entries',
+    'done'                  => 'Done',
+    'error'                 => 'Error',
+    'ok'                    => 'Ok',
 ];  

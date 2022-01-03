@@ -39,17 +39,9 @@ class PostController extends MainController
         return view('user.gust_user', compact('posts', 'categories'));
     }
 
-    // public function addPost()
-    // {
-
-    //     $categorys = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-    //     return view('post.add_post', compact('categorys'));
-    // }
 
     public function savePost(PostRequest $request, $user_id)
     {
-
-
 
         $user = User::findOrFail($user_id);
         if ($user) {
@@ -92,11 +84,13 @@ class PostController extends MainController
             return response()->json([
                 'status' => true,
                 'msg' =>   __('home.post_saved'),
+                'done' => __('home.done')
             ]);
         } else {
             return response()->json([
                 'status' => false,
                 'msg' => __('login.user_cant_found'),
+                'error' => __('home.error')
             ]);
         }
     }
@@ -112,7 +106,7 @@ class PostController extends MainController
             $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
             return view('post.view_post', $this->data, compact('categories'));
         } else {
-            return __('home.dont_have_premission');
+            return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
         }
     }
 
@@ -182,21 +176,23 @@ class PostController extends MainController
                 'category_id'   => $request->category,
             ]);
 
-            $category = Category::select('id', 'name_' . app()->getLocale() . ' as name')->
-            findOrFail($request->category);
-           
+            $category = Category::select('id', 'name_' . app()->getLocale() . ' as name')->findOrFail($request->category);
+
 
             return response()->json([
                 'status' => true,
                 'msg' => __('home.update_post'),
+                'done' => __('home.done'),
                 'title' => $arrayOfUpdateData['title_' . app()->getLocale()],
                 'description' => $arrayOfUpdateData['description_' . app()->getLocale()],
                 'category' => $category->name,
                 'image' => $path,
             ]);
-            
         } else {
-            return __('home.dont_have_premission');
+            return response()->json([
+                'error' => __('home.error'),
+                'msg'   => __('home.dont_have_premission'),
+            ]);
         }
     }
 
@@ -204,10 +200,7 @@ class PostController extends MainController
     {
 
 
-        $post = Post::find($post_id);
-
-        if (!$post)
-            return redirect()->back()->with('error_delete', __('home.error_delete'));
+        $post = Post::findOrFail($post_id);
 
         $post->delete();
         return redirect()->back()->with('delete_post', __('home.delete_done'));
@@ -215,13 +208,16 @@ class PostController extends MainController
 
     public function specificCategory($category_id)
     {
-        $posts = Post::with(['categoryes' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . " as name");
-        }])->where('category_id', $category_id)->latest()->get();
+        $categories = Category::findOrFail($category_id);
+        if ($categories) {
+            $posts = Post::with(['categoryes' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . " as name");
+            }])->where('category_id', $category_id)->latest()->get();
 
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+            return view('post.specific_post', compact('posts', 'categories'));
+        }
 
-        return view('post.specific_post', compact('posts', 'categories'));
     }
 
     public function allCategory()

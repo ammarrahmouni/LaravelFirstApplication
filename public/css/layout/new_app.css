@@ -6,3 +6,16 @@ body, html{
     font-family: 'Reem Kufi', sans-serif;
     font-family: 'Roboto', sans-serif;
 }
+
+.swal-button-container{
+    display: flex;
+    justify-content: center;
+}
+.swal-button--confirm{
+    background-color: #4e73df;
+    font-size: 20px;
+}
+.swal-button:not([disabled]):hover {
+    background-color: #2e59d9;
+    border-color: #2653d4;
+}

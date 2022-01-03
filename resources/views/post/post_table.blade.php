@@ -50,6 +50,7 @@
                                 <td scope="row">
                                     <button data-bs-toggle="modal" data-bs-target="#ModalPostUpdate{{ $post->id }}"
                                         type="button" class="btn btn-primary">
+                                        <i class="fas fa-edit"></i>
                                         {{ __('home.update') }}
                                     </button>
                                     @include('modal.post.update_post_modal')
@@ -59,6 +60,7 @@
                                 <td scope="row">
                                     <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                         data-bs-target="#deletePost{{ $post->id }}">
+                                        <i class="fas fa-trash"></i>
                                         {{ __('home.delete') }}
                                     </button>
 

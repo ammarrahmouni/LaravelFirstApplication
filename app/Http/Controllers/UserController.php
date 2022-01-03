@@ -27,7 +27,7 @@ class UserController extends MainController
             return view('user.user_profile', compact('categories', 'posts'));
         }
         else{
-            return __('home.dont_have_premission');
+            return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
         }
 
         

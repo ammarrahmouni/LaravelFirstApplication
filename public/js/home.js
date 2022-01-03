@@ -1,3 +1,4 @@
+
 (function () {
     $(document).on('scroll', function(){
         var scrolTop = $(document).scrollTop();
@@ -14,6 +15,8 @@
             });
 
     });
+
+   
 
     var direction = $('html').attr('dir');
 

@@ -31,6 +31,7 @@ strong{
     align-items: center;
 }
 .home-container .add-post{
+    color: #FFF;
     background-color: #1cc88a;
     border: 1px solid #a6d0f4;
     box-shadow: 0 .4rem 1rem rgba(0,0,0,.15),

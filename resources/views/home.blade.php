@@ -3,7 +3,6 @@
 @section('title')
     <link rel="stylesheet" href="{{ asset('css/home.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}" >
-    {{-- <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}"> --}}
     <link rel="shortcut icon" href="{{ asset('img/house.png') }}" type="image/x-icon" />
     <title>{{ __('home.home') }}</title>
     @include('layouts.login_header')

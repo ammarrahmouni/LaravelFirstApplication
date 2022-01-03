@@ -21,16 +21,17 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img  class="rounded " width="300" height="300"  id="dispaly-img-update" src="{{asset('uploads/images/' . $post->image)}}"/>
+                            <img class="rounded " width="300" height="300" id="dispaly-img-update"
+                                src="{{ asset('uploads/images/' . $post->image) }}" />
 
                             <br>
 
                             <div class="custom-file">
-                                <input  accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
+                                <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
                                     id="image{{ $post->id }}" accept=" image/jpg,jpeg,png ">
                                 <label class="custom-file-label"
                                     for="image-label{{ $post->id }}">{{ __('home.choose_img') }}</label>
-                                    
+
                                 <strong class="form-text text-danger" id="image_error_update"></strong>
                             </div>
 
@@ -79,7 +80,8 @@
 
                         <div class="form-group form-english">
                             <label>{{ __('home.post_title') }}</label>
-                            <input maxlength="100" id="title_en" name="title_en" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_en" name="title_en" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title') }}"
                                 value="{{ $post->translate('en')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -98,7 +100,8 @@
 
                         <div class="form-group form-turkish">
                             <label>{{ __('home.post_title_tr') }}</label>
-                            <input maxlength="100" id="title_tr" name="title_tr" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_tr" name="title_tr" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -119,7 +122,8 @@
 
                         <div class="form-group  form-arabic">
                             <label>{{ __('home.post_title_ar') }}</label>
-                            <input maxlength="100" id="title_ar" name="title_ar" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_ar" name="title_ar" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}"
                                 value="{{ $post->translate('ar')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -161,13 +165,14 @@
 
 </form>
 
-<script>
 
+
+<script>
     $(document).ready(function() {
 
         $('#image{{ $post->id }}').on("change", function() {
             $('label[for="image-label{{ $post->id }}"]').text($(this).val().split('\\').pop());
-            
+
             var reader = new FileReader();
             reader.onload = function() {
                 var output = document.getElementById('dispaly-img-update');
@@ -189,21 +194,30 @@
                 processData: false,
                 success: function(response) {
                     if (response.status == true) {
-                        alert(response.msg);
+                        Swal.fire(
+                            response.done,
+                            response.msg,
+                            'success'
+                        )
+                        
                         $(".close span").click();
 
-                        $('#title_{{app()->getLocale()}}_row').text(response.title);
-                        $('#description_{{app()->getLocale()}}_row').text(response.description);
+                        $('#title_{{ app()->getLocale() }}_row').text(response.title);
+                        $('#description_{{ app()->getLocale() }}_row').text(response
+                            .description);
                         $('#category_row').text(response.category)
-                        if(response.image  != "")
-                        {
-                            var imageSource = '{{asset("uploads/images")}}';
+                        if (response.image != "") {
+                            var imageSource = '{{ asset('uploads/images') }}';
                             $('#image_row').attr('src', imageSource + '/' + response.image);
                         }
-                        
+
 
                     } else if (response.status == false) {
-                        alert(response.msg);
+                        Swal.fire(
+                            response.error,
+                            response.msg,
+                            'error'
+                        )
                     }
                 },
                 error: function(reject) {

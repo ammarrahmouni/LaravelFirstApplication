@@ -168,11 +168,19 @@
                 processData: false,
                 success: function(response) {
                     if (response.status == true) {
-                        alert(response.msg);
+                        Swal.fire(
+                            response.done,
+                            response.msg,
+                            'success'
+                        )
                         $(".close span").click();
 
                     } else if (response.status == false) {
-                        alert(response.msg);
+                        Swal.fire(
+                            response.error,
+                            response.msg,
+                            'error'
+                        )
                     }
                 },
                 error: function(reject) {

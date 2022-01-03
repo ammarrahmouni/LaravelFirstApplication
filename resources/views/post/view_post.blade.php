@@ -9,6 +9,7 @@
     <link rel="shortcut icon" href="{{ asset('img/new-post.png') }}" type="image/x-icon" />
     @include('layouts.login_header')
 
+
 @endsection
 
 
@@ -16,22 +17,24 @@
 
 @section('content')
 
-    @if (Session::has('update_post'))
-        <div class="alert alert-warning alert-dismissible fade show saved-post" role="alert">
-            <strong>{{ Session::get('update_post') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+
+    @if (Session::has('dont_have_premission'))
+        <script>
+            swal("{{__('home.error')}}", "{!! Session::get('dont_have_premission') !!}", "error", {
+                button: "{{__('home.ok')}}"
+            })
+        </script>
+
     @endif
 
     @if (Session::has('delete_post'))
-        <div class="alert alert-warning alert-dismissible fade show saved-post" role="alert">
-            <strong>{{ Session::get('delete_post') }}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+
+        <script>
+            swal("{{__('home.done')}}", "{!! Session::get('delete_post') !!}", "success", {
+                button: "{{__('home.ok')}}"
+            })
+        </script>
+
     @endif
 
 

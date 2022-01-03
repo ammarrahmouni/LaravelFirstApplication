@@ -1,10 +1,22 @@
 <div class="user-content">
 
     <div class="user-img-block">
-        <img class="user-img img-thumbnail" src="{{ asset('uploads/images/' . Auth::user()->image) }}">
+        <img id="myImg" class="user-img img-thumbnail" src="{{ asset('uploads/images/' . Auth::user()->image) }}">
         <button data-toggle="modal" data-target="#ModalUserImage"
             class="btn bg-gradient-primary text-white">{{ __('home.edit_image') }}</button>
     </div>
+
+    <!-- The Modal -->
+    <div id="myModal" class="modall">
+
+        <!-- The Close Button -->
+        <span class="close-image-modal" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+
+        <!-- Modal Content (The Image) -->
+        <img class="modal-content" id="img01">
+
+    </div>
+
     <div class="user-info">
         <div class="name">
             <span>{{ __('login.full_name') }}</span>

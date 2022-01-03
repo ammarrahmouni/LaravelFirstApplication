@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "flag-icon-css": "^4.1.7",
-        "flag-icons": "^6.0.0"
+        "flag-icons": "^6.0.0",
+        "sweetalert2": "^11.3.3"
     }
 }
