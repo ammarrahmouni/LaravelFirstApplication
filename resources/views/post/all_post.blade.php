@@ -55,7 +55,7 @@
 
 
                         <div class="p-2">
-                            <div class="card-body">
+                            <div class="card-body" style="word-break: break-all">
                                 <h5 class="card-title">
                                     {{ $post->translate(app()->getLocale())->title }}
                                 </h5>

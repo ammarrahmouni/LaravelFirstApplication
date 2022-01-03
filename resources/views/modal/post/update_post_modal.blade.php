@@ -79,15 +79,16 @@
 
                         <div class="form-group form-english">
                             <label>{{ __('home.post_title') }}</label>
-                            <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_en" name="title_en" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title') }}"
                                 value="{{ $post->translate('en')->title }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_en_error_update"></strong>
                         </div>
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="300" name="description_en" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_en" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -97,16 +98,17 @@
 
                         <div class="form-group form-turkish">
                             <label>{{ __('home.post_title_tr') }}</label>
-                            <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_tr" name="title_tr" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_tr_error"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-turkish">
                             <label>{{ __('home.post_description_tr') }}</label>
-                            <textarea maxlength="300" name="description_tr" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_tr" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -117,16 +119,17 @@
 
                         <div class="form-group  form-arabic">
                             <label>{{ __('home.post_title_ar') }}</label>
-                            <input id="title_ar" name="title_ar" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_ar" name="title_ar" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}"
                                 value="{{ $post->translate('ar')->title }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_ar_error_update"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="300" name="description_ar" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_ar" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -188,6 +191,16 @@
                     if (response.status == true) {
                         alert(response.msg);
                         $(".close span").click();
+
+                        $('#title_{{app()->getLocale()}}_row').text(response.title);
+                        $('#description_{{app()->getLocale()}}_row').text(response.description);
+                        $('#category_row').text(response.category)
+                        if(response.image  != "")
+                        {
+                            var imageSource = '{{asset("uploads/images")}}';
+                            $('#image_row').attr('src', imageSource + '/' + response.image);
+                        }
+                        
 
                     } else if (response.status == false) {
                         alert(response.msg);

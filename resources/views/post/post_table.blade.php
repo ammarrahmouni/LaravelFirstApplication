@@ -34,16 +34,16 @@
 
                         @foreach ($posts as $post)
                             <tr>
-                                <td scope="row">{{ $post->translate(app()->getLocale())->title }}</td>
-                                <td scope="row">{{ $post->translate(app()->getLocale())->description }}</td>
+                                <td class="table-row" scope="row" id="title_{{app()->getLocale()}}_row">{{ $post->translate(app()->getLocale())->title }}</td>
+                                <td class="table-row" scope="row" id="description_{{app()->getLocale()}}_row">{{ $post->translate(app()->getLocale())->description }}</td>
 
-                                <td scope="row">
+                                <td scope="row" id="category_row">
                                     {{ $post->categoryes->name }}
                                 </td>
 
-                                <td scope="row">{{ $post->created_at }}</td>
+                                <td scope="row">{{ $post->created_at->diffForHumans() }}</td>
                                 <td scope="row">
-                                    <img style="width: 75px; height:75px"
+                                    <img style="width: 75px; height:75px" id="image_row"
                                         src="{{ asset('uploads/images/' . $post->image) }}">
                                 </td>
 

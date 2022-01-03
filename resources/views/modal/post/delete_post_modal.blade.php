@@ -13,10 +13,14 @@
                     {{ __('home.modal_content') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-secondary" >{{ __('home.yes') }}</button>
+                    <button onclick="bootstrapAlert()" type="submit" class="btn btn-secondary" >{{ __('home.yes') }}</button>
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ __('home.no') }}</button>
                 </div>
             </div>
         </div>
     </div>
 </form>
+
+<script>
+
+</script>

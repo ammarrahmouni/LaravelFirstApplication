@@ -42,6 +42,9 @@ class LoginController extends Controller
         else if($local == 'en'){
            $this->redirectTo = 'en/home';
         }
+        else if($local == 'tr'){
+            $this->redirectTo = 'tr/home';
+         }
     }
 
     /**

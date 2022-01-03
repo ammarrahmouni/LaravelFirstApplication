@@ -28,11 +28,11 @@ class PostUpdateRequest extends FormRequest
             'image'         => 'nullable|mimes:jpeg,jpg,png|max:2048',
 
             'title_en'      => 'required',
-            'description_en'=> 'required|max:300',
+            'description_en'=> 'required|max:600',
             'title_ar'      => 'required',
-            'description_ar'=> 'required|max:300',
+            'description_ar'=> 'required|max:600',
             'title_tr'      => 'required',
-            'description_tr'=> 'required|max:300',
+            'description_tr'=> 'required|max:600',
         ];
     }
 

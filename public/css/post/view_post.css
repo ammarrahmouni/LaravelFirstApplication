@@ -26,6 +26,9 @@ table.table-bordered > tbody > tr > td{
 table {
     color: #000 !important;
 }
+.table-row{
+    max-width: 300px;
+}
 .card-header{
     display: flex;
     flex-direction: row;

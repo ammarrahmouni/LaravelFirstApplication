@@ -106,7 +106,7 @@ class PostController extends MainController
         if ($user_id == Auth::user()->id) {
             $posts = Post::with(['categoryes' => function ($q) {
                 $q->select('id', 'name_' . app()->getLocale() . ' as name');
-            }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->paginate(POST_NUMBER);
+            }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->paginate(POST_NUMBER);
             $this->data['posts'] = $posts;
 
             $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
@@ -156,6 +156,7 @@ class PostController extends MainController
             // add foreach to language key
             $arrayOfLang = config('translatable.locales');
             $arrayLangLength = count($arrayOfLang);
+            $arrayOfUpdateData = [];
 
             for ($i = 0; $i < $arrayLangLength; $i++) {
 
@@ -164,6 +165,9 @@ class PostController extends MainController
 
                 $filter_title = filter_var($title, FILTER_SANITIZE_STRING);
                 $filter_description = filter_var($description, FILTER_SANITIZE_STRING);
+
+                $arrayOfUpdateData[$title] = $request->$filter_title;
+                $arrayOfUpdateData[$description] = $request->$filter_description;
 
                 $post->update([
                     $arrayOfLang[$i] => [
@@ -178,11 +182,19 @@ class PostController extends MainController
                 'category_id'   => $request->category,
             ]);
 
+            $category = Category::select('id', 'name_' . app()->getLocale() . ' as name')->
+            findOrFail($request->category);
+           
 
             return response()->json([
                 'status' => true,
                 'msg' => __('home.update_post'),
+                'title' => $arrayOfUpdateData['title_' . app()->getLocale()],
+                'description' => $arrayOfUpdateData['description_' . app()->getLocale()],
+                'category' => $category->name,
+                'image' => $path,
             ]);
+            
         } else {
             return __('home.dont_have_premission');
         }
@@ -205,7 +217,7 @@ class PostController extends MainController
     {
         $posts = Post::with(['categoryes' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . " as name");
-        }])->where('category_id', $category_id)->get();
+        }])->where('category_id', $category_id)->latest()->get();
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
@@ -216,7 +228,7 @@ class PostController extends MainController
     {
         $posts = Post::with(['categoryes' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . " as name");
-        }])->get();
+        }])->latest()->get();
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 

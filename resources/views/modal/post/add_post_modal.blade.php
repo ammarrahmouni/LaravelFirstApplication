@@ -22,7 +22,7 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img  class="rounded " width="300" height="300"  id="display-img"/>
+                            <img class="rounded " width="300" height="300" id="display-img" />
 
                             <br>
 
@@ -77,15 +77,16 @@
 
                         <div class="form-group form-english">
                             <label>{{ __('home.post_title') }}</label>
-                            <input id="title_en" name="title_en" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_en" name="title_en" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title') }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_en_error"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="300" name="description_en" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_en" class="form-control form-control-lg"
                                 rows="3" placeholder=" {{ __('home.post_description') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_en_error"></strong>
@@ -94,15 +95,16 @@
 
                         <div class="form-group form-turkish">
                             <label>{{ __('home.post_title_tr') }}</label>
-                            <input id="title_tr" name="title_tr" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_tr" name="title_tr" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_tr') }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_tr_error"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-turkish">
                             <label>{{ __('home.post_description_tr') }}</label>
-                            <textarea maxlength="300" name="description_tr" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_tr" class="form-control form-control-lg"
                                 rows="3" placeholder=" {{ __('home.post_description_tr') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_tr_error"></strong>
@@ -112,15 +114,16 @@
 
                         <div class="form-group  form-arabic">
                             <label>{{ __('home.post_title_ar') }}</label>
-                            <input id="title_ar" name="title_ar" type="text" class="form-control form-control-lg"
+                            <input maxlength="100" id="title_ar" name="title_ar" type="text" class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}">
+                            <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_ar_error"></strong>
 
                         </div>
 
-                        <div class="form-group form-arabic">
+                        <div class="form-group post-description form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="300" name="description_ar" class="form-control form-control-lg"
+                            <textarea maxlength="600" name="description_ar" class="form-control form-control-lg"
                                 rows="3" placeholder=" {{ __('home.post_description_ar') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_ar_error"></strong>

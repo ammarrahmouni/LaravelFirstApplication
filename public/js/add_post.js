@@ -24,12 +24,20 @@
     }
 
     // Show Remamingn Character To The User When Typing In Textarea Field
-    $postLength = $('.post-description').val.length;
+    $postTitleLength = $('.post-title').val.length;
+
     $('.post-description textarea').on('keyup', function(e){
 
         var textlength = $(this).val().length;
         var maxlength = $(this).attr("maxlength");
 
+        $(this).next().find('span').text(maxlength - textlength);
+
+    });
+
+    $('.post-title').on('keyup', function(){
+        var textlength = $(this).val().length;
+        var maxlength = $(this).attr("maxlength");
         $(this).next().find('span').text(maxlength - textlength);
 
     });

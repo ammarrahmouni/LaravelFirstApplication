@@ -30,7 +30,7 @@ class HomeController extends Controller
             $q->select('id', 'name', 'image');
         }, 'categoryes' => function($q){
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->get();
+        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->get();
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
