@@ -3,7 +3,7 @@
     <div class="user-img-block">
         <img id="myImg" class="user-img img-thumbnail" src="{{ asset('uploads/images/' . Auth::user()->image) }}">
         <button data-toggle="modal" data-target="#ModalUserImage"
-            class="btn bg-gradient-primary text-white">{{ __('home.edit_image') }}</button>
+            class="btn btn-primary text-white">{{ __('home.edit_image') }}</button>
     </div>
 
     <!-- The Modal -->
@@ -70,7 +70,7 @@
 
 
         <div class="opt-btn">
-            <button class="btn bg-gradient-primary text-white" data-toggle="modal" data-target="#ModalUserEdit"> Edit
+            <button class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalUserEdit"> Edit
             </button>
         </div>
         <br>

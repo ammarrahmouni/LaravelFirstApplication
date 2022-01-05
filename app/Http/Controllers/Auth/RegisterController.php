@@ -29,7 +29,20 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "";
+
+    protected function changeRedirectTo($local){
+        if($local == 'ar'){
+           $this->redirectTo = 'ar/home';
+        }
+        else if($local == 'en'){
+           $this->redirectTo = 'en/home';
+        }
+        else if($local == 'tr'){
+            $this->redirectTo = 'tr/home';
+         }
+    }
+
 
     /**
      * Create a new controller instance.
@@ -39,6 +52,8 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->changeRedirectTo(app()->getLocale());
+
     }
 
     /**

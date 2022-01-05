@@ -85,16 +85,29 @@
 
 
     // Display Image And Change Label Text When The User Choose Image In Input File 
+   
+
     $('#image').on("change", function(){
-       
-        $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
-        $('#display-img').fadeIn(500);
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('display-img');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
+        console.log($(this).val());
+
+        if($(this).val() == ''){
+            $('#display-img').fadeOut(500);
+            $('label[for="inputGroupFile01"]').text('');
+
+        }
+
+        else{
+            $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
+            $('#display-img').fadeIn(500);
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('display-img');
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
+
+
     });
 
     

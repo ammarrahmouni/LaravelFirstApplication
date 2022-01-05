@@ -14,8 +14,8 @@ return [
     */
 
     'reset' => 'Şifreniz sıfırlandı!',
-    'sent' => 'We have emailed your password reset link!',
-    'throttled' => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
+    'sent' => 'Şifre sıfırlama bağlantınızı e-posta ile gönderdik!',
+    'throttled' => 'Lütfen yeniden denemeden önce bekleyin.',
     'token' => 'Bu parola sıfırlama belirteci geçersiz.',
     'user' => "Bu e-posta adresine sahip bir kullanıcı bulamıyoruz.",
 

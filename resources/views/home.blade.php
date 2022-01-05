@@ -1,8 +1,8 @@
 @extends('layouts.new_app')
 
 @section('title')
-    <link rel="stylesheet" href="{{ asset('css/home.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/home.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
     <link rel="shortcut icon" href="{{ asset('img/house.png') }}" type="image/x-icon" />
     <title>{{ __('home.home') }}</title>
     @include('layouts.login_header')
@@ -19,29 +19,61 @@
                 <div id="content">
                     @include('layouts.nav')
                     <div class="container-fluid home-container ">
-                        <a  data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post"  >
+                        <a data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post">
                             {{ __('home.add_post') }}
                         </a>
-                        @section('category')
-                            @include('post.all_post')
-                        @show
-                    </div>
+                    @section('category')
+                        @include('post.all_post')
+                    @show
                 </div>
-                @include('layouts.footer')
             </div>
+            @include('layouts.footer')
         </div>
-    </body>
+    </div>
+</body>
 
-    @include('layouts.login_footer')
-    @include('modal.post.add_post_modal')
+@include('layouts.login_footer')
+@include('modal.post.add_post_modal')
 
 
-    
+
 
 @endsection
 
 @section('script')
 <script src="{{ asset('js/home.js') }}"></script>
 <script src="{{ asset('js/add_post.js') }}"></script>
+
+<script>
+    // Function To Trim Text
+    function tirmText(selector, maxLength) {
+        $(selector).each(function() {
+            var oldText = $(selector).text();
+            if (oldText.length > maxLength) {
+                var newText = $(this).text().substr(0, maxLength);
+                $(this).html(newText + " " + "<span class='show-trim'>{{ __('home.read_more') }}</span>");
+            }
+
+            $(document).on('click', '.show-trim', function() {
+                $(this).parent().html(oldText + " " +
+                    "<span class='hide-trim'>{{ __('home.read_less') }}</span>");
+            });
+
+            $(document).on('click', '.hide-trim', function() {
+                $(this).parent().html(newText + " " +
+                    "<span class='show-trim'>{{ __('home.read_more') }}</span>");
+            })
+        });
+
+    }
+
+    $(document).ready(function() {
+
+        for (let index = 0; index < {{ $posts->count() }}; index++) {
+            tirmText($('.card .card-text').eq(index), 300);
+
+        }
+    });
+</script>
 
 @endsection

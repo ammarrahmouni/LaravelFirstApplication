@@ -2,7 +2,8 @@
 
 @section('title')
     <title>{{ __('login.title') }}</title>
-    <link rel="shortcut icon" href="{{asset('img/login.png')}}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('img/login.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" />
     @include('layouts.login_header')
 @endsection
 
@@ -32,11 +33,11 @@
                                             <div class="form-group">
                                                 <input id="email" type="email"
                                                     class="form-control form-control-user @error('email') is-invalid @enderror"
-                                                    @if (Cookie::has('user')) 
-                                                        value="{{Cookie::get('user')}}"
-                                                    @endif
-                                                    name="email"  required autocomplete="email"
-                                                    autofocus placeholder="{{ __('login.email') }}">
+                                                    @if (Cookie::has('user'))
+                                                value="{{ Cookie::get('user') }}"
+                                                @endif
+                                                name="email" required autocomplete="email"
+                                                autofocus placeholder="{{ __('login.email') }}">
                                                 @error('email')
                                                     <span class="invalid-feedback" role="alert" style="display: flex">
                                                         <strong>{{ $message }}</strong>
@@ -47,13 +48,13 @@
                                             <div class="form-group">
                                                 <input id="password" type="password"
                                                     class="form-control form-control-user @error('password') is-invalid @enderror"
-                                                    @if (Cookie::has('password')) 
-                                                     value="{{Cookie::get('password')}}"
-                                                    @endif
-                                                    name="password" required autocomplete="current-password"
-                                                    placeholder="{{ __('login.password') }}">
+                                                    @if (Cookie::has('password'))
+                                                value="{{ Cookie::get('password') }}"
+                                                @endif
+                                                name="password" required autocomplete="current-password"
+                                                placeholder="{{ __('login.password') }}">
                                                 @error('password')
-                                                    <span class="invalid-feedback" role="alert" style="display: flex"> 
+                                                    <span class="invalid-feedback" role="alert" style="display: flex">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
@@ -61,13 +62,12 @@
 
                                             <div class="form-group">
                                                 <div class="custom-control custom-checkbox small">
-                                                    <input class="form-check-input" type="checkbox"
-                                                        name="remember" id="remember"
-                                                        @if (Cookie::has('user')) 
-                                                            checked
-                                                        @endif
+                                                    <input class="form-check-input" type="checkbox" name="remember"
+                                                        id="remember" @if (Cookie::has('user'))
+                                                    checked
+                                                    @endif
                                                     >
-                                                    <label class="custom-check-box"  for="customCheck">
+                                                    <label class="custom-check-box" for="customCheck">
                                                         {{ __('login.remember') }}
                                                     </label>
                                                 </div>
@@ -87,10 +87,26 @@
                                                 </a>
                                             @endif
                                         </div>
+
                                         <div class="text-center">
                                             <a class="small"
                                                 href="{{ route('register') }}">{{ __('login.create') }}</a>
                                         </div>
+
+                                        <!-- Dropdown - language -->
+                                        <div id="langDropdown" class="lang-flag " aria-labelledby="messagesDropdown">
+
+                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                <a class="dropdown-item d-flex align-items-center nav-link" rel=" alternate"
+                                                    hreflang="{{ $localeCode }}"
+                                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+
+                                                </a>
+
+                                            @endforeach
+
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -103,5 +119,15 @@
 @endsection
 
 @section('script')
+    <script>
+        if ('{{ app()->getLocale() }}' == 'en') {
+            $('.dropdown-item:first-of-type').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'tr') {
+            $('.dropdown-item:nth-of-type(2)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'ar') {
+            $('.dropdown-item:nth-of-type(3)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        }
+    </script>
     @include('layouts.login_footer')
+
 @endsection

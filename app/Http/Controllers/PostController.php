@@ -24,7 +24,16 @@ class PostController extends MainController
         $this->middleware(['auth', 'verified'])->except(['gusetUser']);
     }
 
-
+    public function fetchPost(){
+        $posts = Post::with(['users' => function($q){
+            $q->select('id', 'name', 'image');
+        }, 'categoryes' => function($q){
+            $q->select('id', 'name_' . app()->getLocale() . ' as name');
+        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->get();
+        return response()->json([
+            'posts' => $posts,
+        ]);
+    }
 
     public function gusetUser()
     {
@@ -45,6 +54,7 @@ class PostController extends MainController
 
         $user = User::findOrFail($user_id);
         if ($user) {
+
             $path = '';
 
             if ($request->hasFile('image')) {
@@ -80,11 +90,14 @@ class PostController extends MainController
 
             $post->save();
 
+            $posts = Post::all();
 
             return response()->json([
                 'status' => true,
                 'msg' =>   __('home.post_saved'),
-                'done' => __('home.done')
+                'done' => __('home.done'),
+                'image' => $path,
+                'posts' => $posts,
             ]);
         } else {
             return response()->json([
@@ -230,4 +243,5 @@ class PostController extends MainController
 
         return view('post.specific_post', compact('posts', 'categories'));
     }
+
 }

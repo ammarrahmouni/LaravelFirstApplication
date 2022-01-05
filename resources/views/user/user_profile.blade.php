@@ -5,6 +5,10 @@
     <link rel="stylesheet" href="{{ asset('css/user/user_details.css') }}">
     <title>{{ __('home.profile') }}</title>
     @include('layouts.login_header')
+
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 @endsection
 
 
@@ -24,7 +28,7 @@
         <div id="wrapper">
             @include('layouts.sidebar')
             <div id="content-wrapper" class="d-flex flex-column">
-                @include('layouts.login_footer')
+
                 <!-- Main Content -->
                 <div id="content">
                     @include('layouts.nav')
@@ -37,6 +41,7 @@
 
         </div>
 
+        @include('layouts.login_footer')
     </body>
 
 

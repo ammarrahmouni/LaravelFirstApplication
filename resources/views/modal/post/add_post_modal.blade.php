@@ -77,7 +77,8 @@
 
                         <div class="form-group form-english">
                             <label>{{ __('home.post_title') }}</label>
-                            <input maxlength="100" id="title_en" name="title_en" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_en" name="title_en" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title') }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_en_error"></strong>
@@ -95,7 +96,8 @@
 
                         <div class="form-group form-turkish">
                             <label>{{ __('home.post_title_tr') }}</label>
-                            <input maxlength="100" id="title_tr" name="title_tr" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_tr" name="title_tr" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_tr') }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_tr_error"></strong>
@@ -114,7 +116,8 @@
 
                         <div class="form-group  form-arabic">
                             <label>{{ __('home.post_title_ar') }}</label>
-                            <input maxlength="100" id="title_ar" name="title_ar" type="text" class="post-title form-control form-control-lg"
+                            <input maxlength="100" id="title_ar" name="title_ar" type="text"
+                                class="post-title form-control form-control-lg"
                                 placeholder=" {{ __('home.post_title_ar') }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="title_ar_error"></strong>
@@ -168,12 +171,19 @@
                 processData: false,
                 success: function(response) {
                     if (response.status == true) {
-                        Swal.fire(
-                            response.done,
-                            response.msg,
-                            'success'
-                        )
+                        Swal.fire({
+                            title: response.done,
+                            text: response.msg,
+                            icon: 'success',
+                            confirmButtonText: "{{__('home.ok')}}",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
                         $(".close span").click();
+                       
 
                     } else if (response.status == false) {
                         Swal.fire(
@@ -184,9 +194,12 @@
                     }
                 },
                 error: function(reject) {
+                    $('.form-group').find('strong').html("");
+                    $('.custom-file').find('strong').html("");
                     var response = $.parseJSON(reject.responseText);
                     $.each(response.errors, function(key, val) {
                         $('#' + key + '_error').text(val[0]);
+
                     });
                 }
             });

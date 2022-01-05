@@ -85,4 +85,9 @@ return [
     'done'                  => 'Done',
     'error'                 => 'Error',
     'ok'                    => 'Ok',
+    'error_image'           => 'Image field is required',
+    'read_more'             => 'Read more',
+    'read_less'             => 'Read Less',
+    'save'                  => 'Save',
+    'dont_save'            => 'Don\'t save',
 ];  

@@ -2,7 +2,8 @@
 
 @section('title')
     <title>{{ __('login.rpt_password') }}</title>
-    <link rel="shortcut icon" href="{{asset('img/login.png')}}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{{ asset('img/login.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" />
 
     @include('layouts.login_header')
 @endsection
@@ -18,12 +19,12 @@
                 <div class="col-xl-10 col-lg-12 col-md-9">
 
                     <div class="card o-hidden border-0 shadow-lg my-5">
-                        <div class="card-body p-0" >
+                        <div class="card-body p-0">
                             @if (session('status'))
-                            <div style="position: relative; top:0" class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
+                                <div style="position: relative; top:0" class="alert alert-success" role="alert">
+                                    {{ session('status') }}
+                                </div>
+                            @endif
                             <!-- Nested Row within Card Body -->
                             <div class="row">
                                 <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
@@ -50,21 +51,37 @@
                                                 @enderror
                                             </div>
 
-                                        
 
-                                                <button style="padding: 15px" type="submit" class="form-control-user btn btn-primary w-100">
-                                                    {{ __('login.rpt_password') }}
-                                                </button>
-                                     
+
+                                            <button style="padding: 15px" type="submit"
+                                                class="form-control-user btn btn-primary w-100">
+                                                {{ __('login.rpt_password') }}
+                                            </button>
+
 
 
                                         </form>
                                         <hr>
                                         <div class="text-center">
-                                            <a class="small" href="{{route('register')}}">{{ __('login.create') }}</a>
+                                            <a class="small"
+                                                href="{{ route('register') }}">{{ __('login.create') }}</a>
                                         </div>
                                         <div class="text-center">
-                                            <a class="small" href="{{ route('login') }}">{{ __('login.have_account') }}</a>
+                                            <a class="small"
+                                                href="{{ route('login') }}">{{ __('login.have_account') }}</a>
+                                        </div>
+                                        <!-- Dropdown - language -->
+                                        <div id="langDropdown" class="lang-flag " aria-labelledby="messagesDropdown">
+
+                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                <a class="dropdown-item d-flex align-items-center nav-link" rel=" alternate"
+                                                    hreflang="{{ $localeCode }}"
+                                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+
+                                                </a>
+
+                                            @endforeach
+
                                         </div>
                                     </div>
                                 </div>
@@ -82,5 +99,14 @@
 
 
 @section('script')
+    <script>
+        if ('{{ app()->getLocale() }}' == 'en') {
+            $('.dropdown-item:first-of-type').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'tr') {
+            $('.dropdown-item:nth-of-type(2)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'ar') {
+            $('.dropdown-item:nth-of-type(3)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        }
+    </script>
     @include('layouts.login_footer')
 @endsection

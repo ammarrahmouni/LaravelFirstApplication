@@ -1,14 +1,63 @@
 
 .card{
     position: relative;
-    top: 40%;
+    top: 20%;
 }
 .custom-checkbox{
-    display: flex;
+    display: flex !important;
     margin-bottom: 15px;
     margin-left: 10px;
 }
 .custom-check-box{
-    
     margin-right: 15px;
+}
+
+/* Register Page */
+.invalid-feedback{
+    display: flex !important;
+}
+
+/* Register Page */
+
+#langDropdown {
+    width: 10rem !important;
+    display: flex;
+    margin: 15px auto 0px auto;
+}
+
+
+#messagesDropdown img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.lang-flag a:first-of-type::before {
+    content: "";
+    background-image: url("../../img/flags/us.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+.lang-flag a:nth-of-type(2)::before {
+    content: "";
+    background-image: url("../../img/flags/tr.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+.lang-flag a:last-of-type::before {
+    content: "";
+    background-image: url("../../img/flags/sa.svg");
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    position: relative;
+    left: -6px;
+}
+.dropdown-item:hover{
+    background-color: aqua;
 }

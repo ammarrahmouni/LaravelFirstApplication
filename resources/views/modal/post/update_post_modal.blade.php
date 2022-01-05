@@ -183,50 +183,75 @@
 
 
         $('#btn-update-post{{ $post->id }}').on('click', function(e) {
-
             e.preventDefault();
-            let formData = new FormData($('#postFormUpdate{{ $post->id }}')[0]);
-            $.ajax({
-                type: "POST",
-                url: "{{ route('update.post', ['post_id' => $post->id, 'user_id' => Auth::user()->id]) }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.status == true) {
-                        Swal.fire(
-                            response.done,
-                            response.msg,
-                            'success'
-                        )
-                        
-                        $(".close span").click();
+            Swal.fire({
+                title: 'Do you want to save the changes?',
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "{{__('home.save')}}",
+                denyButtonText: "{{__('home.dont_save')}}",
+            }).then((result) => {
 
-                        $('#title_{{ app()->getLocale() }}_row').text(response.title);
-                        $('#description_{{ app()->getLocale() }}_row').text(response
-                            .description);
-                        $('#category_row').text(response.category)
-                        if (response.image != "") {
-                            var imageSource = '{{ asset('uploads/images') }}';
-                            $('#image_row').attr('src', imageSource + '/' + response.image);
+                if (result.isConfirmed) {
+
+                    
+                    let formData = new FormData($('#postFormUpdate{{ $post->id }}')[0]);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('update.post', ['post_id' => $post->id, 'user_id' => Auth::user()->id]) }}",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                Swal.fire(
+                                    response.done,
+                                    response.msg,
+                                    'success'
+                                )
+
+                                $(".close span").click();
+
+                                $('#title_{{ app()->getLocale() }}_row').text(
+                                    response.title);
+                                $('#description_{{ app()->getLocale() }}_row')
+                                    .text(response
+                                        .description);
+                                $('#category_row').text(response.category)
+                                if (response.image != "") {
+                                    var imageSource =
+                                        '{{ asset('uploads/images') }}';
+                                    $('#image_row').attr('src', imageSource + '/' +
+                                        response.image);
+                                }
+
+
+                            } else if (response.status == false) {
+                                Swal.fire(
+                                    response.error,
+                                    response.msg,
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function(reject) {
+                            $('.form-group').find('strong').html("");
+                            $('.custom-file').find('strong').html("");
+                            var response = $.parseJSON(reject.responseText);
+                            $.each(response.errors, function(key, val) {
+                                $('#' + key + '_error_update').text(val[0]);
+                            });
                         }
-
-
-                    } else if (response.status == false) {
-                        Swal.fire(
-                            response.error,
-                            response.msg,
-                            'error'
-                        )
-                    }
-                },
-                error: function(reject) {
-                    var response = $.parseJSON(reject.responseText);
-                    $.each(response.errors, function(key, val) {
-                        $('#' + key + '_error_update').text(val[0]);
                     });
+
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info');
+                    $(".close span").click();
+
                 }
-            });
+            })
+
+
         })
 
 

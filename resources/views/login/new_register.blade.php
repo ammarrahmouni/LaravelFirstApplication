@@ -3,6 +3,8 @@
 @section('title')
     <title>{{ __('login.register') }}</title>
     <link rel="shortcut icon" href="{{ asset('img/login.png') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" />
+
     @include('layouts.login_header')
 @endsection
 
@@ -24,16 +26,19 @@
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">{{ __('login.create') }}</h1>
                                         </div>
-                                        <form class="user" method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                                        <form class="user" method="POST" action="{{ route('register') }}"
+                                            enctype="multipart/form-data">
                                             @csrf
 
-                                            <div class="form-group row custom-file" style="margin-bottom:25px; margin-left:0;">
+                                            <div class="form-group row custom-file"
+                                                style="margin-bottom:25px; margin-left:0;">
                                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                                    <input id="image" type="file" 
+                                                    <input id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
-                                                        name="image"  required>
-                                                        <label style="border-radius: 10rem;padding: 1.1rem 1.2rem;
-                                                        line-height: 0.3;" class="custom-file-label" for="inputGroupFile01">{{ __('home.choose_img') }}</label>
+                                                        name="image" required>
+                                                    <label style="border-radius: 10rem;padding: 1.5rem 1rem;
+                                                            line-height: 0.3;" class="custom-file-label"
+                                                        for="inputGroupFile01">{{ __('home.choose_img') }}</label>
                                                     @error('image')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -74,7 +79,7 @@
                                             <div class="form-group">
                                                 <input id="phone" type="text"
                                                     class="form-control form-control-user @error('phone') is-invalid @enderror"
-                                                    name="phone" value="{{ old('phone') }}" required 
+                                                    name="phone" value="{{ old('phone') }}" required
                                                     placeholder="{{ __('login.phone') }}">
 
                                                 @error('phone')
@@ -87,7 +92,7 @@
                                             <div class="form-group">
                                                 <input id="address" type="text"
                                                     class="form-control form-control-user @error('phone') is-invalid @enderror"
-                                                    name="address" value="{{ old('address') }}" required 
+                                                    name="address" value="{{ old('address') }}" required
                                                     placeholder="{{ __('login.address') }}">
 
                                                 @error('address')
@@ -137,6 +142,20 @@
                                             <a class="small"
                                                 href="{{ route('login') }}">{{ __('login.have_account') }}</a>
                                         </div>
+
+                                        <!-- Dropdown - language -->
+                                        <div id="langDropdown" class="lang-flag " aria-labelledby="messagesDropdown">
+
+                                            @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                                <a class="dropdown-item d-flex align-items-center nav-link" rel=" alternate"
+                                                    hreflang="{{ $localeCode }}"
+                                                    href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+
+                                                </a>
+
+                                            @endforeach
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -150,5 +169,14 @@
 
 @section('script')
     @include('layouts.login_footer')
-    <script src="{{asset('js/register.js')}}"></script>
+    <script>
+        if ('{{ app()->getLocale() }}' == 'en') {
+            $('.dropdown-item:first-of-type').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'tr') {
+            $('.dropdown-item:nth-of-type(2)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        } else if ('{{ app()->getLocale() }}' == 'ar') {
+            $('.dropdown-item:nth-of-type(3)').css('opacity', '.5').end().siblings().css('opacity', '1');
+        }
+    </script>
+    <script src="{{ asset('js/register.js') }}"></script>
 @endsection

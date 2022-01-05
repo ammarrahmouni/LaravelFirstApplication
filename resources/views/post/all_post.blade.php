@@ -15,7 +15,7 @@
                                     <span class="font-weight-bold">{{ $post->users->name }}</span>
 
                                     <a href="{{ route('category.post', $post->categoryes->id) }}">
-                                        <small class="text-primary" style="display: flex;">
+                                        <small id="category-name" class="text-primary" style="display: flex;">
 
                                             {{ $post->categoryes->name }}
                                         </small>
@@ -75,3 +75,4 @@
         </div>
     </div>
 </div>
+

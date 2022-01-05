@@ -22,15 +22,12 @@ class UserController extends MainController
     {
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
-        if($user_id == Auth::user()->id){
+        if ($user_id == Auth::user()->id) {
             $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
             return view('user.user_profile', compact('categories', 'posts'));
-        }
-        else{
+        } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
         }
-
-        
     }
 
     public function editUserInfo(UserUpdateRequest $request)
@@ -54,6 +51,7 @@ class UserController extends MainController
             return response()->json([
                 'status' => true,
                 'msg'    => __('login.update_done'),
+                'done'   => __('home.done'),
                 'info'   => [$user_name, $user_phone, $user_address]
             ]);
         }
@@ -69,29 +67,24 @@ class UserController extends MainController
 
             $user = User::findOrFail($user_id);
 
-            if (!$user) {
-                return response()->json([
-                    'status' => false,
-                    'msg'    => __('login.user_cant_found')
-                ]);
-            } else {
-                $path = '';
-                if ($request->hasFile('image')) {
-                    $path = $request->file('image')->store('');
-                    $request->file('image')->move('uploads/images', $path);
-                }
 
-                $user->update([
-                    'image' => $path,
-                ]);
-
-
-                return response()->json([
-                    'status' => true,
-                    'msg'    => __('login.img_updated'),
-                    'image'  =>  $path,
-                ]);
+            $path = '';
+            if ($request->hasFile('image')) {
+                $path = $request->file('image')->store('');
+                $request->file('image')->move('uploads/images', $path);
             }
+
+            $user->update([
+                'image' => $path,
+            ]);
+
+
+            return response()->json([
+                'status' => true,
+                'done'   => __('home.done'),
+                'msg'    => __('login.img_updated'),
+                'image'  =>  $path,
+            ]);
         } else {
             return response()->json([
                 'status' => false,

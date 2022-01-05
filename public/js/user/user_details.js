@@ -2,8 +2,11 @@
 const img_input = document.querySelector("#image");
 var upload_img = "";
 
+
+
 img_input.addEventListener("change", function () {
     const reader = new FileReader();
+    $("#display-img").fadeOut(900);
     reader.addEventListener("load", () => {
         upload_img = reader.result;
         $("#display-img").fadeIn(900);
@@ -11,6 +14,7 @@ img_input.addEventListener("change", function () {
             "#display-img"
         ).style.backgroundImage = `url(${upload_img})`;
     });
+
     reader.readAsDataURL(this.files[0]);
 });
 

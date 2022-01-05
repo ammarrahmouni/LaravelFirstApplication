@@ -46,6 +46,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('category/{category_id}', [PostController::class, 'specificCategory'])->name('category.post');
 
     Route::get('category-all', [PostController::class, 'allCategory'])->name('all_category.post');
+
+    Route::get('fetch-post', [PostController::class, 'fetchPost'])->name('fetch.post');
 });
 
 Route::get('profile/{user_id}', [UserController::class, 'myProfile'])->name('profile');

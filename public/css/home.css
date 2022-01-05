@@ -32,3 +32,13 @@
     }
 }
 
+.show-trim, .hide-trim{
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+
+::selection{
+    background-color: #333;
+    color: yellow;
+}

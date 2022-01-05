@@ -1,4 +1,5 @@
-<form id="userImageFormUpdated" action="{{route('edit.user.image', Auth::user()->image)}}" method="POST" enctype="multipart/form-data">
+<form id="userImageFormUpdated" action="{{ route('edit.user.image', Auth::user()->image) }}" method="POST"
+    enctype="multipart/form-data">
     @csrf
 
     <div id="ModalUserImage" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -6,7 +7,7 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
-                
+
 
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{ __('home.user_edit_img') }}</h5>
@@ -23,8 +24,9 @@
                         {{-- Custom Input File --}}
                         <div class="file-input">
 
-                            <input accept="image/jpeg,jpg,png" type="file" name="image" id="image" class="file-input__input" />
-                          
+                            <input accept="image/jpeg,jpg,png" type="file" name="image" id="image"
+                                class="file-input__input" />
+
                             <label class="file-input__label" for="image">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload"
                                     class="svg-inline--fa fa-upload fa-w-16" role="img"
@@ -45,7 +47,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">{{ __('home.close') }}</button>
-                    <button type="submit" class="btn btn-primary save-change-img">{{ __('home.save_change') }}</button>
+                    <button type="submit"
+                        class="btn btn-primary save-change-img">{{ __('home.save_change') }}</button>
                 </div>
 
             </div>
@@ -60,7 +63,8 @@
     $(document).ready(function() {
         $('.save-change-img').on('click', function(e) {
             e.preventDefault();
-            
+
+
             let formData = new FormData($('#userImageFormUpdated')[0]);
             $.ajax({
                 type: "POST",
@@ -70,13 +74,23 @@
                 processData: false,
                 success: function(response) {
                     if (response.status == true) {
-                        alert(response.msg);
+                        $('#display-img').css("display", 'none')
+                        Swal.fire(
+                            response.done,
+                            response.msg,
+                            'success'
+                        )   
                         $(".close span").click();
-                        var imageSource = '{{asset("uploads/images")}}';
-                        $('.user-img').attr('src', imageSource + '/' + response.image)
-                         
+                        var imageSource = '{{ asset('uploads/images') }}';
+                        var imgValue = $('.file-input #image').val();
+                        $('.user-img').attr('src', imageSource + '/' + response.image);
+                        $('.file-input #image').val("");
+
                     } else if (response.status == false) {
-                        alert(response.msg);
+                        swal("{{__('home.error')}}",  "" + response.msg + "" ,
+                        "error", {
+                            button: "{{ __('home.ok') }}"
+                        })
                     }
                 }
             });

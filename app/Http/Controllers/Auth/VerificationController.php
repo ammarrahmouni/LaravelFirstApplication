@@ -27,7 +27,20 @@ class VerificationController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "";
+
+    protected function changeRedirectTo($local){
+        if($local == 'ar'){
+           $this->redirectTo = 'ar/home';
+        }
+        else if($local == 'en'){
+           $this->redirectTo = 'en/home';
+        }
+        else if($local == 'tr'){
+            $this->redirectTo = 'tr/home';
+         }
+    }
+
 
     /**
      * Create a new controller instance.
@@ -39,6 +52,8 @@ class VerificationController extends Controller
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');
+        $this->changeRedirectTo(app()->getLocale());
+
     }
 
     /* Show the email verification notice.

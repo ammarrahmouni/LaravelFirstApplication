@@ -27,7 +27,25 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = "";
+
+    protected function changeRedirectTo($local){
+        if($local == 'ar'){
+           $this->redirectTo = 'ar/home';
+        }
+        else if($local == 'en'){
+           $this->redirectTo = 'en/home';
+        }
+        else if($local == 'tr'){
+            $this->redirectTo = 'tr/home';
+         }
+    }
+
+    public function __construct()
+    {
+        $this->changeRedirectTo(app()->getLocale());
+
+    }
 
     public function showResetForm(Request $request)
     {
