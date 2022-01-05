@@ -21,9 +21,23 @@
                     <div class="card o-hidden border-0 shadow-lg my-5">
                         <div class="card-body p-0">
                             @if (session('status'))
-                                <div style="position: relative; top:0" class="alert alert-success" role="alert">
+                                {{-- <div style="position: relative; top:0" class="alert alert-success" role="alert">
                                     {{ session('status') }}
-                                </div>
+                                </div> --}}
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: "{{__('home.done')}}",
+                                        text: "{{ session('status') }}",
+                                        timer: 3500,
+                                        showClass: {
+                                            popup: 'animate__animated animate__fadeInDown'
+                                        },
+                                        hideClass: {
+                                            popup: 'animate__animated animate__fadeOutUp'
+                                        }
+                                    })
+                                </script>
                             @endif
                             <!-- Nested Row within Card Body -->
                             <div class="row">

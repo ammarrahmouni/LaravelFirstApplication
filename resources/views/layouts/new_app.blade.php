@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
+<html dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}" lang="{{app()->getLocale()}}">
 
 <head>
     <meta charset="UTF-8">
@@ -9,23 +9,37 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+    {{-- Fonts --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     @if (App::isLocale('ar'))
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500&display=swap" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500&display=swap" rel="stylesheet">
         <style>
             body,
             html {
-                font-family: 'Cairo', sans-serif !important;
+                font-family: 'Noto Kufi Arabic', sans-serif !important;
+            }
+
+        </style>
+    @else
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+        <style>
+            body,
+            html {
+                font-family: font-family: 'Roboto Mono', monospace !important;
+
             }
 
         </style>
     @endif
 
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Anton&family=Cairo&family=Dancing+Script&family=Lobster&family=Reem+Kufi&family=Roboto:wght@300&display=swap"
-        rel="stylesheet">
+
+
 
     {{-- Our Css Files --}}
     <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">

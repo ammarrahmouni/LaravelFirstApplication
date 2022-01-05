@@ -29,7 +29,7 @@
                             <div class="custom-file">
                                 <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
                                     id="image">
-                                <label class="custom-file-label"
+                                <label class="custom-file-label custom-file-label-post"
                                     for="inputGroupFile01">{{ __('home.choose_img') }}</label>
                                 <strong class="form-text text-danger" id="image_error"></strong>
 
@@ -175,7 +175,14 @@
                             title: response.done,
                             text: response.msg,
                             icon: 'success',
-                            confirmButtonText: "{{__('home.ok')}}",
+                            confirmButtonText: "{{ __('home.ok') }}",
+                            showClass: {
+                                popup: 'animate__animated animate__backInDown'
+                            },
+                            hideClass: {
+                                popup: 'animate__animated animate__backOutDown'
+                            }
+                            
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload();
@@ -183,7 +190,7 @@
                         })
 
                         $(".close span").click();
-                       
+
 
                     } else if (response.status == false) {
                         Swal.fire(

@@ -32,8 +32,9 @@ return [
     'verify_email'      => 'Email adresinizi doğrulayın',
     'email'             => 'E-post',
 
-    'verify_email_check'    => ' Devam etmeden önce, lütfen bir doğrulama bağlantısı için e-postanızı kontrol edin. E-postayı almadıysanız',
+    'verify_email_check'    => ' Devam etmeden önce, lütfen bir doğrulama bağlantısı için e-postanızı kontrol edin. ',
     'verify_email_request'  => 'başka bir istek için buraya tıklayın',
+    'verify_email_not_recive' => 'E-postayı almadıysanız',
     'verify_email_request_resend' => 'E-posta adresinize yeni bir doğrulama bağlantısı gönderildi.',
     'logout'        => 'Çıkış Yap',
 

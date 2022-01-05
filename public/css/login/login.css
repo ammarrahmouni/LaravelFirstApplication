@@ -16,8 +16,28 @@
 .invalid-feedback{
     display: flex !important;
 }
+#label-input-img{
+    font-size: 1rem;
+    border-radius: 10rem;
+    padding: 1.5rem 1rem;
+    line-height: 0.3;
+    display: flex;
+    justify-content: space-between;
+}
+#label-input-img span i{
+    color: cyan;
+    font-size: 28px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
 
 /* Register Page */
+
+form.user .form-control-user {
+    font-size: 1rem !important;
+
+}
 
 #langDropdown {
     width: 10rem !important;

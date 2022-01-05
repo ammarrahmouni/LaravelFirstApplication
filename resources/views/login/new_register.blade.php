@@ -36,9 +36,10 @@
                                                     <input id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
                                                         name="image" required>
-                                                    <label style="border-radius: 10rem;padding: 1.5rem 1rem;
-                                                            line-height: 0.3;" class="custom-file-label"
-                                                        for="inputGroupFile01">{{ __('home.choose_img') }}</label>
+                                                    <label id="label-input-img"  class="custom-file-label"
+                                                        for="inputGroupFile01">
+                                                            <span> {{ __('home.choose_img') }} </span>
+                                                    </label>
                                                     @error('image')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

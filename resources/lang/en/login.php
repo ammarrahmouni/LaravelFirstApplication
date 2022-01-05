@@ -31,8 +31,9 @@ return [
     'cnfm_passwrod'     => 'Confirm Passwrod',
     'verify_email'      => 'Verify Your Email Address',
     'email'             => 'Email',
-    'verify_email_check'    => ' Before proceeding, please check your email for a verification link. If you did not receive the email',
+    'verify_email_check'    => ' Before proceeding, please check your email for a verification link. ',
     'verify_email_request'  => 'click here to request another',
+    'verify_email_not_recive' => 'If you did not receive the email',
     'verify_email_request_resend' => 'A fresh verification link has been sent to your email address.',
     'logout'        => 'Logout',
 
