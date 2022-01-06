@@ -11,6 +11,9 @@
 .custom-check-box{
     margin-right: 15px;
 }
+.scroll-to-top{
+    display: none !important;
+}
 
 /* Register Page */
 .invalid-feedback{
@@ -31,6 +34,34 @@
     top: 10px;
     left: 10px;
 }
+#display-img{
+    display: none;
+    height: 280px;
+    padding: 0.25rem;
+    background-color: #fff;
+    max-width: 300px;
+    margin-bottom: 15px;
+    position: relative;
+    margin-left: 50%;
+    left: -150px;
+
+}
+:lang(ar) #display-img{
+    margin-right: 50%;
+    right: -150px;
+}
+.register-name{
+    margin-top: 18px;
+}
+.img-thumbnail {
+    padding: 0.25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 50% !important;
+    max-width: 100%;
+    height: auto;
+}
+
 
 /* Register Page */
 

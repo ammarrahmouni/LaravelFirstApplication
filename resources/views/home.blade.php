@@ -19,12 +19,9 @@
                 <div id="content">
                     @include('layouts.nav')
                     <div class="container-fluid home-container ">
-                        <a data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post">
-                            {{ __('home.add_post') }}
-                        </a>
-                    @section('category')
-                        @include('post.all_post')
-                    @show
+                        @section('category')
+                            @include('post.all_post')
+                        @show
                 </div>
             </div>
             @include('layouts.footer')

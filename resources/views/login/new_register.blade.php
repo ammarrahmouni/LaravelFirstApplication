@@ -32,13 +32,17 @@
 
                                             <div class="form-group row custom-file"
                                                 style="margin-bottom:25px; margin-left:0;">
+
+                                                <img class=" img-thumbnail" width="300" height="300" id="display-img" />
+                                                
+                                                <br>
                                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                                    <input id="image" type="file"
+                                                    <input accept="image/jpeg,jpg,png" id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
-                                                        name="image" required>
-                                                    <label id="label-input-img"  class="custom-file-label"
+                                                        name="image" required >
+                                                    <label id="label-input-img" class="custom-file-label"
                                                         for="inputGroupFile01">
-                                                            <span> {{ __('home.choose_img') }} </span>
+                                                        <span> {{ __('home.choose_img') }} </span>
                                                     </label>
                                                     @error('image')
                                                         <span class="invalid-feedback" role="alert">
@@ -48,7 +52,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="form-group row">
+                                            <div class="form-group row register-name">
                                                 <div class="col-sm-12 mb-3 mb-sm-0">
                                                     <input id="name" type="text"
                                                         class="form-control form-control-user @error('name') is-invalid @enderror"
@@ -170,7 +174,9 @@
 
 @section('script')
     @include('layouts.login_footer')
+
     <script>
+       
         if ('{{ app()->getLocale() }}' == 'en') {
             $('.dropdown-item:first-of-type').css('opacity', '.5').end().siblings().css('opacity', '1');
         } else if ('{{ app()->getLocale() }}' == 'tr') {
@@ -178,6 +184,31 @@
         } else if ('{{ app()->getLocale() }}' == 'ar') {
             $('.dropdown-item:nth-of-type(3)').css('opacity', '.5').end().siblings().css('opacity', '1');
         }
+
+        $(document).ready(function() {
+
+
+            $('#image').on("change", function() {
+
+                if ($(this).val() == '') {
+                    $('#display-img').fadeOut(500);
+                    $('label[for="inputGroupFile01"]').text('');
+
+                } else {
+                    $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
+                    $('#display-img').fadeIn(500);
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        var output = document.getElementById('display-img');
+                        output.src = reader.result;
+                    };
+                    reader.readAsDataURL(event.target.files[0]);
+                    
+                }
+
+
+            });
+        });
     </script>
     <script src="{{ asset('js/register.js') }}"></script>
 @endsection

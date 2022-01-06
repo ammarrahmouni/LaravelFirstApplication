@@ -80,8 +80,6 @@
 }
 .user-content div div {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
 .user-content div div span:first-of-type {
     width: 300px;

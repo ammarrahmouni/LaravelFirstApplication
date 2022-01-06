@@ -24,7 +24,7 @@
                         {{-- Custom Input File --}}
                         <div class="file-input">
 
-                            <input accept="image/jpeg,jpg,png" type="file" name="image" id="image"
+                            <input accept="image/* " type="file" name="image" id="image"
                                 class="file-input__input" />
 
                             <label class="file-input__label" for="image">
@@ -84,6 +84,7 @@
                         var imageSource = '{{ asset('uploads/images') }}';
                         var imgValue = $('.file-input #image').val();
                         $('.user-img').attr('src', imageSource + '/' + response.image);
+                        $('.img-profile').attr('src', imageSource + '/' + response.image);
                         $('.file-input #image').val("");
 
                     } else if (response.status == false) {

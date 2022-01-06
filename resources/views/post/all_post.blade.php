@@ -1,6 +1,13 @@
-<div class="container mt-5 mb-5">
+<div class="container mt-5 mb-5 card-mobile">
     <div class="row d-flex align-items-center justify-content-center">
         <div class="col-md-6 col-12 gust-post">
+
+            <a data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post">
+                <div class="btn-add-post-user-img">
+                    <img src="{{ asset('uploads/images/' . Auth::user()->image) }}"/>
+                </div>
+                <div class="add-post-field">{{__('home.what_think')}}</div>
+            </a><br><br>
 
             @if (isset($posts) && $posts->count() > 0)
                 @foreach ($posts as $post)
@@ -67,6 +74,17 @@
                         </div>
 
                         <img src="{{ asset('uploads/images/' . $post->image) }}" class="img-fluid">
+
+
+                        <div class="like-count">
+                            15 Like This
+                        </div>
+
+                        <div class="dropdown-divider"></div>
+
+                        <div class="btn-like">
+                            <i class="far fa-thumbs-up"></i> Like
+                        </div>
 
                     </div>
 

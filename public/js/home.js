@@ -73,6 +73,16 @@
         }
     }
 
+    if($(window).width() < 768){
+        $('.card-mobile').removeClass('container');
+    }else{
+        $('.card-mobile').addClass('container');
+    }
+
+    $('.btn-like').on('click', function(){
+        $(this).toggleClass('btn-like-active');
+    })
+
    
    
 }());

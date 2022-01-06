@@ -59,6 +59,7 @@ return [
     'post_description_tr'   => 'Post Description In Turkish',
     'post_title_tr'         => 'Post Title In Turkish',
 
+
     'add_post'              => 'Add New Post',
     'search'                => 'Search For...',
     'profile'               => 'Profile',
@@ -89,5 +90,6 @@ return [
     'read_more'             => 'Read more',
     'read_less'             => 'Read Less',
     'save'                  => 'Save',
-    'dont_save'            => 'Don\'t save',
+    'dont_save'             => 'Don\'t save',
+    'what_think'            => 'What\'s on your mind?',
 ];  

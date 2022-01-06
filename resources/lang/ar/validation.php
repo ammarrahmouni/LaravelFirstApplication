@@ -31,7 +31,7 @@ return [
         'array' => 'The :attribute must have between :min and :max items.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
-    'confirmed' => 'كلمة السر غير متطابقة ',
+    'confirmed' => ':attribute غير متطابقة ',
     'current_password' => 'The password is incorrect.',
     'date' => 'The :attribute is not a valid date.',
     'date_equals' => 'The :attribute must be a date equal to :date.',
@@ -83,7 +83,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'string' => 'لا يجب أن يكون رقم الهاتف أكبر من :max رقم',
+        'string' => 'لا يجب أن يكون :attribute أكبر من :max رقم',
         'array' => 'The :attribute must not have more than :max items.',
     ],
     'mimes' => 'يجب أن تكون الصورة من نوع : :values  ',
@@ -122,7 +122,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'هذا الإيميل موجود مسبقاً',
+    'unique' => 'هذا :attribute موجود مسبقاً',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -155,6 +155,12 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'phone'     => 'رقم الهاتف',
+        'address'   => 'العنوان' ,
+        'email'     => 'البريد الإلكتروني',
+        'password'  => 'كلمة المرور'
+        
+    ],  
 
 ];

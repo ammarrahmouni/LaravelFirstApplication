@@ -51,6 +51,11 @@
 .sidebar {
     transition: 0.5s !important;
 }
+#logo-nav{
+    width: 100px;
+    height: 100px;
+    margin-bottom: -80px;
+}
 @media (min-width: 768px) {
     .sidebar.toggled .nav-item .collapse .collapse-inner {
         box-shadow: none !important;

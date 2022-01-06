@@ -26,11 +26,11 @@
 
         </style>
     @else
-        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
         <style>
             body,
             html {
-                font-family: font-family: 'Roboto Mono', monospace !important;
+                font-family: 'Poppins', sans-serif !important;
 
             }
 

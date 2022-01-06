@@ -83,7 +83,7 @@ return [
     'max' => [
         'numeric' => 'The :attribute must not be greater than :max.',
         'file' => 'The :attribute must not be greater than :max kilobytes.',
-        'string' => 'The :attribute must not be greater than :max characters.',
+        'string' => ' :attribute :max karakterden büyük olmamalıdır.',
         'array' => 'The :attribute must not have more than :max items.',
     ],
     'mimes' => 'Görüntü, şu türden bir dosya olmalıdır: :values.',
@@ -91,7 +91,7 @@ return [
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'The :attribute must be at least :min characters.',
+        'string' => ':attribute en az :min karakter olmalıdır.',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'multiple_of' => 'The :attribute must be a multiple of :value.',
@@ -122,7 +122,7 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values.',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
-    'unique' => 'e posta daha önce alındı',
+    'unique' => ':attribute daha önce alındı',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
@@ -155,6 +155,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'phone'     => 'Telefon Numarası',
+        'address'   => 'Adress' ,
+        'email'     => 'E-posta',
+        'password'  => 'Parola'
+    ],
 
 ];

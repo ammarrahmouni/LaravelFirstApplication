@@ -4,7 +4,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <div class="sidebar-brand-icon ">
-            <img src="{{ asset('img/world.png') }}" style="width: 50px; height: 50px;">
+            <img src="{{ asset('img/logo.svg') }}"  id="logo-nav">
         </div>
 
     </a>
@@ -12,7 +12,7 @@
 
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+    <hr class="sidebar-divider" style="margin-top: 80px">
 
 
 
