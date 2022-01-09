@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand topbar mb-4 static-top shadow">
 
     <!-- Sidebar Toggle (Topbar) -->
     <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
         <i class="fa fa-bars"></i>
     </button>
-    
+
 
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
@@ -55,14 +55,14 @@
             @if (app()->getLocale() == 'en')
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('img/flags/us.svg') }}" >
+                    <img src="{{ asset('img/flags/us.svg') }}">
                 </a>
             @endif
 
             @if (app()->getLocale() == 'ar')
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('img/flags/sa.svg') }}" >
+                    <img src="{{ asset('img/flags/sa.svg') }}">
 
                 </a>
             @endif
@@ -70,19 +70,20 @@
             @if (app()->getLocale() == 'tr')
                 <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <img src="{{ asset('img/flags/tr.svg') }}" >
+                    <img src="{{ asset('img/flags/tr.svg') }}">
 
                 </a>
             @endif
 
 
-            <!-- Dropdown - Messages -->
+            <!-- Dropdown - Language -->
             <div id="langDropdown"
                 class="lang-flag dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                 aria-labelledby="messagesDropdown">
 
                 @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
-                    <a class="dropdown-item d-flex align-items-center nav-link" rel=" alternate" hreflang="{{ $localeCode }}"
+                    <a class="dropdown-item d-flex align-items-center nav-link" rel=" alternate"
+                        hreflang="{{ $localeCode }}"
                         href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
                         {{ $properties['native'] }}
                     </a>
@@ -96,17 +97,14 @@
 
         @guest
 
-            @if (Route::has('login'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">{{ __('login.title') }}</a>
-                </li>
-            @endif
+            <li class="nav-item">
+                <a style="color: #000" class="nav-link" href="{{ route('login') }}">{{ __('login.title') }}</a>
+            </li>
 
-            @if (Route::has('register'))
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('register') }}">{{ __('login.register') }}</a>
-                </li>
-            @endif
+            <li class="nav-item">
+                <a style="color: #000" class="nav-link"
+                    href="{{ route('register') }}">{{ __('login.register') }}</a>
+            </li>
 
         @else
 
@@ -144,20 +142,21 @@
             <li class="nav-item dropdown no-arrow">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
-                    <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::user()->name }}</span>
+                    <span
+                        class="nav-user-name mr-2 d-none d-lg-inline  small">{{ Auth::user()->name }}</span>
                     <img class="img-profile rounded-circle" src="{{ asset('uploads/images/' . Auth::user()->image) }}">
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown" >
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
 
                     {{-- Profile Button --}}
-                    <a class="dropdown-item" href="{{route('profile', Auth::user()->id)}}">
+                    <a class="dropdown-item" href="{{ route('profile', Auth::user()->id) }}">
                         <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                         {{ __('home.profile') }}
                     </a>
 
                     {{-- My Post Button --}}
-                    <a class="dropdown-item" href="{{route('show.post', Auth::user()->id)}}">
+                    <a class="dropdown-item" href="{{ route('show.post', Auth::user()->id) }}">
                         <i class="fas fa-paste fa-sm fa-fw mr-2 text-gray-400"></i>
                         {{ __('home.my_post') }}
                     </a>

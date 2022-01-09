@@ -3,6 +3,7 @@
 <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
 
+
 <div class="post-table card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">{{ __('home.my_post') }}</h6>
@@ -34,8 +35,10 @@
 
                         @foreach ($posts as $post)
                             <tr>
-                                <td class="table-row" scope="row" id="title_{{app()->getLocale()}}_row">{{ $post->translate(app()->getLocale())->title }}</td>
-                                <td class="table-row" scope="row" id="description_{{app()->getLocale()}}_row">{{ $post->translate(app()->getLocale())->description }}</td>
+                                <td class="table-row" scope="row" id="title_{{ app()->getLocale() }}_row">
+                                    {{ $post->translate(app()->getLocale())->title }}</td>
+                                <td class="table-row" scope="row" id="description_{{$post->id}}">
+                                    {{ $post->translate(app()->getLocale())->description }}</td>
 
                                 <td scope="row" id="category_row">
                                     {{ $post->categoryes->name }}
@@ -67,9 +70,36 @@
                                     @include('modal.post.delete_post_modal')
                                 </td>
                             </tr>
+                            <script>
+                                $(document).ready(function() {
+
+                                 
+                                        if ( ($('#description_{{$post->id}}').text().length) > 70) {
+                                            
+                                            var oldText = $('#description_{{$post->id}}').text();
+
+                                            var newText = $('#description_{{$post->id}}').text().substr(0, 70);
+                                            $('#description_{{$post->id}}').html(newText + " " +
+                                                "<span class='show-trim' id='show_trim_{{$post->id}}'>{{ __('home.read_more') }}</span>");
+
+
+                                            $(document).on('click', '#show_trim_{{$post->id}}', function() {
+                                                console.log(oldText);
+                                                $(this).parent().html(oldText + " " +
+                                                    "<span class='hide-trim' id='hide_trime_{{$post->id}}'>{{ __('home.read_less') }}</span>");
+                                            });
+
+                                            $(document).on('click', '#hide_trime_{{$post->id}}', function() {
+                                                $(this).parent().html(newText + " " +
+                                                    "<span class='show-trim' id='show_trim_{{$post->id}}'>{{ __('home.read_more') }}</span>");
+                                            })
+
+                                        }
+                                });
+                            </script>
+
                         @endforeach
                     @endif
-
 
                 </tbody>
 

@@ -47,9 +47,9 @@
   // Smooth scrolling using jQuery easing
   $(document).on('click', 'a.scroll-to-top', function(e) {
     var $anchor = $(this);
-    $('html, body').stop().animate({
-      scrollTop: ($($anchor.attr('href')).offset().top)
-    }, 1000, 'easeInOut');
+    $('html, body').animate({
+      scrollTop: 0
+    }, 1000, 'easeOutBack');
     e.preventDefault();
   });
 

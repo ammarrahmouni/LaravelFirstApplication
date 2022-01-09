@@ -1,4 +1,4 @@
-<form id="postFormAdd" action="{{ route('save.post', Auth::user()->id) }}" method="POST"
+<form id="postFormAdd" action="" method="POST"
     enctype="multipart/form-data">
     @csrf
     <div id="ModalPostAdd" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -176,12 +176,7 @@
                             text: response.msg,
                             icon: 'success',
                             confirmButtonText: "{{ __('home.ok') }}",
-                            showClass: {
-                                popup: 'animate__animated animate__backInDown'
-                            },
-                            hideClass: {
-                                popup: 'animate__animated animate__backOutDown'
-                            }
+
                             
                         }).then((result) => {
                             if (result.isConfirmed) {

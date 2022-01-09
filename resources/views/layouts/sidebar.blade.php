@@ -1,10 +1,10 @@
 <!-- Sidebar -->
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
         <div class="sidebar-brand-icon ">
-            <img src="{{ asset('img/logo.svg') }}"  id="logo-nav">
+            <img src="{{ asset('img/logo.svg') }}" id="logo-nav">
         </div>
 
     </a>
@@ -17,31 +17,43 @@
 
 
     <!-- Nav Item - Pages Collapse Menu -->
+    @auth
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('home') }}">
+                <i class="fas fa-home fa-cog"></i>
+                <span>{{ __('home.home') }}</span>
+            </a>
+        </li>
+    @else
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('home') }}">
+        <a class="nav-link collapsed" href="{{ route('guset.user') }}">
             <i class="fas fa-home fa-cog"></i>
             <span>{{ __('home.home') }}</span>
         </a>
-
     </li>
+
+    @endauth
+
 
     <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('profile', Auth::user()->id) }}">
-            <i class="fas fa-fw fa-user"></i>
-            <span>{{ __('home.profile') }}</span>
-        </a>
-    </li>
+    @auth
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('profile', Auth::user()->id) }}">
+                <i class="fas fa-fw fa-user"></i>
+                <span>{{ __('home.profile') }}</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('show.post', Auth::user()->id) }}">
-            <i class="fas fa-paste "></i>
-            <span> {{ __('home.my_post') }}</span>
-        </a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('show.post', Auth::user()->id) }}">
+                <i class="fas fa-paste "></i>
+                <span> {{ __('home.my_post') }}</span>
+            </a>
+        </li>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider">
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+    @endauth
 
     <!-- Heading -->
     <div class="sidebar-heading">

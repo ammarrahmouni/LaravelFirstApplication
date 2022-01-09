@@ -5,11 +5,37 @@
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
     <link rel="shortcut icon" href="{{ asset('img/house.png') }}" type="image/x-icon" />
     <title>{{ __('home.home') }}</title>
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @include('layouts.login_header')
 @endsection
 
 
 @section('content')
+
+
+    @if (Session::has('success_login'))
+        <script>
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: "{{Session::get('success_login')}}"
+            })
+        </script>
+    @endif
+
 
     <body id="page-top">
         <div id="wrapper">
@@ -19,9 +45,9 @@
                 <div id="content">
                     @include('layouts.nav')
                     <div class="container-fluid home-container ">
-                        @section('category')
-                            @include('post.all_post')
-                        @show
+                    @section('category')
+                        @include('post.all_post')
+                    @show
                 </div>
             </div>
             @include('layouts.footer')
@@ -30,7 +56,10 @@
 </body>
 
 @include('layouts.login_footer')
-@include('modal.post.add_post_modal')
+
+@auth
+    @include('modal.post.add_post_modal')
+@endauth
 
 
 
@@ -42,33 +71,31 @@
 <script src="{{ asset('js/add_post.js') }}"></script>
 
 <script>
-    // Function To Trim Text
-    function tirmText(selector, maxLength) {
-        $(selector).each(function() {
-            var oldText = $(selector).text();
-            if (oldText.length > maxLength) {
-                var newText = $(this).text().substr(0, maxLength);
-                $(this).html(newText + " " + "<span class='show-trim'>{{ __('home.read_more') }}</span>");
-            }
-
-            $(document).on('click', '.show-trim', function() {
-                $(this).parent().html(oldText + " " +
-                    "<span class='hide-trim'>{{ __('home.read_less') }}</span>");
-            });
-
-            $(document).on('click', '.hide-trim', function() {
-                $(this).parent().html(newText + " " +
-                    "<span class='show-trim'>{{ __('home.read_more') }}</span>");
-            })
-        });
-
-    }
-
+ 
     $(document).ready(function() {
 
-        for (let index = 0; index < {{ $posts->count() }}; index++) {
-            tirmText($('.card .card-text').eq(index), 300);
+        $(window).scroll(fetchPostsScrolling);
 
+
+        function fetchPostsScrolling() {
+            var page = $('.endless-pagination').data('next-page');
+            
+
+            if (page != null && page != '') {
+                clearTimeout($.data(this, "scrollCheeck"));
+
+                $.data(this, "scrollCheeck", setTimeout(function() {
+                    var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
+                        100;
+
+                    if (scroll_poition_for_posts_load >= $(document).height()) {
+                        $.get(page, function(data) {
+                            $('.posts').append(data.posts);
+                            $('.endless-pagination').data('next-page', data.next_page);
+                        });
+                    }
+                }, 250));
+            }
         }
     });
 </script>

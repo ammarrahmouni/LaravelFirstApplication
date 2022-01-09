@@ -18,7 +18,7 @@ class CreatePostTranslationsTable extends Migration
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
             $table->string('locale')->index();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->timestamps();
 
             

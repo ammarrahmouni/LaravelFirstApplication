@@ -1,7 +1,8 @@
-<form action="{{route('delete.post', $post->id)}}" method="post" enctype="multipart/form-data">
+<form action="" method="post" enctype="multipart/form-data" id="DeleteFormModal{{ $post->id }}">
     @csrf
-    <div class="modal fade" id="deletePost{{$post->id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+
+    <div class="modal fade" id="deletePost{{ $post->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content ">
                 <div class="modal-header">
@@ -13,8 +14,9 @@
                     {{ __('home.modal_content') }}
                 </div>
                 <div class="modal-footer">
-                    <button onclick="bootstrapAlert()" type="submit" class="btn btn-secondary" >{{ __('home.yes') }}</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">{{ __('home.no') }}</button>
+                    <button id="btn-delete-post{{ $post->id }}" type="submit"
+                        class="btn btn-secondary">{{ __('home.yes') }}</button>
+                    <button type="button" class="btn btn-primary " data-bs-dismiss="modal">{{ __('home.no') }}</button>
                 </div>
             </div>
         </div>
@@ -22,5 +24,35 @@
 </form>
 
 <script>
+    $(document).ready(function() {
 
+        $('#btn-delete-post{{ $post->id }}').on('click', function(e) {
+            e.preventDefault();
+            let formData = new FormData($('#DeleteFormModal{{ $post->id }}')[0]);
+            $.ajax({
+                type: "POST",
+                url: "{{ route('delete.post', ['post_id' => $post->id]) }}",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(response) {
+                    if (response.status == true) {
+                        Swal.fire({
+                            title: response.done,
+                            text: response.msg,
+                            icon: 'success',
+                            confirmButtonText: "{{ __('home.ok') }}",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                location.reload();
+                            }
+                        })
+
+
+
+                    }
+                }
+            });
+        })
+    });
 </script>

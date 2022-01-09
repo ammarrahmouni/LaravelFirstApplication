@@ -21,27 +21,6 @@
 @section('content')
 
 
-    @if (Session::has('dont_have_premission'))
-        <script>
-            swal("{{ __('home.error') }}", "{!! Session::get('dont_have_premission') !!}", "error", {
-                button: "{{ __('home.ok') }}"
-            })
-        </script>
-
-    @endif
-
-    @if (Session::has('delete_post'))
-
-        <script>
-            swal("{{ __('home.done') }}", "{!! Session::get('delete_post') !!}", "success", {
-                button: "{{ __('home.ok') }}"
-            })
-        </script>
-
-    @endif
-
-
-
     <body id="page-top">
 
         <div id="wrapper">
@@ -72,35 +51,5 @@
     <script src="{{ asset('js/add_post.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
 
-    <script>
-        // Function To Trim Text
-        function tirmText(selector, maxLength) {
-            $(selector).each(function() {
-                var oldText = $(selector).text();
-                if (oldText.length > maxLength) {
-                    var newText = $(this).text().substr(0, maxLength);
-                    $(this).html(newText + " " + "<span class='show-trim'>{{ __('home.read_more') }}</span>");
-                }
-
-                $(document).on('click', '.show-trim', function() {
-                    $(this).parent().html(oldText + " " +
-                        "<span class='hide-trim'>{{ __('home.read_less') }}</span>");
-                });
-
-                $(document).on('click', '.hide-trim', function() {
-                    $(this).parent().html(newText + " " +
-                        "<span class='show-trim'>{{ __('home.read_more') }}</span>");
-                })
-            });
-
-        }
-
-        $(document).ready(function() {
-
-            for (let index = 0; index < {{ $posts->count() }}; index++) {
-                tirmText($('#description_{{app()->getLocale()}}_row ').eq(index), 75);
-
-            }
-        });
-    </script>
+ 
 @endsection

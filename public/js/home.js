@@ -1,18 +1,22 @@
 
 (function () {
+
     $(document).on('scroll', function(){
         var scrolTop = $(document).scrollTop();
-        if(scrolTop != 0)
+        if(scrolTop != 0){
             $('.navbar').css({
                 'position': 'fixed',
                 'z-index': '999',
                 'right' : '0',
                 'left' : '0'
             });
-        else
+        }
+
+        else{
             $('.navbar').css({
                 'position': 'relative',
             });
+        }
 
     });
 
@@ -79,9 +83,7 @@
         $('.card-mobile').addClass('container');
     }
 
-    $('.btn-like').on('click', function(){
-        $(this).toggleClass('btn-like-active');
-    })
+
 
    
    

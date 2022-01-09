@@ -73,6 +73,7 @@
                         )
                         $(".close span").click();
                         $('.user-info #user-name').text(response.info[0]);
+                        $('.nav-user-name').text(response.info[0]);
                         $('.user-info #user-phone').text(response.info[1]);
                         $('.user-info #user-address').text(response.info[2]);
                     } else if (response.status == false) {

@@ -37,7 +37,7 @@
                                                 
                                                 <br>
                                                 <div class="col-sm-12 mb-3 mb-sm-0">
-                                                    <input accept="image/jpeg,jpg,png" id="image" type="file"
+                                                    <input accept="image/*" id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
                                                         name="image" required >
                                                     <label id="label-input-img" class="custom-file-label"

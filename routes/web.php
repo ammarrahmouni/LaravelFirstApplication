@@ -42,12 +42,14 @@ Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
     Route::post('/delete-post/{post_id}', [PostController::class, 'deletePost'])->name('delete.post');
 });
 
+Route::get('category/{category_id}', [PostController::class, 'specificCategory'])->name('category.post');
+
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('category/{category_id}', [PostController::class, 'specificCategory'])->name('category.post');
 
-    Route::get('category-all', [PostController::class, 'allCategory'])->name('all_category.post');
+    Route::get('like-post/{user_id}/{post_id}', [PostController::class, 'likePost'])->name('like.post');
 
-    Route::get('fetch-post', [PostController::class, 'fetchPost'])->name('fetch.post');
+    Route::get('dislike-post/{user_id}/{post_id}', [PostController::class, 'dislikePost'])->name('dislike.post');
+
 });
 
 Route::get('profile/{user_id}', [UserController::class, 'myProfile'])->name('profile');

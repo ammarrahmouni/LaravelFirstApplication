@@ -14,20 +14,19 @@
 
                 <div class="modal-body">
 
-
-
                     {{-- Start Update Post Content --}}
 
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img class="rounded " width="300" height="300" id="dispaly-img-update"
+                            <img class="rounded " width="300" height="300"
+                                id="dispaly-img-update{{ $post->id }}"
                                 src="{{ asset('uploads/images/' . $post->image) }}" />
 
                             <br>
 
                             <div class="custom-file">
-                                <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
+                                <input accept="image/*" name="image" type="file" class="custom-file-input "
                                     id="image{{ $post->id }}" accept=" image/jpg,jpeg,png ">
                                 <label class="custom-file-label"
                                     for="image-label{{ $post->id }}">{{ __('home.choose_img') }}</label>
@@ -73,9 +72,6 @@
                             </li>
 
                         </ul>
-
-
-
 
 
                         <div class="form-group form-english">
@@ -171,14 +167,23 @@
     $(document).ready(function() {
 
         $('#image{{ $post->id }}').on("change", function() {
-            $('label[for="image-label{{ $post->id }}"]').text($(this).val().split('\\').pop());
 
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('dispaly-img-update');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
+            if ($(this).val() == '' ) {
+                $('#dispaly-img-update{{ $post->id }}').fadeOut(500);
+                $('label[for="image-label{{ $post->id }}"]').text("{{__('home.choose_img')}}");
+
+            } else {
+                $('#dispaly-img-update{{ $post->id }}').fadeIn(500);
+                $('label[for="image-label{{ $post->id }}"]').text($(this).val().split('\\').pop());
+                var reader = new FileReader();
+                reader.onload = function() {
+                    var output = document.getElementById('dispaly-img-update{{ $post->id }}');
+                    output.src = reader.result;
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+
+
         });
 
 
@@ -188,13 +193,13 @@
                 title: 'Do you want to save the changes?',
                 showDenyButton: true,
                 showCancelButton: true,
-                confirmButtonText: "{{__('home.save')}}",
-                denyButtonText: "{{__('home.dont_save')}}",
+                confirmButtonText: "{{ __('home.save') }}",
+                denyButtonText: "{{ __('home.dont_save') }}",
             }).then((result) => {
 
                 if (result.isConfirmed) {
 
-                    
+
                     let formData = new FormData($('#postFormUpdate{{ $post->id }}')[0]);
                     $.ajax({
                         type: "POST",
@@ -204,27 +209,18 @@
                         processData: false,
                         success: function(response) {
                             if (response.status == true) {
-                                Swal.fire(
-                                    response.done,
-                                    response.msg,
-                                    'success'
-                                )
+                                Swal.fire({
+                                    title: response.done,
+                                    text: response.msg,
+                                    icon: 'success',
+                                    confirmButtonText: "{{ __('home.ok') }}",
 
-                                $(".close span").click();
 
-                                $('#title_{{ app()->getLocale() }}_row').text(
-                                    response.title);
-                                $('#description_{{ app()->getLocale() }}_row')
-                                    .text(response
-                                        .description);
-                                $('#category_row').text(response.category)
-                                if (response.image != "") {
-                                    var imageSource =
-                                        '{{ asset('uploads/images') }}';
-                                    $('#image_row').attr('src', imageSource + '/' +
-                                        response.image);
-                                }
-
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                })
 
                             } else if (response.status == false) {
                                 Swal.fire(
@@ -251,9 +247,7 @@
                 }
             })
 
-
         })
-
 
     });
 </script>

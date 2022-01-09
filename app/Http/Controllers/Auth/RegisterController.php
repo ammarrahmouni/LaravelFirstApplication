@@ -90,12 +90,12 @@ class RegisterController extends Controller
         }
 
         return User::create([
-            'name' => $data['name'],
+            'name' => filter_var($data['name'], FILTER_SANITIZE_STRING),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'image' => $path,
-            'phone' => $data['phone'],
-            'address' => $data['address'],
+            'phone' => filter_var($data['phone'], FILTER_SANITIZE_STRING),
+            'address' => filter_var($data['address'], FILTER_SANITIZE_STRING),
         ]);
     }
 

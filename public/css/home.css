@@ -10,6 +10,31 @@
     flex-direction: column;
     align-items: flex-start;
 }
+.card-right-side{
+    align-items: flex-end;
+}
+.card-right-side small:first-of-type{
+    margin-bottom: 10px;
+}
+.card-right-side small:last-of-type{
+    font-size: 18px;
+    padding: 18px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    position: relative;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.card-right-side small:last-of-type i{
+    color: #68b825;
+    position: absolute;
+    top: 8px;
+    right: 8px; 
+}
+.card-right-side small:last-of-type:hover{
+    background-color: #3a3b3c31;
+}
 .like-count{
     padding: 15px 15px 5px;
     color: #000;
@@ -17,14 +42,25 @@
 .btn-like{
     padding: 15px;
     cursor: pointer;
-    color: teal;
+    text-align: center;
     -webkit-user-select: none; 
     -ms-user-select: none; 
     user-select: none; 
 }
+.btn-like button{
+    font-size: 20px;
+    border: 1px solid #00F;
+    background-color: #FFF;
+    color: #00F;
+    border-radius: 10px;
+}
+#like-icon{
+    font-size: 20px;
+}
 
 .btn-like-active{
-    color: #476DDA;
+    color: #FFF !important;
+    background-color: #2E59D9 !important;
     font-weight: bold;
 }
 
@@ -52,7 +88,6 @@
 }
 .add-post-field {
     color: #000;
-    font-weight: 700;
     background-color: #F0F0F0;
     flex-grow: .8;
     font-size: 18px;

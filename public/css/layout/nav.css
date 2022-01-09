@@ -6,6 +6,16 @@
     height: 3.375rem !important;
     color: #3a3b45 !important;
 }
+.navbar{
+    background-color: #343A3F !important;
+}
+.nav-link, .nav-user-name, #sidebarToggleTop{
+    color: #FFF;
+}
+#sidebarToggleTop:hover, .nav-link:hover, .nav-user-name:hover{
+    color: #40de7b;
+}
+
 #messagesDropdown img {
     width: 30px;
     height: 30px;

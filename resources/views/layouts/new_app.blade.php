@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}" lang="{{app()->getLocale()}}">
+<html dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}" lang="{{ app()->getLocale() }}">
 
 <head>
     <meta charset="UTF-8">
@@ -26,7 +26,7 @@
 
         </style>
     @else
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
         <style>
             body,
             html {
@@ -64,10 +64,19 @@
 
     @yield('content')
 
+    @if (Session::has('dont_have_premission'))
+        <script>
+            swal("{{ __('home.error') }}", "{!! Session::get('dont_have_premission') !!}", "error", {
+                button: "{{ __('home.ok') }}"
+            })
+        </script>
+    @endif
+
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
+
 
 
     {{-- Bootstrap Files --}}

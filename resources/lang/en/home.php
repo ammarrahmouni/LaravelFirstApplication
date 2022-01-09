@@ -92,4 +92,5 @@ return [
     'save'                  => 'Save',
     'dont_save'             => 'Don\'t save',
     'what_think'            => 'What\'s on your mind?',
+    'success_login'         => 'Signed in successfully'
 ];  

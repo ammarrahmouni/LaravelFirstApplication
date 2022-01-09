@@ -10,6 +10,7 @@ use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\PostUpdateRequest;
+use App\Models\Like;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -21,33 +22,46 @@ class PostController extends MainController
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except(['gusetUser']);
+        $this->middleware(['auth', 'verified'])->except(['gusetUser', 'specificCategory']);
     }
 
-    public function fetchPost(){
-        $posts = Post::with(['users' => function($q){
-            $q->select('id', 'name', 'image');
-        }, 'categoryes' => function($q){
-            $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->get();
-        return response()->json([
-            'posts' => $posts,
-        ]);
-    }
 
-    public function gusetUser()
+    public function gusetUser(Request $request)
     {
         $posts = Post::with(['users' => function ($q) {
             $q->select('id', 'name', 'image');
         }, 'categoryes' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->get();
+        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->paginate(POST_NUMBER);
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+
+        if($request->ajax()){
+            return [
+                'posts' => view('post.post', compact('posts'))->render(),
+                'next_page' => $posts->nextPageUrl(),
+            ];
+        }
 
         return view('user.gust_user', compact('posts', 'categories'));
     }
 
+    public function showPost($user_id)
+    {
+        if ($user_id == Auth::user()->id) {
+            $posts = Post::with(['categoryes' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . ' as name');
+            }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->orderBy('created_at')->paginate(POST_NUMBER);
+            $this->data['posts'] = $posts;
+
+            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+
+
+            return view('post.view_post', $this->data, compact('categories'));
+        } else {
+            return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
+        }
+    }
 
     public function savePost(PostRequest $request, $user_id)
     {
@@ -77,13 +91,10 @@ class PostController extends MainController
                 $title = 'title_' .  $arrayOfLang[$i];
                 $description = 'description_' . $arrayOfLang[$i];
 
-                $filter_title = filter_var($title, FILTER_SANITIZE_STRING);
-                $filter_description = filter_var($description, FILTER_SANITIZE_STRING);
-
                 $post->fill([
                     $arrayOfLang[$i] => [
-                        'title' => $request->$filter_title,
-                        'description' => $request->$filter_description
+                        'title' => filter_var($request->$title, FILTER_SANITIZE_STRING),
+                        'description' => filter_var($request->$description, FILTER_SANITIZE_STRING)
                     ],
                 ]);
             }
@@ -108,41 +119,8 @@ class PostController extends MainController
         }
     }
 
-    public function showPost($user_id)
-    {
-        if ($user_id == Auth::user()->id) {
-            $posts = Post::with(['categoryes' => function ($q) {
-                $q->select('id', 'name_' . app()->getLocale() . ' as name');
-            }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->paginate(POST_NUMBER);
-            $this->data['posts'] = $posts;
-
-            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-            return view('post.view_post', $this->data, compact('categories'));
-        } else {
-            return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
-        }
-    }
-
-    // public function editPost($post_id, $user_id)
-    // {
-    //     if($user_id == Auth::user()->id){
-    //         $post = Post::with(['categoryes' => function ($q) {
-    //             $q->select('id', 'name_' . app()->getLocale() . ' as name');
-    //         }])->findOrFail($post_id);
-    //         // dd($posts->categoryes);
-    //         $categoryId = $post->categoryes_id;
-
-    //         dd($post->categoryes->id);
-    //         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
 
-    //         return view('post.edit_post', compact('post', 'categories'));
-    //     }
-    //     else{
-    //         return __('home.dont_have_premission');
-    //     }
-
-    // }
 
     public function updatePost(PostUpdateRequest $request, $post_id, $user_id)
     {
@@ -163,23 +141,18 @@ class PostController extends MainController
             // add foreach to language key
             $arrayOfLang = config('translatable.locales');
             $arrayLangLength = count($arrayOfLang);
-            $arrayOfUpdateData = [];
+      
 
             for ($i = 0; $i < $arrayLangLength; $i++) {
 
                 $title = 'title_' .  $arrayOfLang[$i];
                 $description = 'description_' . $arrayOfLang[$i];
 
-                $filter_title = filter_var($title, FILTER_SANITIZE_STRING);
-                $filter_description = filter_var($description, FILTER_SANITIZE_STRING);
-
-                $arrayOfUpdateData[$title] = $request->$filter_title;
-                $arrayOfUpdateData[$description] = $request->$filter_description;
 
                 $post->update([
                     $arrayOfLang[$i] => [
-                        'title' => $request->$filter_title,
-                        'description' => $request->$filter_description
+                        'title' => filter_var($request->$title, FILTER_SANITIZE_STRING),
+                        'description' => filter_var($request->$description, FILTER_SANITIZE_STRING)
                     ],
                 ]);
             }
@@ -196,10 +169,6 @@ class PostController extends MainController
                 'status' => true,
                 'msg' => __('home.update_post'),
                 'done' => __('home.done'),
-                'title' => $arrayOfUpdateData['title_' . app()->getLocale()],
-                'description' => $arrayOfUpdateData['description_' . app()->getLocale()],
-                'category' => $category->name,
-                'image' => $path,
             ]);
         } else {
             return response()->json([
@@ -212,36 +181,77 @@ class PostController extends MainController
     public function deletePost($post_id)
     {
 
-
         $post = Post::findOrFail($post_id);
 
         $post->delete();
-        return redirect()->back()->with('delete_post', __('home.delete_done'));
+
+        return response()->json([
+            'status' => true,
+            'msg' => __('home.delete_done'),
+            'done' => __('home.done'),
+        ]);
     }
 
-    public function specificCategory($category_id)
+    public function specificCategory(Request $request, $category_id)
     {
         $categories = Category::findOrFail($category_id);
         if ($categories) {
             $posts = Post::with(['categoryes' => function ($q) {
                 $q->select('id', 'name_' . app()->getLocale() . " as name");
-            }])->where('category_id', $category_id)->latest()->get();
+            }])->where('category_id', $category_id)->latest()->paginate(POST_NUMBER);
 
             $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+
+
+            if($request->ajax()){
+                return [
+                    'posts' => view('post.post', compact('posts'))->render(),
+                    'next_page' => $posts->nextPageUrl(),
+                ];
+            }
+
             return view('post.specific_post', compact('posts', 'categories'));
         }
-
     }
 
-    public function allCategory()
+    public function likePost($user_id, $post_id)
     {
-        $posts = Post::with(['categoryes' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . " as name");
-        }])->latest()->get();
+        $likes = new Like();
 
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+        if($user_id == Auth::user()->id){
+            $likes->user_id = $user_id;
+            $likes->post_id = $post_id;
+            $likes->like_post = 1;
+    
+            $likes->save();
+    
+            $likes_count = Like::where('post_id' , $post_id)->count();
+            return response()->json([
+                'like_count' => $likes_count,
+            ]);
+        }else{
+            return redirect()->back();
+        }
 
-        return view('post.specific_post', compact('posts', 'categories'));
+
     }
 
+    public function dislikePost($user_id, $post_id)
+    {
+
+        if($user_id == Auth::user()->id){
+            $likes = Like::where([
+                ['user_id', $user_id],
+                ['post_id', $post_id]
+            ])->delete();
+        }else{
+            return redirect()->back();
+        }
+
+        $likes_count = Like::where('post_id' , $post_id)->count();
+        return response()->json([
+            'like_count' => $likes_count,
+        ]);
+
+    }
 }

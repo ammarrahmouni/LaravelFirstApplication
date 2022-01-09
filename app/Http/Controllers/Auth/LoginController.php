@@ -85,7 +85,12 @@ class LoginController extends Controller
         if($request->has('remember')){
             Cookie::queue('user', $request->email, 1440);
             Cookie::queue('password', $request->password, 1440);
+           
         }
+
+        return redirect()->intended($this->redirectPath())->with('success_login', __('home.success_login'));
+
+
     }
 
 
