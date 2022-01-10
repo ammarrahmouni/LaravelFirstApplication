@@ -6,16 +6,24 @@
     height: 3.375rem !important;
     color: #3a3b45 !important;
 }
-.navbar{
-    background-color: #343A3F !important;
-}
-.nav-link, .nav-user-name, #sidebarToggleTop{
-    color: #FFF;
-}
-#sidebarToggleTop:hover, .nav-link:hover, .nav-user-name:hover{
-    color: #40de7b;
-}
 
+.nav-user-name, #sidebarToggleTop, #alertsDropdown i{
+    color: #000 !important;
+}
+/* #sidebarToggleTop:hover, .nav-link:hover, .nav-user-name:hover, #alertsDropdown i:hover{
+    color: #2E59D9 !important;
+}  */
+.nav-guset-user a{
+    color: #000 !important;
+    font-weight: bold;
+}
+.nav-guset-user a:hover{
+    color: #2E59D9 !important;
+
+}
+input[name="search_post"]{
+    border: 1px solid #4e73df !important;
+}
 #messagesDropdown img {
     width: 30px;
     height: 30px;

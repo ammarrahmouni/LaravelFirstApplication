@@ -49,6 +49,6 @@ return [
     'update_not_done'   => 'Error, Update Not Done, Please Try Again Later',
     'update_done'       => 'Your Information Successfully Updated',
     'user_cant_found'   => 'Error! User Can\'t  Found',
-    'img_updated'       => 'Image Updated Successfully'
+    'img_updated'       => 'Image Updated Successfully',
 
 ];

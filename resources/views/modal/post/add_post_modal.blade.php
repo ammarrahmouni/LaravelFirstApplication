@@ -22,7 +22,7 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img class="rounded " width="300" height="300" id="display-img" />
+                            <img class="rounded " width="500" height="300" id="display-img" />
 
                             <br>
 
@@ -58,7 +58,7 @@
 
 
 
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs" >
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">English</a>
                             </li>

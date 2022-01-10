@@ -2,27 +2,31 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
 use App\Models\Post;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\PostTranslation;
 use App\Http\Requests\PostRequest;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\MainController;
 use App\Http\Requests\PostUpdateRequest;
-use App\Models\Like;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Symfony\Component\Console\Input\Input;
 
 
 
 
 class PostController extends MainController
 {
+
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except(['gusetUser', 'specificCategory']);
+        $this->middleware(['auth', 'verified'])->except(['gusetUser', 'specificCategory', 'searchPost']);
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+        $this->data_category['categories'] = $categories;
     }
 
 
@@ -32,9 +36,7 @@ class PostController extends MainController
             $q->select('id', 'name', 'image');
         }, 'categoryes' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->paginate(POST_NUMBER);
-
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
         if($request->ajax()){
             return [
@@ -43,7 +45,7 @@ class PostController extends MainController
             ];
         }
 
-        return view('user.gust_user', compact('posts', 'categories'));
+        return view('home', compact('posts'), $this->data_category);
     }
 
     public function showPost($user_id)
@@ -54,10 +56,7 @@ class PostController extends MainController
             }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->orderBy('created_at')->paginate(POST_NUMBER);
             $this->data['posts'] = $posts;
 
-            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-
-
-            return view('post.view_post', $this->data, compact('categories'));
+            return view('post.view_post', $this->data, $this->data_category);
         } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
         }
@@ -162,9 +161,6 @@ class PostController extends MainController
                 'category_id'   => $request->category,
             ]);
 
-            $category = Category::select('id', 'name_' . app()->getLocale() . ' as name')->findOrFail($request->category);
-
-
             return response()->json([
                 'status' => true,
                 'msg' => __('home.update_post'),
@@ -200,9 +196,6 @@ class PostController extends MainController
                 $q->select('id', 'name_' . app()->getLocale() . " as name");
             }])->where('category_id', $category_id)->latest()->paginate(POST_NUMBER);
 
-            $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-
-
             if($request->ajax()){
                 return [
                     'posts' => view('post.post', compact('posts'))->render(),
@@ -210,7 +203,7 @@ class PostController extends MainController
                 ];
             }
 
-            return view('post.specific_post', compact('posts', 'categories'));
+            return view('post.specific_post', compact('posts',), $this->data_category);
         }
     }
 
@@ -253,5 +246,24 @@ class PostController extends MainController
             'like_count' => $likes_count,
         ]);
 
+    }
+
+    public function searchPost(){
+
+        $posts = Post::with(['users' => function ($q) {
+            $q->select('id', 'name', 'image');
+        }, 'categoryes' => function ($q) {
+            $q->select('id', 'name_' . app()->getLocale() . ' as name');
+        }, 'postTranslations' => function($q){
+            $q->where([
+                ['locale', app()->getLocale()],
+                ['title', 'like', '%' . filter_var($_GET['search_post'], FILTER_SANITIZE_STRING) . '%']
+            ])->orWhere([
+                ['locale', app()->getLocale()],
+                ['description', 'like', '%' . filter_var($_GET['search_post'], FILTER_SANITIZE_STRING) . '%']
+            ]);
+        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->get();
+
+        return view('post.search', compact('posts'), $this->data_category);
     }
 }

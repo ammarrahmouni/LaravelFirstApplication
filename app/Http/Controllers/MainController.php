@@ -12,6 +12,8 @@ define("POST_NUMBER", 3);
 class MainController extends Controller
 {
     public $data = [];
+    public $data_category = [];
+
     /**
      * Create a new controller instance.
      *
@@ -19,7 +21,7 @@ class MainController extends Controller
      */
     public function __construct()
     {
-        
+
     }
 
 

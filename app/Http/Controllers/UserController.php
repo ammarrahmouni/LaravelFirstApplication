@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserUpdateRequest;
+use App\Models\Like;
 use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
 
@@ -16,15 +17,18 @@ class UserController extends MainController
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+        $this->data_category['categories'] = $categories;
     }
 
     public function myProfile($user_id)
     {
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-
         if ($user_id == Auth::user()->id) {
             $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
-            return view('user.user_profile', compact('categories', 'posts'));
+            // $likes = Post::where('user_id', $user_id)->with(['likes', function($query){
+            //     $query->where('post_id', );
+            // }])->paginate(POST_NUMBER);
+            return view('user.user_profile', compact('posts'), $this->data_category);
         } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
         }
@@ -90,6 +94,20 @@ class UserController extends MainController
                 'status' => false,
                 'msg' => $validate->errors()->all(),
             ]);
+        }
+    }
+
+    public function visitUserProfile($user_id){
+
+        $user = User::select('id', 'name', 'email', 'phone', 'address', 'image')->findOrFail($user_id);
+        $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
+
+
+        if($user_id == Auth::user()->id){
+            return view('user.user_profile', compact('posts'), $this->data_category);
+
+        }else{
+            return view('user.visit_user_profile', compact('user', 'posts'));
         }
     }
 }

@@ -31,8 +31,6 @@ Route::get('/', [PostController::class, 'gusetUser'])->name('guset.user');
 
 Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
 
-    // Route::get('/add-post', [PostController::class, 'addPost'])->name('add.post');
-
     Route::post('/save-post/{user_id}', [PostController::class, 'savePost'])->name('save.post');
 
     Route::get('/show-post/{user_id}', [PostController::class, 'showPost'])->name('show.post');
@@ -43,6 +41,10 @@ Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
 });
 
 Route::get('category/{category_id}', [PostController::class, 'specificCategory'])->name('category.post');
+
+Route::get('search', [PostController::class, 'searchPost'])->name('search.post');
+
+Route::get('user-profile/{user_id}', [UserController::class, 'visitUserProfile'])->name('visit.user.profile');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 

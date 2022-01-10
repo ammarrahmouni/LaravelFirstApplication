@@ -27,4 +27,8 @@ class Post extends Model implements TranslatableContract
     public function postTranslations(){
         return $this->hasMany(PostTranslation::class, 'post_id');
     }
+
+    public function likes(){
+        return $this->hasMany(Like::class, 'post_id');
+    }
 }

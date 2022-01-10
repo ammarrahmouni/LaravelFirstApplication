@@ -33,7 +33,7 @@ return [
     'description'       => 'Description',
     'category_type'     => 'Category Type',
     'created_at'        => 'Creation Date',
-    'operation'         => 'Operations',
+    'operation'         => 'Actions',
     'update'            => 'Update',
     'delete'            => 'Delete',
     'edit_post'         => 'Edit Post',
@@ -92,5 +92,9 @@ return [
     'save'                  => 'Save',
     'dont_save'             => 'Don\'t save',
     'what_think'            => 'What\'s on your mind?',
-    'success_login'         => 'Signed in successfully'
+    'success_login'         => 'Signed in successfully',
+    'total_like'            => 'Total Like',
+    'like'                  => 'Like',
+    'edit'                  => 'Edit',
+    'cancel'                => 'Cancel',
 ];  

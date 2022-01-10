@@ -12,7 +12,7 @@
         }
         ?> "
             id="like-post{{ $post->id }}">
-            <span id="like-icon"> <i class="far fa-thumbs-up"></i> </span> Like
+            <span id="like-icon"> <i class="far fa-thumbs-up"></i> </span> {{__('home.like')}}
         </button>
     </form>
     <script>

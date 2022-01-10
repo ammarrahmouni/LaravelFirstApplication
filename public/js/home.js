@@ -27,7 +27,6 @@
     var direction = $('html').attr('dir');
 
     if(direction == 'rtl'){
-        $('body, html').css("font-family", " 'Cairo', sans-serif");
         $('#language-menu').removeClass('mr-auto').addClass('ms-auto');
         $('#login-menu').css({
             'margin-left': '120px',

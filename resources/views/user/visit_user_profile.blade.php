@@ -5,12 +5,11 @@
     <link rel="stylesheet" href="{{ asset('css/user/user_details.css') }}">
     <title>{{ __('home.profile') }}</title>
     @include('layouts.login_header')
-
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+        
 @endsection
-
 
 @section('content')
 
@@ -24,7 +23,7 @@
                 <div id="content">
                     @include('layouts.nav')
                     <div class="container-fluid">
-                        @include('user.user_details')
+                        @include('user.visit_user_details')
                     </div>
                 </div>
                 @include('layouts.footer')

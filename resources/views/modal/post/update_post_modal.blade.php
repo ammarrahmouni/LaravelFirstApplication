@@ -19,7 +19,7 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img class="rounded " width="300" height="300"
+                            <img class="rounded " width="500" height="300"
                                 id="dispaly-img-update{{ $post->id }}"
                                 src="{{ asset('uploads/images/' . $post->image) }}" />
 
@@ -195,6 +195,7 @@
                 showCancelButton: true,
                 confirmButtonText: "{{ __('home.save') }}",
                 denyButtonText: "{{ __('home.dont_save') }}",
+                cancelButtonText: "{{__('home.cancel')}}",
             }).then((result) => {
 
                 if (result.isConfirmed) {

@@ -19,6 +19,8 @@ class HomeController extends MainController
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+        $this->data_category['categories'] = $categories;
     }
 
     /**
@@ -34,8 +36,6 @@ class HomeController extends MainController
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
-        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
-
 
         if($request->ajax()){
             return [
@@ -44,7 +44,7 @@ class HomeController extends MainController
             ];
         }
 
-        return view('home', compact('posts', 'categories'));
+        return view('home', compact('posts'), $this->data_category);
     }
 
 
