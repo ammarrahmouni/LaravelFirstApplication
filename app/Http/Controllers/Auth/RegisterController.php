@@ -89,7 +89,7 @@ class RegisterController extends Controller
             request()->file('image')->move('uploads/images', $path);
         }
 
-        return User::create([
+        $user = User::create([
             'name' => filter_var($data['name'], FILTER_SANITIZE_STRING),
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
@@ -97,6 +97,9 @@ class RegisterController extends Controller
             'phone' => filter_var($data['phone'], FILTER_SANITIZE_STRING),
             'address' => filter_var($data['address'], FILTER_SANITIZE_STRING),
         ]);
+        
+        auth()->logout();
+        return $user;
     }
 
     public function showRegistrationForm()

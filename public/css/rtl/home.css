@@ -1,0 +1,139 @@
+/* Start Navbar And Sidebar */
+.sidebar-heading {
+    display: flex !important;
+}
+@media (min-width: 768px) {
+    .sidebar.toggled .nav-item .collapse {
+        right: calc(6.5rem + 1.5rem / 2) !important;
+    }
+
+}
+@media (max-width: 576px) {
+    .topbar #sidebarToggleTop {
+        left: 66% !important;
+    }
+    .nav-guset-user{
+        font-size: 10px !important;
+    }
+    .sidebar .nav-item .collapse {
+        right: calc(6rem + 1.5rem / 2) !important;
+
+    }
+}
+#content .navbar-expand {
+    justify-content: space-between !important;
+}
+.input-group > .input-group-append > .btn {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+
+    border-top-left-radius: 5px !important;
+    border-bottom-left-radius: 5px !important;
+}
+.lang-flag a::before {
+    margin-left: 15px;
+}
+#userDropdown span:first-of-type {
+    margin-left: 15px;
+}
+@media (min-width: 768px) {
+    .sidebar .nav-item .nav-link[data-toggle="collapse"].collapsed::after {
+        content: "\f104" !important;
+    }
+}
+
+.nav-link {
+    display: flex !important;
+    padding-right: 6px !important;
+}
+.nav-link i {
+    margin-left: 6px !important;
+}
+.list-group a {
+    display: flex;
+}
+.sidebar #sidebarToggle::after {
+    content: "\f105" !important;
+}
+.sidebar.toggled #sidebarToggle::after {
+    content: "\f104" !important;
+}
+.dropdown-menu .dropdown-item {
+    display: flex !important;
+    justify-content: flex-start !important;
+    padding-right: 2px !important;
+}
+.dropdown-item i {
+    margin-left: 7px !important;
+}
+/* End Navbar And Sidebar */
+
+/* Start Home Page */
+.swal2-top-end{
+    left: 0 !important;
+    right: auto !important;
+}
+
+.card-body{
+    word-break: keep-all !important;
+    text-align: right !important;
+
+}
+/* End Home Page */
+
+/* Start Post */
+.like-count span:first-of-type{
+    margin-left: 5px !important;
+}
+.add-post-field {
+    padding-right: 15px !important;
+}
+.post-user-header {
+    margin-right: 10px;
+}
+.like-count {
+    display: flex;
+}
+.show-trim, .hide-trim{
+    display: flex;
+}
+/* End Post */
+
+/* Start Scroll To Top */
+.scroll-to-top {
+    right: auto !important;
+    left: 1rem !important;
+    /* right: 90% !important; */
+}
+/* End Scroll To Top */
+
+/* Start Login And Register */
+input {
+    direction: rtl !important;
+}
+/* Start Login And Register */
+
+/* Start Add Post  Modal */
+strong{
+    display: flex !important;
+}
+label {
+    display: flex !important;
+}
+.swal2-checkbox input[type="checkbox"] {
+    display: none;
+}
+.modal-delete-body {
+    display: flex !important;
+}
+/* End Add Post  Modal */
+
+/* Start Profile Page */
+.user-content div div {
+    justify-content: space-between !important;
+}
+.user-content div div span:first-of-type {
+    width: auto !important;
+}
+
+/* End Profile Page */

@@ -36,15 +36,16 @@ class HomeController extends MainController
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
         if($request->ajax()){
             return [
-                'posts' => view('post.post', compact('posts'))->render(),
+                'posts' => view('post.post', compact('posts', 'categories'))->render(),
                 'next_page' => $posts->nextPageUrl(),
             ];
         }
 
-        return view('home', compact('posts'), $this->data_category);
+        return view('home', compact('posts', 'categories') );
     }
 
 

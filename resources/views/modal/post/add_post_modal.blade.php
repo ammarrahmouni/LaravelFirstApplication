@@ -22,12 +22,12 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img class="rounded " width="500" height="300" id="display-img" />
+                            <img class="rounded img-thumbnail" width="500" height="300" id="display-img" />
 
                             <br>
 
                             <div class="custom-file">
-                                <input accept="image/jpeg,jpg,png" name="image" type="file" class="custom-file-input "
+                                <input accept="image/*" name="image" type="file" class="custom-file-input "
                                     id="image">
                                 <label class="custom-file-label custom-file-label-post"
                                     for="inputGroupFile01">{{ __('home.choose_img') }}</label>
@@ -58,16 +58,17 @@
 
 
 
-                        <ul class="nav nav-tabs" >
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">English</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link " href="#">العربية</a>
+                        <ul class="nav nav-tabs nav-lang-flag" >
+                            <li class="nav-item ">
+                                <a class="nav-link active " id="test" aria-current="page" href="#">English</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link " href="#">Türkçe</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#">العربية</a>
+                            </li>
+
 
                         </ul>
 
@@ -158,6 +159,10 @@
 
 <script>
     $(document).ready(function() {
+
+        $('.nav-lang-flag .nav-item a').on('click', function(e){
+            e.preventDefault();
+        })
 
         $('#btn-add-post').on('click', function(e) {
 

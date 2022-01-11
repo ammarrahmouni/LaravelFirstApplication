@@ -82,6 +82,12 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
+        if(!$user->hasVerifiedEmail()){
+            auth()->logout();
+            return view('login.new_verify');
+        }
+
+        
         if($request->has('remember')){
             Cookie::queue('user', $request->email, 1440);
             Cookie::queue('password', $request->password, 1440);

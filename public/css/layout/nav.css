@@ -1,5 +1,7 @@
-#langDropdown {
-    width: 10rem !important;
+@media (min-width: 1200px) {
+    #langDropdown {
+        width: 10rem !important;
+    }
 }
 
 .lang-flag a {
@@ -7,21 +9,22 @@
     color: #3a3b45 !important;
 }
 
-.nav-user-name, #sidebarToggleTop, #alertsDropdown i{
+.nav-user-name,
+#sidebarToggleTop,
+#alertsDropdown i {
     color: #000 !important;
 }
 /* #sidebarToggleTop:hover, .nav-link:hover, .nav-user-name:hover, #alertsDropdown i:hover{
     color: #2E59D9 !important;
 }  */
-.nav-guset-user a{
+.nav-guset-user a {
     color: #000 !important;
     font-weight: bold;
 }
-.nav-guset-user a:hover{
-    color: #2E59D9 !important;
-
+.nav-guset-user a:hover {
+    color: #2e59d9 !important;
 }
-input[name="search_post"]{
+input[name="search_post"] {
     border: 1px solid #4e73df !important;
 }
 #messagesDropdown img {
@@ -69,7 +72,7 @@ input[name="search_post"]{
 .sidebar {
     transition: 0.5s !important;
 }
-#logo-nav{
+#logo-nav {
     width: 100px;
     height: 100px;
     margin-bottom: -80px;
@@ -79,3 +82,4 @@ input[name="search_post"]{
         box-shadow: none !important;
     }
 }
+

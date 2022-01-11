@@ -1,5 +1,5 @@
-@if (isset($posts) && $posts->count() > 0)
-    @foreach ($posts as $post)
+@if (isset($postst) && $postst->count() > 0)
+    @foreach ($postst as $post)
 
         @auth
             @include('modal.post.update_post_modal')
@@ -79,7 +79,7 @@
 
 
         <div class="p-2">
-            <div class="card-body">
+            <div class="card-body" style="word-break: break-all">
                 <h5 class="card-title">
                     {{ $post->translate(app()->getLocale())->title }}
                 </h5>
@@ -103,6 +103,7 @@
 
 
                         $(document).on('click', '#show_trim_{{ $post->id }}', function() {
+                            console.log(oldText);
                             $(this).parent().html(oldText + " " +
                                 "<span class='hide-trim' id='hide_trime_{{ $post->id }}'>{{ __('home.read_less') }}</span>"
                             );

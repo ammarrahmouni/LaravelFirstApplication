@@ -3850,12 +3850,17 @@ input[type="button"].btn-block {
 :lang(ar) .custom-file-label::after{
   content: "إستعراض" !important;
   left: 0 !important;
-  right: 82%;
+  right: 88%;
+}
+:lang(ar) .custom-label::after{
+  content: "إستعراض" !important;
+  left: 0 !important;
+  right: 82% !important;
 }
 
 
 :lang(tr) .custom-file-label::after{
-  content: "Göz Alt" !important;
+  content: "Gözat" !important;
 }
 
 .custom-range {
@@ -5807,10 +5812,10 @@ a.close.disabled {
   border-top-right-radius: calc(0.3rem - 1px);
 }
 
-.modal-header .close {
+/* .modal-header .close {
   padding: 1rem 1rem;
   margin: -1rem -1rem -1rem auto;
-}
+} */
 
 .modal-title {
   margin-bottom: 0;
@@ -10197,8 +10202,8 @@ a:focus {
 
 .sidebar .nav-item .nav-link .img-profile,
 .topbar .nav-item .nav-link .img-profile {
-  height: 2rem;
-  width: 2rem;
+  height: 3rem;
+  width: 3rem;
 }
 .sidebar{
   background-color: #000;

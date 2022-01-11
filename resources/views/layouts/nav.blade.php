@@ -7,10 +7,11 @@
 
 
     <!-- Topbar Search -->
-    <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
-        action="{{ route('search.post') }}">
+    <form class="d-none d-sm-inline-block form-inline  ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+        action="{{ route('search.post') }}" method="get">
+        <input type="hidden" value="{{request()->category_id}}" name="category_id" />
         <div class="input-group">
-            <input type="text" name="search_post" class="form-control bg-light border-0 small"
+            <input type="text" name="search_post" class="form-control bg-light border-0 small" value="{{request()->query('search_post')}}"
                 placeholder="{{ __('home.search') }}" aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">
@@ -109,13 +110,13 @@
 
         @else
 
-            <!-- Nav Item - Alerts -->
+            <!-- Nav Item - Alerts 
             <li class="nav-item dropdown no-arrow mx-1">
                 <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-bell fa-fw"></i>
                     <!-- Counter - Alerts -->
-                    {{-- <span class="badge badge-danger badge-counter">3+</span> --}}
+                    {{-- <span class="badge badge-danger badge-counter">3+</span> 
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -132,12 +133,12 @@
                         <div>
                             <div class="small text-gray-500">December 12, 2019</div>
                             <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                        </div> --}}
+                        </div> 
                     </a>
 
 
                 </div>
-            </li>
+            </li>--}}
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">

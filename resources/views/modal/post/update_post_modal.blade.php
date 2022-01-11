@@ -19,7 +19,7 @@
                     <div class="post-content">
 
                         <div class="image-field">
-                            <img class="rounded " width="500" height="300"
+                            <img class="rounded img-thumbnail" width="500" height="300"
                                 id="dispaly-img-update{{ $post->id }}"
                                 src="{{ asset('uploads/images/' . $post->image) }}" />
 
@@ -60,16 +60,17 @@
 
 
 
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs  nav-lang-flag">
                             <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="#">English</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link " href="#">العربية</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link " href="#">Türkçe</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link " href="#">العربية</a>
+                            </li>
+
 
                         </ul>
 
@@ -165,6 +166,10 @@
 
 <script>
     $(document).ready(function() {
+
+        $('.nav-lang-flag .nav-item a').on('click', function(e){
+            e.preventDefault();
+        })
 
         $('#image{{ $post->id }}').on("change", function() {
 

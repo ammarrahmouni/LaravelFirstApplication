@@ -40,7 +40,7 @@
                                                     <input accept="image/*" id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
                                                         name="image" required >
-                                                    <label id="label-input-img" class="custom-file-label"
+                                                    <label id="label-input-img" class="custom-file-label custom-label"
                                                         for="inputGroupFile01">
                                                         <span> {{ __('home.choose_img') }} </span>
                                                     </label>

@@ -16,8 +16,13 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     @if (App::isLocale('ar'))
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
+            integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous">
 
         <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500&display=swap" rel="stylesheet">
+        <!-- Option 1: Bootstrap Bundle with Popper -->
+
+        <link rel="stylesheet" href="{{ asset('css/rtl/home.css') }}">
         <style>
             body,
             html {
@@ -38,13 +43,9 @@
     @endif
 
 
-
-
-
     {{-- Our Css Files --}}
     <link rel="stylesheet" href="{{ asset('css/layout/nav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/layout/new_app.css') }}">
-
 
     {{-- sweetalert2 --}}
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -52,8 +53,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
         integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    {{-- <link rel="stylesheet" href="sweetalert2.min.css"> --}}
 
 
     @yield('title')
@@ -71,6 +70,35 @@
             })
         </script>
     @endif
+
+    @if (Session::has('search_not_empty'))
+        <script>
+            swal("{{ __('home.warning') }}", "{!! Session::get('search_not_empty') !!}", "warning", {
+                button: "{{ __('home.ok') }}"
+            })
+        </script>
+    @endif
+
+    @if (Session::has('success_login'))
+    <script>
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: "{{Session::get('success_login')}}"
+        })
+    </script>
+@endif
 
     <!-- Scroll to Top Button-->
     <a class="scroll-to-top rounded" href="#page-top">

@@ -16,7 +16,7 @@ class UserController extends MainController
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified']);
+        $this->middleware(['auth', 'verified'])->except('visitUserProfile');
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
         $this->data_category['categories'] = $categories;
     }
@@ -25,9 +25,6 @@ class UserController extends MainController
     {
         if ($user_id == Auth::user()->id) {
             $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
-            // $likes = Post::where('user_id', $user_id)->with(['likes', function($query){
-            //     $query->where('post_id', );
-            // }])->paginate(POST_NUMBER);
             return view('user.user_profile', compact('posts'), $this->data_category);
         } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
@@ -97,17 +94,20 @@ class UserController extends MainController
         }
     }
 
-    public function visitUserProfile($user_id){
+    public function visitUserProfile($user_id)
+    {
 
         $user = User::select('id', 'name', 'email', 'phone', 'address', 'image')->findOrFail($user_id);
         $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
 
-
-        if($user_id == Auth::user()->id){
-            return view('user.user_profile', compact('posts'), $this->data_category);
-
-        }else{
+        if (!Auth::check()) {
             return view('user.visit_user_profile', compact('user', 'posts'));
+        } else {
+            if ($user_id == Auth::user()->id) {
+                return view('user.user_profile', compact('posts'), $this->data_category);
+            } else {
+                return view('user.visit_user_profile', compact('user', 'posts'));
+            }
         }
     }
 }

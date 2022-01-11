@@ -1,12 +1,3 @@
-body, html{
-
-    /* font-family: 'Anton', sans-serif;
-    font-family: 'Dancing Script', cursive;
-    font-family: 'Lobster', cursive;
-    font-family: 'Reem Kufi', sans-serif;
-    font-family: 'Roboto', sans-serif; */
-}
-
 .swal-button-container{
     display: flex;
     justify-content: center;
@@ -18,4 +9,9 @@ body, html{
 .swal-button:not([disabled]):hover {
     background-color: #2e59d9;
     border-color: #2653d4;
+}
+
+::selection{
+    background-color: #333;
+    color: yellow;
 }

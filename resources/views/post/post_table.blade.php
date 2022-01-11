@@ -37,7 +37,7 @@
                             <tr>
                                 <td class="table-row" scope="row" id="title_{{ app()->getLocale() }}_row">
                                     {{ $post->translate(app()->getLocale())->title }}</td>
-                                <td class="table-row" scope="row" id="description_{{$post->id}}">
+                                <td class="table-row" scope="row" id="description_{{ $post->id }}">
                                     {{ $post->translate(app()->getLocale())->description }}</td>
 
                                 <td scope="row" id="category_row">
@@ -73,28 +73,30 @@
                             <script>
                                 $(document).ready(function() {
 
-                                 
-                                        if ( ($('#description_{{$post->id}}').text().length) > 70) {
-                                            
-                                            var oldText = $('#description_{{$post->id}}').text();
 
-                                            var newText = $('#description_{{$post->id}}').text().substr(0, 70);
-                                            $('#description_{{$post->id}}').html(newText + " " +
-                                                "<span class='show-trim' id='show_trim_{{$post->id}}'>{{ __('home.read_more') }}</span>");
+                                    if (($('#description_{{ $post->id }}').text().length) > 70) {
+
+                                        var oldText = $('#description_{{ $post->id }}').text();
+
+                                        var newText = $('#description_{{ $post->id }}').text().substr(0, 70);
+                                        $('#description_{{ $post->id }}').html(newText + " " +
+                                            "<span class='show-trim' id='show_trim_{{ $post->id }}'>{{ __('home.read_more') }}</span>"
+                                            );
 
 
-                                            $(document).on('click', '#show_trim_{{$post->id}}', function() {
-                                                console.log(oldText);
-                                                $(this).parent().html(oldText + " " +
-                                                    "<span class='hide-trim' id='hide_trime_{{$post->id}}'>{{ __('home.read_less') }}</span>");
-                                            });
+                                        $(document).on('click', '#show_trim_{{ $post->id }}', function() {
+                                            $(this).parent().html(oldText + " " +
+                                                "<span class='hide-trim' id='hide_trime_{{ $post->id }}'>{{ __('home.read_less') }}</span>"
+                                                );
+                                        });
 
-                                            $(document).on('click', '#hide_trime_{{$post->id}}', function() {
-                                                $(this).parent().html(newText + " " +
-                                                    "<span class='show-trim' id='show_trim_{{$post->id}}'>{{ __('home.read_more') }}</span>");
-                                            })
+                                        $(document).on('click', '#hide_trime_{{ $post->id }}', function() {
+                                            $(this).parent().html(newText + " " +
+                                                "<span class='show-trim' id='show_trim_{{ $post->id }}'>{{ __('home.read_more') }}</span>"
+                                                );
+                                        })
 
-                                        }
+                                    }
                                 });
                             </script>
 
@@ -107,10 +109,19 @@
 
             @if ($posts->total() > 0)
                 <div class="paginate-footer">
-                    {{ $posts->links() }}
-                    {{ __('home.show') }} {{ $posts->firstItem() }} {{ __('home.to') }}
-                    {{ $posts->lastItem() }}
-                    {{ __('home.of') }} {{ $posts->total() }} {{ __('home.entries') }}
+                    @if (app()->getLocale() == 'ar')
+                        {{ $posts->links() }}
+                        {{ __('home.show') }} {{ $posts->firstItem() }}
+                        {{ __('home.of') }}
+                        {{ $posts->lastItem() }}
+                        {{ __('home.to') }} {{ $posts->total() }} {{ __('home.entries') }}
+                    @else
+                        {{ $posts->links() }}
+                        {{ __('home.show') }} {{ $posts->firstItem() }}
+                        {{ __('home.to') }}
+                        {{ $posts->lastItem() }}
+                        {{ __('home.of') }} {{ $posts->total() }} {{ __('home.entries') }}
+                    @endif
                 </div>
             @endif
 

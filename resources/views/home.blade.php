@@ -14,29 +14,6 @@
 
 @section('content')
 
-
-    @if (Session::has('success_login'))
-        <script>
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
-
-            Toast.fire({
-                icon: 'success',
-                title: "{{Session::get('success_login')}}"
-            })
-        </script>
-    @endif
-
-
     <body id="page-top">
         <div id="wrapper">
             @include('layouts.sidebar')
@@ -76,11 +53,9 @@
 
         $(window).scroll(fetchPostsScrolling);
 
-
         function fetchPostsScrolling() {
             var page = $('.endless-pagination').data('next-page');
-            
-
+            console.log(page);
             if (page != null && page != '') {
                 clearTimeout($.data(this, "scrollCheeck"));
 
@@ -89,12 +64,13 @@
                         100;
 
                     if (scroll_poition_for_posts_load >= $(document).height()) {
-                        $.get(page, function(data) {
+                        $.get(page , function(data) {
                             $('.posts').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
+                           
                         });
                     }
-                }, 250));
+                }, 150));
             }
         }
     });

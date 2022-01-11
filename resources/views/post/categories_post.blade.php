@@ -9,7 +9,7 @@
 
 @if (isset($categories) && $categories->count() > 0)
     @foreach ($categories as $category)
-        <a href="{{ route('category.post', $category->id) }}"
+        <a href="{{ route('search.post', ['category_id' => $category->id]) }}"
             class="list-group-item list-group-item-action">{{ $category->name }} </a>
     @endforeach
 @endif

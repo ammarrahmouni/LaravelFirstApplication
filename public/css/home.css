@@ -5,10 +5,13 @@
     color: #000;
     font-weight: bold;
 }
+
 .card-body{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    word-break: break-all;
+    padding: 1rem !important;
 }
 .card-right-side{
     align-items: flex-end;
@@ -35,34 +38,7 @@
 .card-right-side small:last-of-type:hover{
     background-color: #3a3b3c31;
 }
-.like-count{
-    padding: 15px 15px 5px;
-    color: #000;
-}
-.btn-like{
-    padding: 15px;
-    cursor: pointer;
-    text-align: center;
-    -webkit-user-select: none; 
-    -ms-user-select: none; 
-    user-select: none; 
-}
-.btn-like button{
-    font-size: 20px;
-    border: 1px solid #00F;
-    background-color: #FFF;
-    color: #00F;
-    border-radius: 10px;
-}
-#like-icon{
-    font-size: 20px;
-}
 
-.btn-like-active{
-    color: #FFF !important;
-    background-color: #2E59D9 !important;
-    font-weight: bold;
-}
 
 .home-container{
     display: flex;
@@ -110,15 +86,55 @@
     }
 }
 
-
-
 .show-trim, .hide-trim{
     cursor: pointer;
     color: blue;
     text-decoration: underline;
 }
 
-::selection{
-    background-color: #333;
-    color: yellow;
+/* Start Like Button */
+.like-count{
+    padding: 15px 15px 5px;
+    color: #000;
 }
+.btn-like{
+    padding: 15px;
+    cursor: pointer;
+    text-align: center;
+    -webkit-user-select: none; 
+    -ms-user-select: none; 
+    user-select: none; 
+}
+.btn-like button{
+    font-size: 20px;
+    border: 1px solid #00F;
+    background-color: #FFF;
+    color: #00F;
+    border-radius: 10px;
+}
+#like-icon{
+    font-size: 20px;
+}
+
+.btn-like-active{
+    color: #FFF !important;
+    background-color: #2E59D9 !important;
+    font-weight: bold;
+}
+
+.swal-dislike-post .swal2-popup{
+    background-color: red;
+    color: #FFF;
+}
+.swal-dislike-post .swal2-success-circular-line-left,
+.swal-dislike-post .swal2-success-fix,
+.swal2-success-circular-line-right{
+    background-color: transparent;
+}
+.swal-dislike-post .swal2-icon.swal2-success .swal2-success-ring{
+    border: 0.25em solid rgb(255 255 255) !important;
+}
+.swal-dislike-post .swal2-icon.swal2-success [class^=swal2-success-line]{
+    background-color: #FFF !important;
+}
+/* End Like Button */

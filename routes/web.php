@@ -40,8 +40,6 @@ Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
     Route::post('/delete-post/{post_id}', [PostController::class, 'deletePost'])->name('delete.post');
 });
 
-Route::get('category/{category_id}', [PostController::class, 'specificCategory'])->name('category.post');
-
 Route::get('search', [PostController::class, 'searchPost'])->name('search.post');
 
 Route::get('user-profile/{user_id}', [UserController::class, 'visitUserProfile'])->name('visit.user.profile');

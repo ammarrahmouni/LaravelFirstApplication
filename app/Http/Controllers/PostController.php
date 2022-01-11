@@ -32,13 +32,17 @@ class PostController extends MainController
 
     public function gusetUser(Request $request)
     {
+        if (!empty($user = auth()->user()) && (!$user->hasVerifiedEmail())) {
+            auth()->logout();
+            return view('login.new_verify');
+        }
         $posts = Post::with(['users' => function ($q) {
             $q->select('id', 'name', 'image');
         }, 'categoryes' => function ($q) {
             $q->select('id', 'name_' . app()->getLocale() . ' as name');
         }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
-        if($request->ajax()){
+        if ($request->ajax()) {
             return [
                 'posts' => view('post.post', compact('posts'))->render(),
                 'next_page' => $posts->nextPageUrl(),
@@ -100,7 +104,7 @@ class PostController extends MainController
 
             $post->save();
 
-            $posts = Post::all();
+            $posts = Post::where('user_id', Auth::user()->id)->latest()->orderBy('created_at')->paginate(POST_NUMBER);;
 
             return response()->json([
                 'status' => true,
@@ -140,7 +144,7 @@ class PostController extends MainController
             // add foreach to language key
             $arrayOfLang = config('translatable.locales');
             $arrayLangLength = count($arrayOfLang);
-      
+
 
             for ($i = 0; $i < $arrayLangLength; $i++) {
 
@@ -178,9 +182,15 @@ class PostController extends MainController
     {
 
         $post = Post::findOrFail($post_id);
+        if ($post->user_id != auth()->user()->id) {
+            return response()->json([
+                'status' => false,
+                'msg' => __('home.dont_have_premission'),
+                'done' => __('home.error'),
+            ]);
+        }
 
         $post->delete();
-
         return response()->json([
             'status' => true,
             'msg' => __('home.delete_done'),
@@ -188,82 +198,117 @@ class PostController extends MainController
         ]);
     }
 
-    public function specificCategory(Request $request, $category_id)
-    {
-        $categories = Category::findOrFail($category_id);
-        if ($categories) {
-            $posts = Post::with(['categoryes' => function ($q) {
-                $q->select('id', 'name_' . app()->getLocale() . " as name");
-            }])->where('category_id', $category_id)->latest()->paginate(POST_NUMBER);
+    // public function specificCategory(Request $request, $category_id)
+    // {
+    //     $categories = Category::findOrFail($category_id);
+    //     if ($categories) {
+    //         $posts = Post::with(['categoryes' => function ($q) {
+    //             $q->select('id', 'name_' . app()->getLocale() . " as name");
+    //         }])->where('category_id', $category_id)->latest()->paginate(POST_NUMBER);
 
-            if($request->ajax()){
-                return [
-                    'posts' => view('post.post', compact('posts'))->render(),
-                    'next_page' => $posts->nextPageUrl(),
-                ];
-            }
+    //         if ($request->ajax()) {
+    //             return [
+    //                 'posts' => view('post.post', compact('posts'))->render(),
+    //                 'next_page' => $posts->nextPageUrl(),
+    //             ];
+    //         }
 
-            return view('post.specific_post', compact('posts',), $this->data_category);
-        }
-    }
+    //         return view('post.specific_post', compact('posts'), $this->data_category);
+    //     }
+    // }
 
     public function likePost($user_id, $post_id)
     {
         $likes = new Like();
 
-        if($user_id == Auth::user()->id){
+        if ($user_id == Auth::user()->id) {
             $likes->user_id = $user_id;
             $likes->post_id = $post_id;
             $likes->like_post = 1;
-    
+
             $likes->save();
-    
-            $likes_count = Like::where('post_id' , $post_id)->count();
+
+            $likes_count = Like::where('post_id', $post_id)->count();
             return response()->json([
                 'like_count' => $likes_count,
+                'status' => true,
+                'msg'   => __('home.like_post'),
             ]);
-        }else{
+        } else {
             return redirect()->back();
         }
-
-
     }
 
     public function dislikePost($user_id, $post_id)
     {
 
-        if($user_id == Auth::user()->id){
+        if ($user_id == Auth::user()->id) {
             $likes = Like::where([
                 ['user_id', $user_id],
                 ['post_id', $post_id]
             ])->delete();
-        }else{
+        } else {
             return redirect()->back();
         }
 
-        $likes_count = Like::where('post_id' , $post_id)->count();
+        $likes_count = Like::where('post_id', $post_id)->count();
         return response()->json([
             'like_count' => $likes_count,
+            'status' => true,
+            'msg'   => __('home.dislike_post'),
         ]);
-
     }
 
-    public function searchPost(){
+   /* public function searchPost(Request $request)
+    {
+
+        if ($request->search_post == "" && !$request->has('category_id') ) {
+            // if ($request->ajax()) {
+            //     return [
+            //         'posts' => "",
+            //         'next_page' => "",
+            //     ];
+            // }
+            return redirect()->back()->with('search_not_empty', __('home.search_not_empty'));
+            
+        }
 
         $posts = Post::with(['users' => function ($q) {
             $q->select('id', 'name', 'image');
-        }, 'categoryes' => function ($q) {
-            $q->select('id', 'name_' . app()->getLocale() . ' as name');
-        }, 'postTranslations' => function($q){
-            $q->where([
-                ['locale', app()->getLocale()],
-                ['title', 'like', '%' . filter_var($_GET['search_post'], FILTER_SANITIZE_STRING) . '%']
-            ])->orWhere([
-                ['locale', app()->getLocale()],
-                ['description', 'like', '%' . filter_var($_GET['search_post'], FILTER_SANITIZE_STRING) . '%']
-            ]);
-        }])->select('id', 'image', 'user_id', 'category_id', 'created_at')->get();
+        }, 'postTranslations'])
+            ->whereHas('translations', function ($q) use ($request) {
+                $q->when($request->search_post, function ($q, $searchPost) {
+                    $q->where(function ($q) use ($searchPost) {
+                        $q->where('title', 'LIKE', '%' . filter_var($searchPost, FILTER_SANITIZE_STRING) . '%')
+                            ->orWhere('description', 'LIKE', '%' . filter_var($searchPost, FILTER_SANITIZE_STRING) . '%');
+                    })->where('locale', app()->getLocale());
+                });
+            })
+            ->with(['categoryes' => function ($q) {
+                $q->select('id', 'name_' . app()->getLocale() . " as name");
+            }])
+            ->when($request->category_id, function ($q, $category_id) {
+                return $q->where('category_id', $category_id);
+            })->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
-        return view('post.search', compact('posts'), $this->data_category);
-    }
+
+        // if($request->has('category_id')){
+        //     $posts = $posts->where('category_id', $request->category_id);
+        // }
+
+        // $posts = $posts->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->get();
+
+        if ($request->ajax()) {
+           
+            return [
+                'posts' => view('post.post', compact('posts'))->render(),
+                'next_page' => $posts->nextPageUrl(),
+            ];
+        }
+        
+        
+        return view('post.specific_post', compact('posts'), $this->data_category);
+
+        // return view('post.specific_post', compact('posts'), $this->data_category);
+    }*/
 }

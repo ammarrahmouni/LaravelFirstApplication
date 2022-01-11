@@ -61,8 +61,8 @@ return [
     'ready_leave'           => 'Ayrılmaya hazır?',
     'logout_paragraph'      => 'Mevcut oturumunuzu bitirmeye hazırsanız, aşağıdan "Çıkış"ı seçin.',  
     'categories'            => 'Kategoriler',
-    'copy'                  => 'Copyright',
-    'app_name'              => 'First Apllication 2021',
+    'copy'                  => 'Tüm Hakları Saklıdır',
+    'app_name'              => 'First Apllication 2022',
     'post_count'            => 'Gönderinin sayısı',
     'user_edit'             => 'Kişisel Bilgileri Düzenle ',
     'close'                 => 'Kapat',
@@ -71,7 +71,7 @@ return [
     'user_edit_img'         => 'Kullanıcı Resmini Düzenle',
     'choose_img'            => 'Resim Seç',
     'edit_image'            => 'Resmi Düzenle',
-    'add'                   => 'Eklemek',
+    'add'                   => 'Ekle',
     'user_nt_found'         => 'Hata! Kullanıcı bulunamadı',
     'dont_have_premission'  => 'Bu sayfayı görüntüleme izniniz yok',
     'show'                  => 'gösteriliyor ',
@@ -91,6 +91,10 @@ return [
     'total_like'            => 'Toplam Beğeni',
     'like'                  => 'Beğen',
     'edit'                  => 'Düzenle',
-    'cancel'                => 'İptal et'
+    'cancel'                => 'İptal et',
+    'search_not_empty'      => 'Arama Alanı Boş Olmaz',
+    'warning'               => 'Uyarı',
+    'like_post'             => 'Bu Gönderiyi Beğendin',
+    'dislike_post'          => 'Bu gönderiyi beğenmediniz',
 
 ];  

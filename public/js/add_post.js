@@ -24,8 +24,9 @@
     }
 
     // Show Remamingn Character To The User When Typing In Textarea Field
-    $postTitleLength = $('.post-title').val.length;
-
+    var postDescriptionMax = $('.post-description textarea').attr('maxlength');
+    $('.post-description textarea').next().find('span').text(postDescriptionMax);
+    
     $('.post-description textarea').on('keyup', function(e){
 
         var textlength = $(this).val().length;
@@ -35,11 +36,13 @@
 
     });
 
+    var postTitleMax       = $('.post-title').attr('maxlength');
+    $('.post-title').next().find('span').text(postTitleMax);
+
     $('.post-title').on('keyup', function(){
         var textlength = $(this).val().length;
         var maxlength = $(this).attr("maxlength");
         $(this).next().find('span').text(maxlength - textlength);
-
     });
 
     $('.nav-tabs .nav-item').on('click', function(){
@@ -48,12 +51,12 @@
     });
 
     //  Hide And Show Title And Description Tables
-    if(window.location.href.includes('/ar') && $('.nav-tabs .nav-item:nth-of-type(2) a').hasClass('active')){
+    if(window.location.href.includes('/ar') && $('.nav-tabs .nav-item:nth-of-type(3) a').hasClass('active')){
         $('.form-english').hide();
         $('.form-turkish').hide();
         
     }
-    else if(window.location.href.includes('/tr') && $('.nav-tabs .nav-item:nth-of-type(3) a').hasClass('active')){
+    else if(window.location.href.includes('/tr') && $('.nav-tabs .nav-item:nth-of-type(2) a').hasClass('active')){
         $('.form-english').hide();
         $('.form-arabic').hide();
 
@@ -71,16 +74,15 @@
 
     });
     $('.nav-tabs .nav-item:nth-of-type(2)').on('click', function(){
-        $('.form-arabic').show();
-        $('.form-english').hide();
-        $('.form-turkish').hide();
-
-    });
-    $('.nav-tabs .nav-item:last-of-type').on('click', function(){
         $('.form-turkish').show();
         $('.form-arabic').hide();
         $('.form-english').hide();
 
+    });
+    $('.nav-tabs .nav-item:last-of-type').on('click', function(){
+        $('.form-arabic').show();
+        $('.form-english').hide();
+        $('.form-turkish').hide();
     })
 
 
@@ -88,12 +90,10 @@
    
 
     $('#image').on("change", function(){
-        console.log($(this).val());
 
         if($(this).val() == ''){
             $('#display-img').fadeOut(500);
             $('label[for="inputGroupFile01"]').text('');
-
         }
 
         else{
@@ -106,26 +106,6 @@
             };
             reader.readAsDataURL(event.target.files[0]);
         }
-
-
     });
-
-    
-
-
-
     
 }());
-
-// const img_input = document.querySelector('#image');
-// var upload_img = "";
-
-// img_input.addEventListener('change', function(){
-//     const reader = new FileReader();
-//     reader.addEventListener('load', () => {
-//        upload_img = reader.result;
-//        $('#display-img').fadeIn(900);
-//        document.querySelector('#display-img').style.backgroundImage = `url(${upload_img})`;
-//     });
-//     reader.readAsDataURL(this.files[0]);
-// })

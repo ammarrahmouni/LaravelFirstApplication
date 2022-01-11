@@ -66,8 +66,8 @@ return [
     'ready_leave'           => 'Ready to Leave?',
     'logout_paragraph'      => 'Select "Logout" below if you are ready to end your current session.',  
     'categories'            => 'Categories',
-    'copy'                  => 'Copyright',
-    'app_name'              => 'First Apllication 2021',
+    'copy'                  => 'All Right Are Save',
+    'app_name'              => 'First Apllication 2022',
     'post_count'            => 'Post Count',
     'user_edit'             => 'Edit Personal Information ',
     'close'                 => 'Close',
@@ -97,4 +97,8 @@ return [
     'like'                  => 'Like',
     'edit'                  => 'Edit',
     'cancel'                => 'Cancel',
+    'search_not_empty'      => 'The Search Feield Can\'t be Empty ',
+    'warning'               => 'Warning',
+    'like_post'             => 'You Liked This Post',
+    'dislike_post'          => 'You have unliked this post'
 ];  
