@@ -2,8 +2,6 @@
 
     var direction = $('html').attr('dir');
     if(direction == 'rtl'){
-        // $('.form-group label').css('margin-left', '80%');
-        // $('#display-img').css('margin-right', '25%');
         $('.saved-post ').css({
             'right': '50%',
             'margin-right': '-250px'
@@ -12,8 +10,6 @@
      
     }
     else if(direction == 'ltr'){
-        // $('.form-group label').css('margin-left', '0');
-        // $('#display-img').css('margin-right', '0');
         $('.saved-post ').css({
             'left': '50%',
             'margin-left': '-250px'
@@ -25,6 +21,9 @@
 
     // Show Remamingn Character To The User When Typing In Textarea Field
     var postDescriptionMax = $('.post-description textarea').attr('maxlength');
+    var textlength =   $('.post-description textarea').val().length;
+
+
     $('.post-description textarea').next().find('span').text(postDescriptionMax);
     
     $('.post-description textarea').on('keyup', function(e){

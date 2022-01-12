@@ -198,25 +198,6 @@ class PostController extends MainController
         ]);
     }
 
-    // public function specificCategory(Request $request, $category_id)
-    // {
-    //     $categories = Category::findOrFail($category_id);
-    //     if ($categories) {
-    //         $posts = Post::with(['categoryes' => function ($q) {
-    //             $q->select('id', 'name_' . app()->getLocale() . " as name");
-    //         }])->where('category_id', $category_id)->latest()->paginate(POST_NUMBER);
-
-    //         if ($request->ajax()) {
-    //             return [
-    //                 'posts' => view('post.post', compact('posts'))->render(),
-    //                 'next_page' => $posts->nextPageUrl(),
-    //             ];
-    //         }
-
-    //         return view('post.specific_post', compact('posts'), $this->data_category);
-    //     }
-    // }
-
     public function likePost($user_id, $post_id)
     {
         $likes = new Like();
@@ -259,16 +240,15 @@ class PostController extends MainController
         ]);
     }
 
-   /* public function searchPost(Request $request)
+    public function searchPost(Request $request)
     {
+        // $request->page = $request->page;
+        // if(is_null($request->page)){
+        //     $request->page = 1;
+        // }
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
         if ($request->search_post == "" && !$request->has('category_id') ) {
-            // if ($request->ajax()) {
-            //     return [
-            //         'posts' => "",
-            //         'next_page' => "",
-            //     ];
-            // }
             return redirect()->back()->with('search_not_empty', __('home.search_not_empty'));
             
         }
@@ -292,23 +272,17 @@ class PostController extends MainController
             })->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
 
-        // if($request->has('category_id')){
-        //     $posts = $posts->where('category_id', $request->category_id);
-        // }
-
-        // $posts = $posts->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->get();
-
+         
         if ($request->ajax()) {
            
             return [
-                'posts' => view('post.post', compact('posts'))->render(),
-                'next_page' => $posts->nextPageUrl(),
+                'posts' => view('post.post', compact('posts', 'categories'))->render(),
+                'next_page' => $request->page + 1,
             ];
         }
         
         
-        return view('post.specific_post', compact('posts'), $this->data_category);
+        return view('post.search', compact('posts'), $this->data_category);
 
-        // return view('post.specific_post', compact('posts'), $this->data_category);
-    }*/
+    }
 }

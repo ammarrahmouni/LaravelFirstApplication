@@ -102,7 +102,7 @@
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_tr_error"></strong>
+                            <strong class="form-text text-danger" id="title_tr_error_update"></strong>
 
                         </div>
 

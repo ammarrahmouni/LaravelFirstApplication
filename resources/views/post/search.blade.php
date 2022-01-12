@@ -26,7 +26,7 @@
                     @section('category')
                     <div class="container mt-5 mb-5 card-mobile">
                         <div class="row d-flex align-items-center justify-content-center">
-                            <div class="col-md-6 col-12 gust-post endless-pagination posts" data-next-page="{{ $postst->nextPageUrl() }}">
+                            <div class="col-md-6 col-12 gust-post endless-pagination posts" data-next-page="2">
                     
                                 @if (Auth::check())
                                     <a data-toggle="modal" data-target="#ModalPostAdd" class="btn add-post">
@@ -38,11 +38,12 @@
                                     
                                 @endif
                                 
-                                @include('post.post_in_search')
+                                @include('post.post')
                                 
                             </div>
                         </div>
                     </div>
+                    
                     
 
                     @show
@@ -67,32 +68,43 @@
 @section('script')
 <script src="{{ asset('js/home.js') }}"></script>
 <script src="{{ asset('js/add_post.js') }}"></script>
+
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        $(window).scroll(fetchPostsScrolling);
+    $(window).scroll(fetchPostsScrolling);
 
+    function fetchPostsScrolling() {
 
-        function fetchPostsScrolling() {
-            var page = $('.endless-pagination').data('next-page');
+        var page = $('.endless-pagination').data('next-page');
+        if (page != null && page != '') {
+            clearTimeout($.data(this, "scrollCheeck"));
+            $.data(this, "scrollCheeck", setTimeout(function() {
+                var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
+                    100;
 
-            console.log(page);
-            if (page != null && page != '') {
-                clearTimeout($.data(this, "scrollCheeck"));
+                if (scroll_poition_for_posts_load >= $(document).height()) {
+                    var search_result = $('input[name="search_post"]').val();
+                    var category_id = $('input[name="category_id"]').val();
+                   
+                    $.ajax({
+                        type: "GET",
+                        url: "{{ route('search.post') }}",
+                        data: {
+                            'page': page,
+                            'search_post': search_result,
+                            'category_id': category_id,
+                        },
+                        success: function(response) {
+                            $('.posts').append(response.posts);
+                            $('.endless-pagination').data('next-page', response.next_page);
+                        }
+                    });
 
-                $.data(this, "scrollCheeck", setTimeout(function() {
-                    var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
-                        100;
-
-                    if (scroll_poition_for_posts_load >= $(document).height()) {
-                        $.get(page, function(data) {
-                            $('.posts').append(data.posts);
-                            $('.endless-pagination').data('next-page', data.next_page);
-                        });
-                    }
-                }, 150));
-            }
+                }
+            }, 150));
         }
-    });
+    }
+});
 </script>
 @endsection

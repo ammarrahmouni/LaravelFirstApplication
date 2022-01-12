@@ -91,7 +91,7 @@ return [
     'read_less'             => 'Read Less',
     'save'                  => 'Save',
     'dont_save'             => 'Don\'t save',
-    'what_think'            => 'What\'s on your mind?',
+    'what_think'            => 'What\'s on your mind',
     'success_login'         => 'Signed in successfully',
     'total_like'            => 'Total Like',
     'like'                  => 'Like',

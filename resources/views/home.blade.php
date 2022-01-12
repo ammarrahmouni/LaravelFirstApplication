@@ -55,7 +55,7 @@
 
         function fetchPostsScrolling() {
             var page = $('.endless-pagination').data('next-page');
-            console.log(page);
+            
             if (page != null && page != '') {
                 clearTimeout($.data(this, "scrollCheeck"));
 

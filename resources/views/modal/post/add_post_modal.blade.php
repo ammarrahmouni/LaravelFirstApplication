@@ -206,6 +206,7 @@
                     var response = $.parseJSON(reject.responseText);
                     $.each(response.errors, function(key, val) {
                         $('#' + key + '_error').text(val[0]);
+                        
 
                     });
                 }

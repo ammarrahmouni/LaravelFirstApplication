@@ -11,7 +11,7 @@
             <div class="d-flex justify-content-between p-2 px-3">
                 <div class="d-flex flex-row align-items-center">
                     <a href="{{ route('visit.user.profile', $post->user_id) }}">
-                        <img src="{{ asset('uploads/images/' . $post->users->image) }}" width="50"
+                        <img src="{{ asset('uploads/images/' . $post->users->image) }}" width="50" height="50"
                             class="rounded-circle">
                         <div class="d-flex flex-column ml-2 post-user-header">
                             <span class="font-weight-bold" style="color: black">{{ $post->users->name }}</span>

@@ -91,7 +91,7 @@ return [
     'read_less'             => 'قراءة أقل',
     'save'                  => 'حفظ',
     'dont_save'             => 'لا تحفظ',
-    'what_think'            => 'بماذا تفكر؟',
+    'what_think'            => 'بماذا تفكر يا',
     'success_login'         => 'تم تسجيل الدخول بنجاح',
     'total_like'            => 'إجمالي الإعجابات',
     'like'                  => 'أعجبني',

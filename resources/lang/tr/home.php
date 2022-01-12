@@ -86,7 +86,7 @@ return [
     'read_less'             => 'Daha az oku',
     'save'                  => 'Kaydet',
     'dont_save'             => 'kaydetme',
-    'what_think'            => 'Aklınızdan ne geçiyor?',
+    'what_think'            => 'Aklınızdan ne geçiyor',
     'success_login'         => 'Başarıyla oturum açıldı',
     'total_like'            => 'Toplam Beğeni',
     'like'                  => 'Beğen',
