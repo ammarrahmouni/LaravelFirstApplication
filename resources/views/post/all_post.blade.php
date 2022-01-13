@@ -7,7 +7,13 @@
                     <div class="btn-add-post-user-img">
                         <img src="{{ asset('uploads/images/' . Auth::user()->image) }}" />
                     </div>
-                    <div class="add-post-field">{{ __('home.what_think') }}, {{Auth::user()->name}} ?</div>
+                    <div class="add-post-field">{{ __('home.what_think') }} , {{Auth::user()->name}} 
+                        @if(app()->getLocale() == 'ar')
+                            ؟
+                        @else
+                            ?
+                        @endif
+                    </div>
                 </a><br><br>
                 
             @endif

@@ -62,6 +62,10 @@ class UserController extends MainController
     {
         $validate = Validator::make($request->all(), [
             'image' => 'required|mimes:jpeg,jpg,png|max:2048'
+        ], [
+            'image.required' => __('home.image_rqd'),
+            'image.mimes'    => __('home.image_type'),
+            'image.max'      => __('home.image_max'),
         ]);
 
         if (!($validate->fails())) {

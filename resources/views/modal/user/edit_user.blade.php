@@ -57,40 +57,70 @@
     $(document).ready(function() {
         $('.save-change').on('click', function(e) {
 
-            let formData = new FormData($('#userFormUpdated')[0]);
-            $.ajax({
-                type: "POST",
-                url: "{{ route('edit.user.info', Auth::user()->id) }}",
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-                    if (response.status == true) {
-                        Swal.fire(
-                            response.done,
-                            response.msg,
-                            'success'
-                        )
-                        $(".close span").click();
-                        $('.user-info #user-name').text(response.info[0]);
-                        $('.nav-user-name').text(response.info[0]);
-                        $('.user-info #user-phone').text(response.info[1]);
-                        $('.user-info #user-address').text(response.info[2]);
-                    } else if (response.status == false) {
-                        Swal.fire(
-                            response.msg,
-                            'error'
-                        )
-                    }
-                },
-                error: function(reject) {
-                    $('.form-group strong').text("");
-                    var response = $.parseJSON(reject.responseText);
-                    $.each(response.errors, function(key, val) {
-                        $('#' + key + '_error').text(val[0]);
+            Swal.fire({
+                title: "{{__('home.save_change_modal')}}",
+                showDenyButton: true,
+                showCancelButton: true,
+                confirmButtonText: "{{ __('home.save') }}",
+                denyButtonText: "{{ __('home.dont_save') }}",
+                cancelButtonText: "{{ __('home.cancel') }}",
+            }).then((result) => {
+
+                if (result.isConfirmed) {
+
+
+                    let formData = new FormData($('#userFormUpdated')[0]);
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ route('edit.user.info', Auth::user()->id) }}",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function(response) {
+                            if (response.status == true) {
+                                Swal.fire({
+                                    title: response.done,
+                                    text: response.msg,
+                                    icon: 'success',
+                                    confirmButtonText: "{{ __('home.ok') }}",
+
+
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                })
+
+                                $(".close span").click();
+                                $('.user-info #user-name').text(response.info[0]);
+                                $('.nav-user-name').text(response.info[0]);
+                                $('.user-info #user-phone').text(response.info[1]);
+                                $('.user-info #user-address').text(response.info[2]);
+                                
+
+                            } else if (response.status == false) {
+                                Swal.fire(
+                                    response.error,
+                                    response.msg,
+                                    'error'
+                                )
+                            }
+                        },
+                        error: function(reject) {
+                            $('.form-group strong').text("");
+                            var response = $.parseJSON(reject.responseText);
+                            $.each(response.errors, function(key, val) {
+                                $('#' + key + '_error').text(val[0]);
+                            });
+                        }
                     });
+
+                } else if (result.isDenied) {
+                    Swal.fire("{{__('home.change_not_saved')}}", '', 'info');
+                    $(".close span").click();
+
                 }
-            });
+            })
         });
     });
 </script>

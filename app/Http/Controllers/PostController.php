@@ -60,6 +60,7 @@ class PostController extends MainController
             }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->orderBy('created_at')->paginate(POST_NUMBER);
             $this->data['posts'] = $posts;
 
+            
             return view('post.view_post', $this->data, $this->data_category);
         } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));

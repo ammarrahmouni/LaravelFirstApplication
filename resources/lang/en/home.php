@@ -100,5 +100,7 @@ return [
     'search_not_empty'      => 'The Search Feield Can\'t be Empty ',
     'warning'               => 'Warning',
     'like_post'             => 'You Liked This Post',
-    'dislike_post'          => 'You have unliked this post'
+    'dislike_post'          => 'You have unliked this post',
+    'save_change_modal'     => 'Do you want to save the changes?',
+    'change_not_saved'      => 'Changes are not saved',
 ];  

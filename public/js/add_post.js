@@ -1,5 +1,6 @@
 (function(){
 
+  
     var direction = $('html').attr('dir');
     if(direction == 'rtl'){
         $('.saved-post ').css({
@@ -21,7 +22,6 @@
 
     // Show Remamingn Character To The User When Typing In Textarea Field
     var postDescriptionMax = $('.post-description textarea').attr('maxlength');
-    var textlength =   $('.post-description textarea').val().length;
 
 
     $('.post-description textarea').next().find('span').text(postDescriptionMax);

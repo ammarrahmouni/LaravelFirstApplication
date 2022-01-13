@@ -1,5 +1,3 @@
-
-
 (function () {
 
     $(document).on('scroll', function(){

@@ -1,3 +1,5 @@
+<script src="{{ asset('js/add_post.js') }}"></script>   
+
 <form id="postFormUpdate{{ $post->id }}" action="" method="post" enctype="multipart/form-data">
     @csrf
     <div id="ModalPostUpdate{{ $post->id }}" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
@@ -31,7 +33,7 @@
                                 <label class="custom-file-label"
                                     for="image-label{{ $post->id }}">{{ __('home.choose_img') }}</label>
 
-                                <strong class="form-text text-danger" id="image_error_update"></strong>
+                                <strong class="form-text text-danger" id="image_error_update_{{$post->id}}"></strong>
                             </div>
 
                         </div>
@@ -51,7 +53,7 @@
                                 @endif
 
                             </select>
-                            <strong class="form-text text-danger" id="category_error_update"></strong>
+                            <strong class="form-text text-danger" id="category_error_update_{{$post->id}}"></strong>
 
 
                         </div>
@@ -82,7 +84,7 @@
                                 placeholder=" {{ __('home.post_title') }}"
                                 value="{{ $post->translate('en')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_en_error_update"></strong>
+                            <strong class="form-text text-danger" id="title_en_error_update_{{$post->id}}"></strong>
                         </div>
 
                         <div class="form-group post-description  form-english">
@@ -91,7 +93,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_en_error_update"></strong>
+                            <strong class="form-text text-danger" id="description_en_error_update_{{$post->id}}"></strong>
 
                         </div>
 
@@ -102,7 +104,7 @@
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_tr_error_update"></strong>
+                            <strong class="form-text text-danger" id="title_tr_error_update_{{$post->id}}"></strong>
 
                         </div>
 
@@ -112,7 +114,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_tr_error_update"></strong>
+                            <strong class="form-text text-danger" id="description_tr_error_update_{{$post->id}}"></strong>
 
                         </div>
 
@@ -124,7 +126,7 @@
                                 placeholder=" {{ __('home.post_title_ar') }}"
                                 value="{{ $post->translate('ar')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_ar_error_update"></strong>
+                            <strong class="form-text text-danger" id="title_ar_error_update_{{$post->id}}"></strong>
 
                         </div>
 
@@ -134,7 +136,7 @@
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_ar_error_update"></strong>
+                            <strong class="form-text text-danger" id="description_ar_error_update_{{$post->id}}"></strong>
 
                         </div>
 
@@ -163,8 +165,7 @@
 </form>
 
 
-
-<script>
+    <script>
     $(document).ready(function() {
 
         $('.nav-lang-flag .nav-item a').on('click', function(e){
@@ -195,7 +196,7 @@
         $('#btn-update-post{{ $post->id }}').on('click', function(e) {
             e.preventDefault();
             Swal.fire({
-                title: 'Do you want to save the changes?',
+                title: "{{__('home.save_change_modal')}}",
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: "{{ __('home.save') }}",
@@ -241,13 +242,13 @@
                             $('.custom-file').find('strong').html("");
                             var response = $.parseJSON(reject.responseText);
                             $.each(response.errors, function(key, val) {
-                                $('#' + key + '_error_update').text(val[0]);
+                                $('#' + key + '_error_update_' + "{{$post->id}}").text(val[0]);
                             });
                         }
                     });
 
                 } else if (result.isDenied) {
-                    Swal.fire('Changes are not saved', '', 'info');
+                    Swal.fire("{{__('home.change_not_saved')}}", '', 'info');
                     $(".close span").click();
 
                 }

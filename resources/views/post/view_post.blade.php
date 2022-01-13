@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
 
     <link rel="shortcut icon" href="{{ asset('img/new-post.png') }}" type="image/x-icon" />
-    @include('layouts.login_header')
 
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

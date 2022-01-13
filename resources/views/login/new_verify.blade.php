@@ -3,7 +3,6 @@
 @section('title')
     <title>{{ __('login.verify_email') }}</title>
     <link rel="shortcut icon" href="{{ asset('img/login.png') }}" type="image/x-icon" />
-    @include('layouts.login_header')
 @endsection
 
 @section('content')

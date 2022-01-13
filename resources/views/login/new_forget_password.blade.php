@@ -5,7 +5,6 @@
     <link rel="shortcut icon" href="{{ asset('img/login.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('css/login/login.css') }}" />
 
-    @include('layouts.login_header')
 @endsection
 
 @section('content')

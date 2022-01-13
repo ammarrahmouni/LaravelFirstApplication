@@ -5,7 +5,6 @@
     <link href="{{asset('css/user/gust_user.css')}}" rel="stylesheet">
     <link rel="shortcut icon" href="{{asset('img/guset.png')}}" type="image/x-icon" />
     <title>{{ __('home.first_app') }}</title>
-    @include('layouts.login_header')
 @endsection
 
 

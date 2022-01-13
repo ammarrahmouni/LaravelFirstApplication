@@ -20,7 +20,6 @@
 
     @endguest
 
-    @include('layouts.login_header')
 @endsection
 
 

@@ -1,10 +1,9 @@
-@extends('layouts.new_app')
+{{-- @extends('layouts.new_app')
 
 @section('title')
     <title>{{ __('home.edit_post') }}</title>
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
     <link rel="shortcut icon" href="{{ asset('img/pencil.png') }}" type="image/x-icon" />
-    @include('layouts.login_header')
 @endsection
 
 
@@ -158,4 +157,4 @@
 @section('script')
     @include('layouts.login_footer')
     <script src="{{ asset('js/add_post.js') }}"></script>
-@endsection
+@endsection --}}

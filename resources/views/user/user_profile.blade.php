@@ -4,7 +4,6 @@
     <link rel="shortcut icon" href="{{ asset('img/man.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('css/user/user_details.css') }}">
     <title>{{ __('home.profile') }}</title>
-    @include('layouts.login_header')
 
     {{-- Jquery --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"

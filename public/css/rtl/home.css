@@ -1,23 +1,42 @@
-/* Start Navbar And Sidebar */
-.sidebar-heading {
-    display: flex !important;
+@media (min-width: 768px) {
+    .sidebar-heading {
+        display: flex !important;
+    }
 }
 @media (min-width: 768px) {
     .sidebar.toggled .nav-item .collapse {
         right: calc(6.5rem + 1.5rem / 2) !important;
     }
-
-}
-@media (max-width: 576px) {
-    .topbar #sidebarToggleTop {
-        left: 66% !important;
+    .sidebar.toggled {
+        overflow: visible;
+        width: 9.5rem !important;
     }
-    .nav-guset-user{
+}
+
+@media (max-width: 576px) {
+    .sidebar .nav-item .collapse .collapse-inner, .sidebar .nav-item .collapsing .collapse-inner {
+        position: absolute;
+        right: 50px !important;
+    }
+    .topbar #sidebarToggleTop {
+        left: 50% !important;
+    }
+    .nav-guset-user {
         font-size: 10px !important;
     }
     .sidebar .nav-item .collapse {
         right: calc(6rem + 1.5rem / 2) !important;
-
+    }
+    .sidebar {
+        width: 9.5rem !important;
+        padding-right: 0 !important;
+    }
+    .sidebar.toggled {
+        width: 0 !important;
+        overflow: hidden;
+    }
+    .sidebar .nav-item .nav-link {
+        width: 8.5rem !important;
     }
 }
 #content .navbar-expand {
@@ -69,20 +88,25 @@
 /* End Navbar And Sidebar */
 
 /* Start Home Page */
-.swal2-top-end{
+.swal2-top-end {
     left: 0 !important;
     right: auto !important;
 }
 
-.card-body{
+.card-body {
     word-break: keep-all !important;
     text-align: right !important;
-
 }
 /* End Home Page */
 
 /* Start Post */
-.like-count span:first-of-type{
+.post-user-header a {
+    text-decoration: none !important;
+}
+.post-user-header a:hover {
+    text-decoration: underline !important;
+}
+.like-count span:first-of-type {
     margin-left: 5px !important;
 }
 .add-post-field {
@@ -94,7 +118,8 @@
 .like-count {
     display: flex;
 }
-.show-trim, .hide-trim{
+.show-trim,
+.hide-trim {
     display: flex;
 }
 /* End Post */
@@ -114,7 +139,7 @@ input {
 /* Start Login And Register */
 
 /* Start Add Post  Modal */
-strong{
+strong {
     display: flex !important;
 }
 label {

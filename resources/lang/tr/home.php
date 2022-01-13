@@ -96,5 +96,7 @@ return [
     'warning'               => 'Uyarı',
     'like_post'             => 'Bu Gönderiyi Beğendin',
     'dislike_post'          => 'Bu gönderiyi beğenmediniz',
+    'save_change_modal'     => 'Değişiklikleri kaydetmek istiyor musunuz?',
+    'change_not_saved'      => 'Değişiklikler kaydedilmedi',
 
 ];  
