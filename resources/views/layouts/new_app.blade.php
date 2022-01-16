@@ -21,7 +21,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/login/sb-admin-2.css') }}" rel="stylesheet">
 
-    
+
 
 
     @if (App::isLocale('ar'))
@@ -114,6 +114,11 @@
         <i class="fas fa-angle-up"></i>
     </a>
 
+    {{-- Loading Bar --}}
+    <img src="{{ asset('img/load.gif') }}" id="load-bar">
+
+    {{-- Spinner Bar --}}
+    <img src="{{ asset('img/spiner.gif') }}" id="spiner-bar">
 
 
     {{-- Bootstrap Files --}}
@@ -133,8 +138,7 @@
 
 
 
-    {{-- Our Jquery Files --}}
-    <script src="{{ asset('js/sidbar.js') }}"></script>
+
 
 
     @yield('script')

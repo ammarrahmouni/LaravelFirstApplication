@@ -13,6 +13,8 @@
                     <a href="{{ route('visit.user.profile', $post->user_id) }}">
                         <img src="{{ asset('uploads/images/' . $post->users->image) }}" width="50" height="50"
                             class="rounded-circle">
+
+
                         <div class="d-flex flex-column ml-2 post-user-header">
                             <span class="font-weight-bold" style="color: black">{{ $post->users->name }}</span>
                     </a>
@@ -115,17 +117,142 @@
                         })
 
                     }
+                    $('#postImg{{ $post->id }}').on('click', function() {
+                        $('#postImgModal{{ $post->id }}').css('display', 'block');
+                        $('#postDisplayImg{{ $post->id }}').attr('src', $(this).attr('src'));
+
+                    })
+
+                    $(document).on('keyup ', function(e) {
+                        if (e.key == "Escape") {
+                            $('#postImgModal{{ $post->id }}').css('display', 'none');
+                        }
+                    });
+
+                    $('#postImgModal{{ $post->id }}').on("click", function() {
+                        $(this).css('display', 'none');
+                    });
+
                 });
             </script>
 
         </div>
 
-        <img src="{{ asset('uploads/images/' . $post->image) }}" class="img-fluid">
+        <style>
+            /* Style the Image Used to Trigger the Modal */
+            #postImg{{ $post->id }} {
+                cursor: pointer;
+                transition: 0.3s;
+            }
 
+            /* The Modal (background) */
+            #postImgModal{{ $post->id }} {
+                display: none;
+                /* Hidden by default */
+                position: fixed;
+                /* Stay in place */
+                z-index: 100000;
+                /* Sit on top */
+                padding-top: 100px;
+                /* Location of the box */
+                left: 0;
+                top: 0;
+                width: 100%;
+                /* Full width */
+                height: 100%;
+                /* Full height */
+                overflow: auto;
+                /* Enable scroll if needed */
+                background-color: rgb(0, 0, 0);
+                /* Fallback color */
+                background-color: rgba(0, 0, 0, 0.9);
+                /* Black w/ opacity */
+            }
+
+            /* Modal Content (Image) */
+            #postDisplayImg{{ $post->id }} {
+                margin: auto;
+                display: block;
+                width: 80%;
+                max-width: 700px;
+            }
+
+            /* Add Animation - Zoom in the Modal */
+            #postDisplayImg{{ $post->id }} {
+                -webkit-animation-name: zoom;
+                -webkit-animation-duration: 0.6s;
+                animation-name: zoom;
+                animation-duration: 0.6s;
+            }
+
+            @-webkit-keyframes zoom {
+                from {
+                    -webkit-transform: scale(0);
+                }
+
+                to {
+                    -webkit-transform: scale(1);
+                }
+            }
+
+            @keyframes zoom {
+                from {
+                    transform: scale(0);
+                }
+
+                to {
+                    transform: scale(1);
+                }
+            }
+
+            /* The close-image-modal Button */
+            #close-image-modal{{ $post->id }} {
+                position: absolute;
+                top: 15px;
+                right: 35px;
+                color: #f1f1f1;
+                font-size: 40px;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+
+            #close-image-modal{{ $post->id }}:hover,
+            #close-image-modal{{ $post->id }}:focus {
+                color: #bbb;
+                text-decoration: none;
+                cursor: pointer;
+            }
+
+            /* 100% Image Width on Smaller Screens */
+            @media only screen and (max-width: 700px) {
+                #postDisplayImg{{ $post->id }} {
+                    width: 100%;
+                }
+            }
+
+            /* Style the Image Used to Trigger the Modal */
+
+        </style>
+
+        <img src="{{ asset('uploads/images/' . $post->image) }}" class="img-fluid"
+            id="postImg{{ $post->id }}" class="post-img-modal">
+
+        <!-- The Modal -->
+        <div id="postImgModal{{ $post->id }}" class="modall">
+
+            <!-- The Close Button -->
+            <span id="close-image-modal{{ $post->id }}"
+                onclick="document.getElementById('postImgModal{{ $post->id }}').style.display='none'">&times;</span>
+
+            <!-- Modal Content (The Image) -->
+            <img class="modal-content" id="postDisplayImg{{ $post->id }}">
+
+        </div>
 
         <div class="like-count">
             <span><img width="25px" height="25px" src="{{ asset('img/like.svg') }}" /></span>
-            <span id="like-click{{$post->id}}">{{ DB::table('likes')->where('post_id', $post->id)->count() }} </span>
+            <span id="like-click{{ $post->id }}">{{ DB::table('likes')->where('post_id', $post->id)->count() }}
+            </span>
         </div>
 
 
@@ -138,4 +265,11 @@
         </div>
 
     @endforeach
+
+@else
+
+
+        
 @endif
+
+

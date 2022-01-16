@@ -38,8 +38,6 @@
 @endauth
 
 
-
-
 @endsection
 
 @section('script')
@@ -47,14 +45,13 @@
 <script src="{{ asset('js/add_post.js') }}"></script>
 
 <script>
- 
     $(document).ready(function() {
 
         $(window).scroll(fetchPostsScrolling);
 
         function fetchPostsScrolling() {
             var page = $('.endless-pagination').data('next-page');
-            
+
             if (page != null && page != '') {
                 clearTimeout($.data(this, "scrollCheeck"));
 
@@ -62,11 +59,14 @@
                     var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
                         100;
 
-                    if (scroll_poition_for_posts_load >= $(document).height()) {
-                        $.get(page , function(data) {
+                        if (scroll_poition_for_posts_load >= $(document).height()) {
+
+                            $('#spiner-bar').show();
+
+                        $.get(page, function(data) {
                             $('.posts').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
-                           
+                            $('#spiner-bar').hide();
                         });
                     }
                 }, 150));

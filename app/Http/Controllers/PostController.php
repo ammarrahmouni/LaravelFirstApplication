@@ -223,7 +223,6 @@ class PostController extends MainController
 
     public function dislikePost($user_id, $post_id)
     {
-
         if ($user_id == Auth::user()->id) {
             $likes = Like::where([
                 ['user_id', $user_id],
@@ -243,10 +242,7 @@ class PostController extends MainController
 
     public function searchPost(Request $request)
     {
-        // $request->page = $request->page;
-        // if(is_null($request->page)){
-        //     $request->page = 1;
-        // }
+
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
         if ($request->search_post == "" && !$request->has('category_id') ) {
@@ -272,18 +268,15 @@ class PostController extends MainController
                 return $q->where('category_id', $category_id);
             })->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
-
-         
         if ($request->ajax()) {
            
             return [
                 'posts' => view('post.post', compact('posts', 'categories'))->render(),
-                'next_page' => $request->page + 1,
+                'next_page' => $posts->currentPage() + 1,
+                'last_item' => $posts->lastItem(),
+                
             ];
         }
-        
-        
         return view('post.search', compact('posts'), $this->data_category);
-
     }
 }

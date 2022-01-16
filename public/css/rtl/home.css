@@ -1,25 +1,47 @@
+
+/* Start Navbar And Sidebar */
+
+@media (min-width: 768px){
+    .sidebar.toggled .nav-item .nav-link {
+        text-align: center;
+        padding: 0.75rem 1rem;
+        width: 6.5rem;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sidebar.toggled .nav-item .nav-link i {
+        margin-bottom: 10px;
+    }
+}
+
+
+
 @media (min-width: 768px) {
     .sidebar-heading {
         display: flex !important;
     }
-}
-@media (min-width: 768px) {
     .sidebar.toggled .nav-item .collapse {
         right: calc(6.5rem + 1.5rem / 2) !important;
     }
     .sidebar.toggled {
         overflow: visible;
-        width: 9.5rem !important;
+        padding-right: 0 !important;
+        width: 6.5rem !important;
+    }
+    .sidebar {
+        padding-right: 0 !important;
+        width: 12rem !important;
     }
 }
 
 @media (max-width: 576px) {
     .sidebar .nav-item .collapse .collapse-inner, .sidebar .nav-item .collapsing .collapse-inner {
         position: absolute;
-        right: 50px !important;
+        right: 20px !important;
     }
     .topbar #sidebarToggleTop {
-        left: 50% !important;
+        left: 60% !important;
     }
     .nav-guset-user {
         font-size: 10px !important;
@@ -28,7 +50,7 @@
         right: calc(6rem + 1.5rem / 2) !important;
     }
     .sidebar {
-        width: 9.5rem !important;
+        width: 8rem !important;
         padding-right: 0 !important;
     }
     .sidebar.toggled {
@@ -38,6 +60,11 @@
     .sidebar .nav-item .nav-link {
         width: 8.5rem !important;
     }
+
+    .nav-guset-user{
+        margin-left: -10px;
+    }
+
 }
 #content .navbar-expand {
     justify-content: space-between !important;
@@ -151,14 +178,47 @@ label {
 .modal-delete-body {
     display: flex !important;
 }
+.modal-header .btn-close {
+    padding: 0.5rem 0.5rem;
+    margin: 0 0 auto;
+}
 /* End Add Post  Modal */
 
 /* Start Profile Page */
-.user-content div div {
-    justify-content: space-between !important;
-}
+
 .user-content div div span:first-of-type {
-    width: auto !important;
+    width: 300px !important;
+    text-align: right !important;
+}
+@media (max-width: 576px) {
+    .user-content div div span:first-of-type {
+        width: auto !important;
+    }
+    .image-preview #display-img{
+        width: 90% !important;
+    }
+    .register-name{
+        margin-bottom: 0 !important;
+    }
+    .img-input-register-ar{
+        margin-right: 5% !important;
+    }
+}
+.img-input-register-ar{
+    margin-right: 2%;
 }
 
 /* End Profile Page */
+
+/* Start Sniper bar */
+#load-bar, #spiner-bar{
+    right: 50%;
+    margin-right: -50px;
+}
+
+#spiner-bar{
+    right: 56%;
+}
+
+/* End Sniper bar */
+

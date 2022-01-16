@@ -45,7 +45,13 @@
 
                                     @endif
 
-                                    @include('post.post')
+                                    @if ($posts->count() > 0)
+                                        @include('post.post')
+                                    @else
+                                        <img src="{{ asset('img/empty.svg') }}" width="500" height="300">
+                                        <div class="text-center">{{ __('home.no_result_found') }}</div>
+                                    @endif
+
 
                                 </div>
                             </div>
@@ -69,7 +75,6 @@
 
 
 
-
 @endsection
 
 @section('script')
@@ -79,18 +84,22 @@
 <script>
     $(document).ready(function() {
 
+
         $(window).scroll(fetchPostsScrolling);
 
         function fetchPostsScrolling() {
 
             var page = $('.endless-pagination').data('next-page');
+            
             if (page != null && page != '') {
+                console.log("test");
                 clearTimeout($.data(this, "scrollCheeck"));
                 $.data(this, "scrollCheeck", setTimeout(function() {
                     var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
                         100;
 
                     if (scroll_poition_for_posts_load >= $(document).height()) {
+                        $('#spiner-bar').show();
                         var search_result = $('input[name="search_post"]').val();
                         var category_id = $('input[name="category_id"]').val();
 
@@ -104,10 +113,16 @@
                             },
                             success: function(response) {
                                 $('.posts').append(response.posts);
-                                $('.endless-pagination').data('next-page', response
-                                    .next_page);
+                                $('.endless-pagination').data('next-page', response.next_page);
+                                $('#spiner-bar').hide();
+                                if(response.last_item == null){
+                                    $('.endless-pagination').data('next-page', null);
+                                }
+                                console.log(page);
+
                             }
                         });
+                        
 
                     }
                 }, 150));

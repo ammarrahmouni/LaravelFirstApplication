@@ -37,5 +37,6 @@
 @endsection
 
 @section('script')
+    
     <script src="{{ asset('js/user/user_details.js') }}"></script>
 @endsection

@@ -58,7 +58,7 @@
         $('.save-change').on('click', function(e) {
 
             Swal.fire({
-                title: "{{__('home.save_change_modal')}}",
+                title: "{{ __('home.save_change_modal') }}",
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: "{{ __('home.save') }}",
@@ -76,6 +76,13 @@
                         data: formData,
                         contentType: false,
                         processData: false,
+                        beforeSend: function() {
+                            $('#load-bar').show();
+                        },
+
+                        complete: function() {
+                            $('#load-bar').hide();
+                        },
                         success: function(response) {
                             if (response.status == true) {
                                 Swal.fire({
@@ -95,8 +102,9 @@
                                 $('.user-info #user-name').text(response.info[0]);
                                 $('.nav-user-name').text(response.info[0]);
                                 $('.user-info #user-phone').text(response.info[1]);
-                                $('.user-info #user-address').text(response.info[2]);
-                                
+                                $('.user-info #user-address').text(response.info[
+                                2]);
+
 
                             } else if (response.status == false) {
                                 Swal.fire(
@@ -116,7 +124,7 @@
                     });
 
                 } else if (result.isDenied) {
-                    Swal.fire("{{__('home.change_not_saved')}}", '', 'info');
+                    Swal.fire("{{ __('home.change_not_saved') }}", '', 'info');
                     $(".close span").click();
 
                 }

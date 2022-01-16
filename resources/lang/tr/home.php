@@ -16,7 +16,7 @@ return [
     'ctg_rqd'           => 'Kategori Alanı Gerekli',
     'title_rqd'         => 'Gönderinin Başlığı Gerekli',
     'description_rqd'   => 'Gönderinin Açıklaması Gerekli',
-    'description_max'   => 'Açıklama Maks. 300 karakterden az olmalıdır',
+    'description_max'   => 'Açıklama Maks. 600 karakterden az olmalıdır',
     'image_rqd'         => 'Resim Gerekli',
     'image_type'        => 'Resimini Tipi jpeg,jpg or png Olmalıdır',
     'image_max'         => 'Resimini Boyutu  2 mg daha az olmalı',
@@ -98,5 +98,6 @@ return [
     'dislike_post'          => 'Bu gönderiyi beğenmediniz',
     'save_change_modal'     => 'Değişiklikleri kaydetmek istiyor musunuz?',
     'change_not_saved'      => 'Değişiklikler kaydedilmedi',
+    'no_result_found'       => 'Sonuç bulunamadı',
 
 ];  

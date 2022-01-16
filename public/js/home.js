@@ -45,12 +45,10 @@
 
    
     for(var i = 1; i < $('.list-group a').length; i++){
-        if(window.location.href.includes('category/' + i)){
+
+        if(window.location.href.includes('category_id=' + i)){
             $('.list-group a').eq(i).addClass('list-active-background');
            
-        }
-        else if(window.location.href.includes('category-all')){
-            $('.list-group a').eq(0).addClass('list-active-background');
         }
     }
 
@@ -60,9 +58,9 @@
         $('.card-mobile').addClass('container');
     }
 
-
-
-   
+    $('#load-bar').css({
+        'top': $(window).height() / 2
+    })
    
 }());
 

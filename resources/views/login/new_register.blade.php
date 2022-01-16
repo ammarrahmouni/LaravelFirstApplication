@@ -10,7 +10,8 @@
 @section('content')
 
     <body class="bg-gradient-primary">
-
+      
+      
         <div class="main" style="position: relative;top: 5%;">
             <div class="container">
                 <div class="row justify-content-center">
@@ -35,7 +36,7 @@
                                                 <img class=" img-thumbnail" width="300" height="300" id="display-img" />
                                                 
                                                 <br>
-                                                <div class="col-sm-12 mb-3 mb-sm-0">
+                                                <div class="col-sm-12 mb-3 mb-sm-0 img-input-register-ar">
                                                     <input accept="image/*" id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
                                                         name="image" required >

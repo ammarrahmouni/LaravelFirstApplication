@@ -24,8 +24,7 @@
                         {{-- Custom Input File --}}
                         <div class="file-input">
 
-                            <input accept="image/* " type="file" name="image" id="image"
-                                class="file-input__input" />
+                            <input accept="image/* " type="file" name="image" id="image" class="file-input__input" />
 
                             <label class="file-input__label" for="image">
                                 <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="upload"
@@ -72,6 +71,13 @@
                 data: formData,
                 contentType: false,
                 processData: false,
+                beforeSend: function() {
+                    $('#load-bar').show();
+                },
+
+                complete: function() {
+                    $('#load-bar').hide();
+                },
                 success: function(response) {
                     if (response.status == true) {
                         $('#display-img').css("display", 'none')
@@ -79,7 +85,7 @@
                             response.done,
                             response.msg,
                             'success'
-                        )   
+                        )
                         $(".close span").click();
                         var imageSource = '{{ asset('uploads/images') }}';
                         var imgValue = $('.file-input #image').val();
@@ -88,10 +94,10 @@
                         $('.file-input #image').val("");
 
                     } else if (response.status == false) {
-                        swal("{{__('home.error')}}",  "" + response.msg + "" ,
-                        "error", {
-                            button: "{{ __('home.ok') }}"
-                        })
+                        swal("{{ __('home.error') }}", "" + response.msg + "",
+                            "error", {
+                                button: "{{ __('home.ok') }}"
+                            })
                     }
                 }
             });

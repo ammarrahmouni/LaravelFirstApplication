@@ -10,6 +10,24 @@
     background-color: #2e59d9;
     border-color: #2653d4;
 }
+#load-bar, #spiner-bar{
+    display: none;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 50%;
+    z-index: 9999999;
+    /* top: 50%; */
+    /* margin-top: -50px; */
+    margin-left: -50px;
+}
+
+#spiner-bar{
+    bottom: 77px;
+    left: 56%;
+    width: 75px;
+    height: 75px;
+}
 
 ::selection{
     background-color: #333;

@@ -35,8 +35,17 @@
                 data: formData,
                 contentType: false,
                 processData: false,
+                beforeSend: function() {
+                    $('#load-bar').show();
+                },
+
+                complete: function() {
+                    $('#load-bar').hide();
+                },
+
                 success: function(response) {
                     if (response.status == true) {
+                        $(".btn-close").click();
                         Swal.fire({
                             title: response.done,
                             text: response.msg,

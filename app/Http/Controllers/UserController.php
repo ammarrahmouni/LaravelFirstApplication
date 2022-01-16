@@ -103,14 +103,16 @@ class UserController extends MainController
 
         $user = User::select('id', 'name', 'email', 'phone', 'address', 'image')->findOrFail($user_id);
         $posts = Post::where('user_id', $user_id)->paginate(POST_NUMBER);
+        $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
+
 
         if (!Auth::check()) {
-            return view('user.visit_user_profile', compact('user', 'posts'));
+            return view('user.visit_user_profile', compact('user', 'posts'), $this->data_category);
         } else {
             if ($user_id == Auth::user()->id) {
                 return view('user.user_profile', compact('posts'), $this->data_category);
             } else {
-                return view('user.visit_user_profile', compact('user', 'posts'));
+                return view('user.visit_user_profile', compact('user', 'posts'), $this->data_category);
             }
         }
     }

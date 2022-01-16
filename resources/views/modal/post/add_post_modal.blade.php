@@ -1,5 +1,4 @@
-<form id="postFormAdd" action="" method="POST"
-    enctype="multipart/form-data">
+<form id="postFormAdd" action="" method="POST" enctype="multipart/form-data">
     @csrf
     <div id="ModalPostAdd" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
         aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -27,8 +26,7 @@
                             <br>
 
                             <div class="custom-file">
-                                <input accept="image/*" name="image" type="file" class="custom-file-input "
-                                    id="image">
+                                <input accept="image/*" name="image" type="file" class="custom-file-input " id="image">
                                 <label class="custom-file-label custom-file-label-post"
                                     for="inputGroupFile01">{{ __('home.choose_img') }}</label>
                                 <strong class="form-text text-danger" id="image_error"></strong>
@@ -58,7 +56,7 @@
 
 
 
-                        <ul class="nav nav-tabs nav-lang-flag" >
+                        <ul class="nav nav-tabs nav-lang-flag">
                             <li class="nav-item ">
                                 <a class="nav-link active " id="test" aria-current="page" href="#">English</a>
                             </li>
@@ -88,8 +86,9 @@
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="600" name="description_en" class="form-control form-control-lg"
-                                rows="3" placeholder=" {{ __('home.post_description') }}"></textarea>
+                            <textarea maxlength="600" id="description_en" name="description_en"
+                                class="form-control form-control-lg" rows="3"
+                                placeholder=" {{ __('home.post_description') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_en_error"></strong>
 
@@ -107,8 +106,9 @@
 
                         <div class="form-group post-description  form-turkish">
                             <label>{{ __('home.post_description_tr') }}</label>
-                            <textarea maxlength="600" name="description_tr" class="form-control form-control-lg"
-                                rows="3" placeholder=" {{ __('home.post_description_tr') }}"></textarea>
+                            <textarea maxlength="600" id="description_tr" name="description_tr"
+                                class="form-control form-control-lg" rows="3"
+                                placeholder=" {{ __('home.post_description_tr') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_tr_error"></strong>
 
@@ -127,8 +127,9 @@
 
                         <div class="form-group post-description form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="600" name="description_ar" class="form-control form-control-lg"
-                                rows="3" placeholder=" {{ __('home.post_description_ar') }}"></textarea>
+                            <textarea maxlength="600" id="description_ar" name="description_ar"
+                                class="form-control form-control-lg" rows="3"
+                                placeholder=" {{ __('home.post_description_ar') }}"></textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
                             <strong class="form-text text-danger" id="description_ar_error"></strong>
 
@@ -160,7 +161,22 @@
 <script>
     $(document).ready(function() {
 
-        $('.nav-lang-flag .nav-item a').on('click', function(e){
+        var locales = <?php echo json_encode(config('translatable.locales')); ?>;
+        var localesLength = locales.length;
+
+        for (var i = 0; i < localesLength; i++) {
+            $('#description_' + locales[i]).on('focusout', function() {
+                var text = $(this).val();
+                var modifiedtext = text.replace(/\n/g, "");
+                $(this).val(modifiedtext);
+            });
+        }
+
+
+
+
+
+        $('.nav-lang-flag .nav-item a').on('click', function(e) {
             e.preventDefault();
         })
 
@@ -174,15 +190,25 @@
                 data: formData,
                 contentType: false,
                 processData: false,
+
+                beforeSend: function() {
+                    $('#load-bar').show();
+                },
+
+                complete: function() {
+                    $('#load-bar').hide();
+                },
+
                 success: function(response) {
                     if (response.status == true) {
+
                         Swal.fire({
                             title: response.done,
                             text: response.msg,
                             icon: 'success',
                             confirmButtonText: "{{ __('home.ok') }}",
 
-                            
+
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 location.reload();
@@ -206,7 +232,7 @@
                     var response = $.parseJSON(reject.responseText);
                     $.each(response.errors, function(key, val) {
                         $('#' + key + '_error').text(val[0]);
-                        
+
 
                     });
                 }

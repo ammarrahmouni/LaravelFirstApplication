@@ -9,12 +9,13 @@
     <!-- Topbar Search -->
     <form class="d-none d-sm-inline-block form-inline  ml-md-3 my-2 my-md-0 mw-100 navbar-search"
         action="{{ route('search.post') }}" method="get">
-        <input type="hidden" value="{{request()->category_id}}" name="category_id" />
+        <input type="hidden" value="{{ request()->category_id }}" name="category_id" />
         <div class="input-group">
-            <input type="text" name="search_post" class="form-control bg-light border-0 small" value="{{request()->query('search_post')}}"
-                placeholder="{{ __('home.search') }}" aria-label="Search" aria-describedby="basic-addon2">
+            <input required type="text" name="search_post" class="form-control bg-light border-0 small"
+                value="{{ request()->query('search_post') }}" placeholder="{{ __('home.search') }}"
+                aria-label="Search" aria-describedby="basic-addon2">
             <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">
+                <button class="btn btn-primary btn-search-post" type="submit">
                     <i class="fas fa-search fa-sm"></i>
                 </button>
             </div>
@@ -34,12 +35,15 @@
             <!-- Dropdown - Search -->
             <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
                 aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
+                <form class="form-inline mr-auto w-100 navbar-search" action="{{ route('search.post') }}"
+                    method="get">
+                    <input type="hidden" value="{{ request()->category_id }}" name="category_id" />
                     <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small"
-                            placeholder="{{ __('home.search') }}" aria-label="Search" aria-describedby="basic-addon2">
+                        <input required type="text" name="search_post" class="form-control bg-light border-0 small"
+                            value="{{ request()->query('search_post') }}" placeholder="{{ __('home.search') }}"
+                            aria-label="Search" aria-describedby="basic-addon2">
                         <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
+                            <button class="btn btn-primary btn-search-post" type="submit">
                                 <i class="fas fa-search fa-sm"></i>
                             </button>
                         </div>
@@ -99,24 +103,23 @@
 
         @guest
 
-            <li class="nav-item nav-guset-user" >
-                <a  class="nav-link" href="{{ route('login') }}">{{ __('login.title') }}</a>
+            <li class="nav-item nav-guset-user">
+                <a class="nav-link" href="{{ route('login') }}">{{ __('login.title') }}</a>
             </li>
 
             <li class="nav-item nav-guset-user">
-                <a  class="nav-link"
-                    href="{{ route('register') }}">{{ __('login.register') }}</a>
+                <a class="nav-link" href="{{ route('register') }}">{{ __('login.register') }}</a>
             </li>
 
         @else
 
             <!-- Nav Item - Alerts 
-            <li class="nav-item dropdown no-arrow mx-1">
-                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell fa-fw"></i>
-                    <!-- Counter - Alerts -->
-                    {{-- <span class="badge badge-danger badge-counter">3+</span> 
+                <li class="nav-item dropdown no-arrow mx-1">
+                    <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-bell fa-fw"></i>
+                        <!-- Counter - Alerts -->
+            {{-- <span class="badge badge-danger badge-counter">3+</span> 
                 </a>
                 <!-- Dropdown - Alerts -->
                 <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -138,7 +141,7 @@
 
 
                 </div>
-            </li>--}}
+            </li> --}}
 
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">

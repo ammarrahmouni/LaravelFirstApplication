@@ -89,6 +89,7 @@
     font-weight: 600;
 }
 
+
 /* Start Edit User Modal */
 #ModalUserEdit .modal-body label {
     color: #000;
@@ -171,9 +172,9 @@
 
 /* The close-image-modal Button */
 .close-image-modal {
-    position: absolute ;
-    top: 15px ;
-    right: 35px ;
+    position: absolute;
+    top: 15px;
+    right: 35px;
     color: #f1f1f1;
     font-size: 40px;
     font-weight: bold;

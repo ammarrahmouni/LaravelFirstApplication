@@ -1,5 +1,3 @@
-
-
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -11,7 +9,6 @@ img.onclick = function () {
     modal.style.display = "block";
     modalImg.src = this.src;
     modalImg.alt = this.alt;
-    captionText.innerHTML = this.alt;
 };
 
 // Get the <span> element that closes the modal
@@ -48,6 +45,17 @@ span.onclick = function () {
             'align-items' : 'center'
         }) 
         $('.user-content div div span:first-of-type').css('width', 'auto')
+    }
+
+    var direction = $('html').attr('dir');
+
+    if(direction == 'rtl'){
+        $('.navbar-nav').removeClass('ml-auto').addClass('mr-auto');
+    }
+
+    else if(direction == 'ltr'){
+        $('.navbar-nav').removeClass('mr-auto').addClass('ml-auto');
+
     }
     
 }());

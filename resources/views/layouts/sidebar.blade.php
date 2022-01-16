@@ -2,7 +2,12 @@
 <ul class="navbar-nav  sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" 
+    @auth
+        href="{{ route('home') }}">
+    @else
+        href="{{ route('guset.user') }}">
+    @endauth
         <div class="sidebar-brand-icon ">
             <img src="{{ asset('img/logo.svg') }}" id="logo-nav">
         </div>

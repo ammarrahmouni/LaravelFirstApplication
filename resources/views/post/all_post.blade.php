@@ -19,7 +19,6 @@
             @endif
             
             @include('post.post')
-            
         </div>
     </div>
 </div>

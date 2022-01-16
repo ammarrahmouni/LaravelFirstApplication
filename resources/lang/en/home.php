@@ -20,7 +20,7 @@ return [
     'ctg_rqd'           => 'Category Field Is Required',
     'title_rqd'         => 'Post Title Is Required',
     'description_rqd'   => 'Post Description Is Required',
-    'description_max'   => 'Description Max Must Less Than 300 character',
+    'description_max'   => 'Description Max Must Less Than 600 character',
     'image_rqd'         => 'Image Is Required',
     'image_type'        => 'Image Type Must Be jpeg,jpg or png Only',
     'image_max'         => 'Image Size Must Be Less Than 2 mg',
@@ -103,4 +103,5 @@ return [
     'dislike_post'          => 'You have unliked this post',
     'save_change_modal'     => 'Do you want to save the changes?',
     'change_not_saved'      => 'Changes are not saved',
+    'no_result_found'       => 'No Result Found',
 ];  

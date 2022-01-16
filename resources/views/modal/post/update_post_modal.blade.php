@@ -1,4 +1,4 @@
-<script src="{{ asset('js/add_post.js') }}"></script>   
+<script src="{{ asset('js/add_post.js') }}"></script>
 
 <form id="postFormUpdate{{ $post->id }}" action="" method="post" enctype="multipart/form-data">
     @csrf
@@ -33,7 +33,8 @@
                                 <label class="custom-file-label"
                                     for="image-label{{ $post->id }}">{{ __('home.choose_img') }}</label>
 
-                                <strong class="form-text text-danger" id="image_error_update_{{$post->id}}"></strong>
+                                <strong class="form-text text-danger"
+                                    id="image_error_update_{{ $post->id }}"></strong>
                             </div>
 
                         </div>
@@ -53,7 +54,8 @@
                                 @endif
 
                             </select>
-                            <strong class="form-text text-danger" id="category_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="category_error_update_{{ $post->id }}"></strong>
 
 
                         </div>
@@ -84,16 +86,18 @@
                                 placeholder=" {{ __('home.post_title') }}"
                                 value="{{ $post->translate('en')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_en_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="title_en_error_update_{{ $post->id }}"></strong>
                         </div>
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="600" name="description_en" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_en" name="description_en" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_en_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="description_en_error_update_{{ $post->id }}"></strong>
 
                         </div>
 
@@ -104,17 +108,19 @@
                                 placeholder=" {{ __('home.post_title_tr') }}"
                                 value="{{ $post->translate('tr')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_tr_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="title_tr_error_update_{{ $post->id }}"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-turkish">
                             <label>{{ __('home.post_description_tr') }}</label>
-                            <textarea maxlength="600" name="description_tr" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_tr" name="description_tr" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_tr_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="description_tr_error_update_{{ $post->id }}"></strong>
 
                         </div>
 
@@ -126,17 +132,19 @@
                                 placeholder=" {{ __('home.post_title_ar') }}"
                                 value="{{ $post->translate('ar')->title }}">
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="title_ar_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="title_ar_error_update_{{ $post->id }}"></strong>
 
                         </div>
 
                         <div class="form-group post-description  form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="600" name="description_ar" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_ar" name="description_ar" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
-                            <strong class="form-text text-danger" id="description_ar_error_update_{{$post->id}}"></strong>
+                            <strong class="form-text text-danger"
+                                id="description_ar_error_update_{{ $post->id }}"></strong>
 
                         </div>
 
@@ -165,18 +173,29 @@
 </form>
 
 
-    <script>
+<script>
     $(document).ready(function() {
 
-        $('.nav-lang-flag .nav-item a').on('click', function(e){
+        var locales = <?php echo json_encode(config('translatable.locales')); ?>;
+        var localesLength = locales.length;
+
+        for (var i = 0; i < localesLength; i++) {
+            $('#description_update_' + locales[i]).on('focusout', function() {
+                var text = $(this).val();
+                var modifiedtext = text.replace(/\n/g, "");
+                $(this).val(modifiedtext);
+            });
+        }
+
+        $('.nav-lang-flag .nav-item a').on('click', function(e) {
             e.preventDefault();
         })
 
         $('#image{{ $post->id }}').on("change", function() {
 
-            if ($(this).val() == '' ) {
+            if ($(this).val() == '') {
                 $('#dispaly-img-update{{ $post->id }}').fadeOut(500);
-                $('label[for="image-label{{ $post->id }}"]').text("{{__('home.choose_img')}}");
+                $('label[for="image-label{{ $post->id }}"]').text("{{ __('home.choose_img') }}");
 
             } else {
                 $('#dispaly-img-update{{ $post->id }}').fadeIn(500);
@@ -196,12 +215,12 @@
         $('#btn-update-post{{ $post->id }}').on('click', function(e) {
             e.preventDefault();
             Swal.fire({
-                title: "{{__('home.save_change_modal')}}",
+                title: "{{ __('home.save_change_modal') }}",
                 showDenyButton: true,
                 showCancelButton: true,
                 confirmButtonText: "{{ __('home.save') }}",
                 denyButtonText: "{{ __('home.dont_save') }}",
-                cancelButtonText: "{{__('home.cancel')}}",
+                cancelButtonText: "{{ __('home.cancel') }}",
             }).then((result) => {
 
                 if (result.isConfirmed) {
@@ -214,6 +233,16 @@
                         data: formData,
                         contentType: false,
                         processData: false,
+
+                        beforeSend: function() {
+                            $('#load-bar').show();
+                        },
+
+                        complete: function() {
+                            $('#load-bar').hide();
+                        },
+
+
                         success: function(response) {
                             if (response.status == true) {
                                 Swal.fire({
@@ -242,13 +271,14 @@
                             $('.custom-file').find('strong').html("");
                             var response = $.parseJSON(reject.responseText);
                             $.each(response.errors, function(key, val) {
-                                $('#' + key + '_error_update_' + "{{$post->id}}").text(val[0]);
+                                $('#' + key + '_error_update_' +
+                                    "{{ $post->id }}").text(val[0]);
                             });
                         }
                     });
 
                 } else if (result.isDenied) {
-                    Swal.fire("{{__('home.change_not_saved')}}", '', 'info');
+                    Swal.fire("{{ __('home.change_not_saved') }}", '', 'info');
                     $(".close span").click();
 
                 }
