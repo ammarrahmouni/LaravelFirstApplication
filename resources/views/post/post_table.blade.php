@@ -184,46 +184,12 @@
                             <script>
                                 $(document).ready(function() {
 
-
-                                    if (($('#description_{{ $post->id }}').text().length) > 70) {
-
-                                        var oldText = $('#description_{{ $post->id }}').text();
-
-                                        var newText = $('#description_{{ $post->id }}').text().substr(0, 70);
-                                        $('#description_{{ $post->id }}').html(newText + " " +
-                                            "<span class='show-trim' id='show_trim_{{ $post->id }}'>{{ __('home.read_more') }}</span>"
-                                        );
+                                    trimeText('#description_{{ $post->id }}', 70, 'show_trim_{{ $post->id }}','hide_trime_{{ $post->id }}', "{{ __('home.read_more') }}", 
+                                    "{{ __('home.read_less') }}" );
 
 
-                                        $(document).on('click', '#show_trim_{{ $post->id }}', function() {
-                                            $(this).parent().html(oldText + " " +
-                                                "<span class='hide-trim' id='hide_trime_{{ $post->id }}'>{{ __('home.read_less') }}</span>"
-                                            );
-                                        });
+                                    imageModalClick('#postImgModal{{ $post->id }}', '#postImg{{ $post->id }}', '#postDisplayImg{{ $post->id }}')
 
-                                        $(document).on('click', '#hide_trime_{{ $post->id }}', function() {
-                                            $(this).parent().html(newText + " " +
-                                                "<span class='show-trim' id='show_trim_{{ $post->id }}'>{{ __('home.read_more') }}</span>"
-                                            );
-                                        })
-
-                                    }
-
-                                    $('#postImg{{ $post->id }}').on('click', function() {
-                                        $('#postImgModal{{ $post->id }}').css('display', 'block');
-                                        $('#postDisplayImg{{ $post->id }}').attr('src', $(this).attr('src'));
-
-                                    })
-
-                                    $(document).on('keyup ', function(e) {
-                                        if (e.key == "Escape") {
-                                            $('#postImgModal{{ $post->id }}').css('display', 'none');
-                                        }
-                                    });
-
-                                    $('#postImgModal{{ $post->id }}').on("click", function() {
-                                        $(this).css('display', 'none');
-                                    });
                                 });
                             </script>
 

@@ -161,19 +161,13 @@
 <script>
     $(document).ready(function() {
 
-        var locales = <?php echo json_encode(config('translatable.locales')); ?>;
-        var localesLength = locales.length;
+        replaceEmptyLine(<?php echo json_encode(config('translatable.locales')); ?>, "#description_");
 
-        for (var i = 0; i < localesLength; i++) {
-            $('#description_' + locales[i]).on('focusout', function() {
-                var text = $(this).val();
-                var modifiedtext = text.replace(/\n/g, "");
-                $(this).val(modifiedtext);
-            });
-        }
+        remainingCharacter('.post-description textarea', 'span');
+        remainingCharacter('.post-title', 'span');
 
-
-
+        displayImage('#image', '#display-img', 'label[for="inputGroupFile01"]',
+            "{{ __('home.choose_img') }}")
 
 
         $('.nav-lang-flag .nav-item a').on('click', function(e) {
@@ -192,11 +186,11 @@
                 processData: false,
 
                 beforeSend: function() {
-                    $('#load-bar').show();
+                    $("#spinnerModal").css('display', 'block');
                 },
 
                 complete: function() {
-                    $('#load-bar').hide();
+                    $("#spinnerModal").css('display', 'none');
                 },
 
                 success: function(response) {

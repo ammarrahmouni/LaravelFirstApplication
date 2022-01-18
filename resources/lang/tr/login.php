@@ -50,6 +50,7 @@ return [
     'update_done'       => 'Bilgileriniz Başarıyla Güncellendi',
     'user_cant_found'   => 'Hata! Kullanıcı Bulunamadı',
     'img_updated'       => 'Resim Başarıyla Güncellendi',
+    'only_number'       => 'Sadece rekamlar kabul edebilir',
 
 
 ];

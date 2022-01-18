@@ -60,7 +60,7 @@ class PostController extends MainController
             }])->select('id', 'image', 'category_id', 'user_id', 'created_at')->where('user_id', $user_id)->latest()->orderBy('created_at')->paginate(POST_NUMBER);
             $this->data['posts'] = $posts;
 
-            
+
             return view('post.view_post', $this->data, $this->data_category);
         } else {
             return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
@@ -245,10 +245,12 @@ class PostController extends MainController
 
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
 
-        if ($request->search_post == "" && !$request->has('category_id') ) {
+        if ($request->search_post == "" && !$request->has('category_id')) {
             return redirect()->back()->with('search_not_empty', __('home.search_not_empty'));
-            
         }
+
+        $category_name =  Category::select('id', 'name_' . app()->getLocale() . ' as name')->find($request->category_id);
+
 
         $posts = Post::with(['users' => function ($q) {
             $q->select('id', 'name', 'image');
@@ -269,14 +271,17 @@ class PostController extends MainController
             })->select('id', 'image', 'user_id', 'category_id', 'created_at')->latest()->paginate(POST_NUMBER);
 
         if ($request->ajax()) {
-           
+
             return [
                 'posts' => view('post.post', compact('posts', 'categories'))->render(),
                 'next_page' => $posts->currentPage() + 1,
                 'last_item' => $posts->lastItem(),
-                
+
             ];
         }
-        return view('post.search', compact('posts'), $this->data_category);
+
+
+
+        return view('post.search', compact('posts', 'category_name'), $this->data_category);
     }
 }

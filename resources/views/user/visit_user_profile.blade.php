@@ -4,10 +4,6 @@
     <link rel="shortcut icon" href="{{ asset('img/man.png') }}" type="image/x-icon" />
     <link rel="stylesheet" href="{{ asset('css/user/user_details.css') }}">
     <title>{{ __('home.profile') }}</title>
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        
 @endsection
 
 @section('content')
@@ -37,6 +33,5 @@
 @endsection
 
 @section('script')
-    
     <script src="{{ asset('js/user/user_details.js') }}"></script>
 @endsection

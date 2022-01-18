@@ -1,5 +1,7 @@
 (function () {
 
+    changeNavbarDirection();
+
     $(document).on('scroll', function(){
         var scrolTop = $(document).scrollTop();
         if(scrolTop != 0){
@@ -19,30 +21,6 @@
 
     });
 
-
-
-   
-
-    var direction = $('html').attr('dir');
-
-    if(direction == 'rtl'){
-        $('.navbar-nav').removeClass('ml-auto').addClass('mr-auto');
-      
-    }
-
-    else if(direction == 'ltr'){
-        $('.navbar-nav').removeClass('mr-auto').addClass('ml-auto');
-
-
-        $('#language-menu').removeClass('ms-auto').addClass('mr-auto');
-        $('#login-menu').css({
-            'margin-left': '0',
-        });
-        $('.dropdown-menu a:before').css('left', '-6px');
-
-    }
-
-
    
     for(var i = 1; i < $('.list-group a').length; i++){
 
@@ -58,9 +36,6 @@
         $('.card-mobile').addClass('container');
     }
 
-    $('#load-bar').css({
-        'top': $(window).height() / 2
-    })
    
 }());
 

@@ -27,7 +27,11 @@
                     <div class="form-group">
                         <label>{{ __('login.phone') }}</label>
                         <input id="phone" type="text" class="form-control " name="phone"
-                            value="{{ Auth::user()->phone }}" required placeholder="{{ __('login.phone') }}">
+                            value="{{ Auth::user()->phone }}" required placeholder="{{ __('login.phone') }}"
+                            onkeypress="return IsNumeric(event, 'phone_error');">
+                            <span id="phone_error" style="color: Red; display: none">
+                                {{__('login.only_number')}}
+                            </span>
                         <strong class="form-text text-danger" id="phone_error"></strong>
                     </div>
 
@@ -77,11 +81,11 @@
                         contentType: false,
                         processData: false,
                         beforeSend: function() {
-                            $('#load-bar').show();
+                            $("#spinnerModal").css('display', 'block');
                         },
 
                         complete: function() {
-                            $('#load-bar').hide();
+                            $("#spinnerModal").css('display', 'none');
                         },
                         success: function(response) {
                             if (response.status == true) {

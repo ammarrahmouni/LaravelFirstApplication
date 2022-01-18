@@ -9864,8 +9864,9 @@ a:focus {
   height: 2.75rem;
   text-align: center;
   color: #fff;
-  background: rgba(90, 92, 105, 0.5);
+  background: #2E59D9;
   line-height: 46px;
+  border-radius: 50%;
 }
 
 .scroll-to-top:focus, .scroll-to-top:hover {
@@ -9873,7 +9874,7 @@ a:focus {
 }
 
 .scroll-to-top:hover {
-  background: #5a5c69;
+  background: #6d7de2;
 }
 
 .scroll-to-top i {

@@ -10,8 +10,8 @@
 @section('content')
 
     <body class="bg-gradient-primary">
-      
-      
+
+
         <div class="main" style="position: relative;top: 5%;">
             <div class="container">
                 <div class="row justify-content-center">
@@ -34,12 +34,12 @@
                                                 style="margin-bottom:25px; margin-left:0;">
 
                                                 <img class=" img-thumbnail" width="300" height="300" id="display-img" />
-                                                
+
                                                 <br>
                                                 <div class="col-sm-12 mb-3 mb-sm-0 img-input-register-ar">
                                                     <input accept="image/*" id="image" type="file"
                                                         class="custom-file-input form-control form-control-user @error('image') is-invalid @enderror"
-                                                        name="image" required >
+                                                        name="image" required>
                                                     <label id="label-input-img" class="custom-file-label custom-label"
                                                         for="inputGroupFile01">
                                                         <span> {{ __('home.choose_img') }} </span>
@@ -85,10 +85,15 @@
                                                 <input id="phone" type="text"
                                                     class="form-control form-control-user @error('phone') is-invalid @enderror"
                                                     name="phone" value="{{ old('phone') }}" required
-                                                    placeholder="{{ __('login.phone') }}">
+                                                    placeholder="{{ __('login.phone') }}" pattern="[0-9]+"
+                                                    onkeypress="return IsNumeric(event, 'phone_error');" ondrop="return false;"
+                                                    onpaste="return false;">
 
+                                                <span id="phone_error" style="color: Red; display: none">
+                                                    {{__('login.only_number')}}
+                                                </span>
                                                 @error('phone')
-                                                    <span class="invalid-feedback" role="alert">
+                                                    <span  class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
@@ -96,8 +101,8 @@
 
                                             <div class="form-group">
                                                 <input id="address" type="text"
-                                                    class="form-control form-control-user @error('phone') is-invalid @enderror"
-                                                    name="address" value="{{ old('address') }}" required
+                                                    class="form-control form-control-user @error('address') is-invalid @enderror"
+                                                    autocomplete name="address" value="{{ old('address') }}" required
                                                     placeholder="{{ __('login.address') }}">
 
                                                 @error('address')
@@ -174,41 +179,10 @@
 
 @section('script')
     @include('layouts.login_footer')
-
     <script>
-       
-        if ('{{ app()->getLocale() }}' == 'en') {
-            $('.dropdown-item:first-of-type').css('opacity', '.5').end().siblings().css('opacity', '1');
-        } else if ('{{ app()->getLocale() }}' == 'tr') {
-            $('.dropdown-item:nth-of-type(2)').css('opacity', '.5').end().siblings().css('opacity', '1');
-        } else if ('{{ app()->getLocale() }}' == 'ar') {
-            $('.dropdown-item:nth-of-type(3)').css('opacity', '.5').end().siblings().css('opacity', '1');
-        }
-
         $(document).ready(function() {
-
-
-            $('#image').on("change", function() {
-
-                if ($(this).val() == '') {
-                    $('#display-img').fadeOut(500);
-                    $('label[for="inputGroupFile01"]').text('');
-
-                } else {
-                    $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
-                    $('#display-img').fadeIn(500);
-                    var reader = new FileReader();
-                    reader.onload = function() {
-                        var output = document.getElementById('display-img');
-                        output.src = reader.result;
-                    };
-                    reader.readAsDataURL(event.target.files[0]);
-                    
-                }
-
-
-            });
+            chooseLanguage("{{ app()->getLocale() }}");
+            displayImage('#image', '#display-img', 'label[for="inputGroupFile01"]', "{{__('home.choose_img')}}")
         });
     </script>
-    <script src="{{ asset('js/register.js') }}"></script>
 @endsection

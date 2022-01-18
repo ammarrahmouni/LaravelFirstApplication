@@ -48,11 +48,10 @@
     background-color: #3a3b3c31;
 }
 
-
 .home-container{
-    display: flex;
+    /* display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
 }
 
 .home-container .add-post{

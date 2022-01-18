@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {{-- Jquery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     {{-- Bootstrap Files --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -23,11 +26,7 @@
 
 
 
-
     @if (App::isLocale('ar'))
-        {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css"
-            integrity="sha384-gXt9imSW0VcJVHezoNQsP+TNrjYXoGcrqBZJpry9zJt8PCQjobwmhMGaDHTASo9N" crossorigin="anonymous"> --}}
-
         <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500&display=swap" rel="stylesheet">
         <!-- Option 1: Bootstrap Bundle with Popper -->
 
@@ -64,13 +63,24 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
+
     @yield('title')
 
 </head>
 
 <body>
-
     @yield('content')
+
+    <!-- The Modal Load -->
+    <div id="spinnerModal" class="modall">
+        <div id="load-bar-2" class="spinner icon-spinner-2"></div>
+    </div>
+
+    <!-- The Modal Load -->
+    <div id="spinnerModal2" class="modall">
+        <div id="spiner-bar" class="spinner spinner--steps2 icon-spinner-7" ></div>
+    </div>
+
 
     @if (Session::has('dont_have_premission'))
         <script>
@@ -110,21 +120,18 @@
     @endif
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="scroll-to-top " href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
-    {{-- Loading Bar --}}
-    <img src="{{ asset('img/load.gif') }}" id="load-bar">
 
-    {{-- Spinner Bar --}}
-    <img src="{{ asset('img/spiner.gif') }}" id="spiner-bar">
+
 
 
     {{-- Bootstrap Files --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+    </script> --}}
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
         integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
     </script>
@@ -132,14 +139,7 @@
         integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">
     </script>
 
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-
-
-
-
+    <script src="{{ asset('js/new_app.js') }}"></script>
 
     @yield('script')
 </body>

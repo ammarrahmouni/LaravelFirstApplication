@@ -21,8 +21,8 @@
 }
 #display-img {
     display: none;
-    width: 40%;
-    height: 300px;
+    width: 400px;
+    height: 400px;
     margin-bottom: 20px;
     background-position: center;
     background-size: cover;
@@ -119,33 +119,19 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
     background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 }
 
 /* Modal Content (Image) */
-.modal-content {
+#img01 {
     margin: auto;
     display: block;
     width: 80%;
     max-width: 700px;
-}
-
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#caption {
-    margin: auto;
-    display: block;
-    width: 80%;
-    max-width: 700px;
-    text-align: center;
-    color: #ccc;
-    padding: 10px 0;
-    height: 150px;
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal-content,
-#caption {
+#img01 {
     -webkit-animation-name: zoom;
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
@@ -190,7 +176,7 @@
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
-    .modal-content {
+    #img01 {
         width: 100%;
     }
 }

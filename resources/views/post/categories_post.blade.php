@@ -1,9 +1,9 @@
 @auth
-<a href="{{ route('home') }}" class="list-group-item list-group-item-action">{{ __('home.all') }} </a>
- 
-@else 
+    <a href="{{ route('home') }}" class="list-group-item list-group-item-action">{{ __('home.all') }} </a>
 
-<a href="{{ route('guset.user') }}" class="list-group-item list-group-item-action">{{ __('home.all') }} </a>
+@else
+
+    <a href="{{ route('guset.user') }}" class="list-group-item list-group-item-action">{{ __('home.all') }} </a>
 
 @endauth
 

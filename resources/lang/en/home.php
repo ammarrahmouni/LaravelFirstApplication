@@ -104,4 +104,5 @@ return [
     'save_change_modal'     => 'Do you want to save the changes?',
     'change_not_saved'      => 'Changes are not saved',
     'no_result_found'       => 'No Result Found',
+    'search_result'         => 'Search Results',
 ];  

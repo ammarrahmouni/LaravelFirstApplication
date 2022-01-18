@@ -8,10 +8,6 @@
 
     <link rel="shortcut icon" href="{{ asset('img/new-post.png') }}" type="image/x-icon" />
 
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-        
 @endsection
 
 
@@ -49,6 +45,5 @@
     <script src="{{ asset('js/view_post.js') }}"></script>
     <script src="{{ asset('js/add_post.js') }}"></script>
     <script src="{{ asset('js/home.js') }}"></script>
-
  
 @endsection

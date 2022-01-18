@@ -54,7 +54,6 @@ return [
     'posts'             => 'Gönderiler',
     'post_description_tr'   => 'Gönderinin Türkçe Açıklaması',
     'post_title_tr'         => 'Gönderinin Türkçe Başlığı',
-
     'add_post'              => 'Yeni Gönderi Eklemek',
     'search'                => 'Ara...',
     'profile'               => 'Profil',
@@ -99,5 +98,6 @@ return [
     'save_change_modal'     => 'Değişiklikleri kaydetmek istiyor musunuz?',
     'change_not_saved'      => 'Değişiklikler kaydedilmedi',
     'no_result_found'       => 'Sonuç bulunamadı',
+    'search_result'         => 'Arama Sonuçları',
 
 ];  

@@ -80,7 +80,8 @@
 
 
         <div class="opt-btn">
-            <button class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalUserEdit"> {{__('home.edit')}}
+            <button class="btn btn-primary text-white" data-toggle="modal" data-target="#ModalUserEdit"> 
+                {{__('home.edit')}}
             </button>
         </div>
         <br>
@@ -91,3 +92,6 @@
 
 @include('modal.user.edit_user')
 @include('modal.user.edit_user_image')
+
+
+

@@ -3,11 +3,18 @@
 @section('title')
     <link rel="stylesheet" href="{{ asset('css/home.css') }}">
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
-    <link rel="shortcut icon" href="{{ asset('img/house.png') }}" type="image/x-icon" />
-    <title>{{ __('home.home') }}</title>
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="shortcut icon" href="{{ asset('img/search.png') }}" type="image/x-icon" />
+    <title>
+
+        @if(  request()->query('search_post')  != "" )
+            {{ request()->query('search_post') }} - {{ __('home.search_result') }}
+        @else
+            {{ $category_name->name }} - {{ __('home.search_result') }}
+
+        @endif
+
+    </title>
+ 
 @endsection
 
 
@@ -56,9 +63,6 @@
                                 </div>
                             </div>
                         </div>
-
-
-
                     @show
                 </div>
             </div>
@@ -92,14 +96,14 @@
             var page = $('.endless-pagination').data('next-page');
             
             if (page != null && page != '') {
-                console.log("test");
                 clearTimeout($.data(this, "scrollCheeck"));
                 $.data(this, "scrollCheeck", setTimeout(function() {
                     var scroll_poition_for_posts_load = $(window).height() + $(window).scrollTop() +
                         100;
 
                     if (scroll_poition_for_posts_load >= $(document).height()) {
-                        $('#spiner-bar').show();
+                        $("#spinnerModal2").css('display', 'block');
+
                         var search_result = $('input[name="search_post"]').val();
                         var category_id = $('input[name="category_id"]').val();
 
@@ -114,11 +118,11 @@
                             success: function(response) {
                                 $('.posts').append(response.posts);
                                 $('.endless-pagination').data('next-page', response.next_page);
-                                $('#spiner-bar').hide();
+                                $("#spinnerModal2").css('display', 'none    ');
+                                
                                 if(response.last_item == null){
                                     $('.endless-pagination').data('next-page', null);
                                 }
-                                console.log(page);
 
                             }
                         });

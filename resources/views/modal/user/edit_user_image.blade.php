@@ -19,7 +19,7 @@
                 <div class="modal-body">
                     <div class="image-preview">
 
-                        <div id="display-img" class="img-thumbnail"></div>
+                        <img id="display-img" class="img-thumbnail">
 
                         {{-- Custom Input File --}}
                         <div class="file-input">
@@ -60,6 +60,9 @@
 
 <script>
     $(document).ready(function() {
+        
+        displayImage('#image', "#display-img");
+
         $('.save-change-img').on('click', function(e) {
             e.preventDefault();
 
@@ -72,11 +75,11 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
-                    $('#load-bar').show();
+                    $("#spinnerModal").css('display', 'block');
                 },
 
                 complete: function() {
-                    $('#load-bar').hide();
+                    $("#spinnerModal").css('display', 'none');
                 },
                 success: function(response) {
                     if (response.status == true) {

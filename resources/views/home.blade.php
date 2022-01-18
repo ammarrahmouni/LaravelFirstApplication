@@ -5,9 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/post/add_post.css') }}">
     <link rel="shortcut icon" href="{{ asset('img/house.png') }}" type="image/x-icon" />
     <title>{{ __('home.home') }}</title>
-    {{-- Jquery --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 @endsection
 
 
@@ -61,12 +59,14 @@
 
                         if (scroll_poition_for_posts_load >= $(document).height()) {
 
-                            $('#spiner-bar').show();
+                            $("#spinnerModal2").css('display', 'block');
+
 
                         $.get(page, function(data) {
                             $('.posts').append(data.posts);
                             $('.endless-pagination').data('next-page', data.next_page);
-                            $('#spiner-bar').hide();
+                            $("#spinnerModal2").css('display', 'none');
+
                         });
                     }
                 }, 150));

@@ -11,7 +11,7 @@
   });
 
   // Close any open menu accordions when window is resized below 768px
-  $(window).resize(function() {
+  $(window).on('resize', function() {
     if ($(window).width() < 768) {
       $('.sidebar .collapse').collapse('hide');
     };
@@ -46,11 +46,8 @@
 
   // Smooth scrolling using jQuery easing
   $(document).on('click', 'a.scroll-to-top', function(e) {
-    var $anchor = $(this);
-    $('html, body').animate({
-      scrollTop: 0
-    }, 1000, 'easeOutBack');
     e.preventDefault();
+    $(window).scrollTop(0);
   });
 
 })(jQuery); // End of use strict

@@ -36,7 +36,6 @@ return [
     'verify_email_not_recive' => 'If you did not receive the email',
     'verify_email_request_resend' => 'A fresh verification link has been sent to your email address.',
     'logout'        => 'Logout',
-
     'phone'             => 'Phone Number',
     'address'           => 'Address',
     'name_required'     => 'User Name Is Required',
@@ -50,5 +49,6 @@ return [
     'update_done'       => 'Your Information Successfully Updated',
     'user_cant_found'   => 'Error! User Can\'t  Found',
     'img_updated'       => 'Image Updated Successfully',
+    'only_number'       => 'It can only accept numbers'
 
 ];

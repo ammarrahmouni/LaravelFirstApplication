@@ -36,11 +36,13 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
-                    $('#load-bar').show();
+                    $("#spinnerModal").css('display', 'block');
+
                 },
 
                 complete: function() {
-                    $('#load-bar').hide();
+                    $("#spinnerModal").css('display', 'none');
+
                 },
 
                 success: function(response) {

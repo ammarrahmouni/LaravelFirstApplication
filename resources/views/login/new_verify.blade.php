@@ -39,5 +39,8 @@
 @endsection
 
 @section('script')
+    <script>
+        chooseLanguage("{{ app()->getLocale() }}");
+    </script>
     @include('layouts.login_footer')
 @endsection

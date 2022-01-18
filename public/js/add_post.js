@@ -1,28 +1,12 @@
 (function(){
 
-  
     // Show Remamingn Character To The User When Typing In Textarea Field
     var postDescriptionMax = $('.post-description textarea').attr('maxlength');
-
     $('.post-description textarea').next().find('span').text(postDescriptionMax);
-    
-    $('.post-description textarea').on('keyup', function(e){
 
-        var textlength = $(this).val().length;
-        var maxlength = $(this).attr("maxlength");
-
-        $(this).next().find('span').text(maxlength - textlength);
-
-    });
-
-    var postTitleMax       = $('.post-title').attr('maxlength');
+    var postTitleMax = $('.post-title').attr('maxlength');
     $('.post-title').next().find('span').text(postTitleMax);
 
-    $('.post-title').on('keyup', function(){
-        var textlength = $(this).val().length;
-        var maxlength = $(this).attr("maxlength");
-        $(this).next().find('span').text(maxlength - textlength);
-    });
 
     $('.nav-tabs .nav-item').on('click', function(){
         $(this).parent().find('a').removeClass('active');
@@ -65,26 +49,5 @@
     })
 
 
-    // Display Image And Change Label Text When The User Choose Image In Input File 
-   
-
-    $('#image').on("change", function(){
-
-        if($(this).val() == ''){
-            $('#display-img').fadeOut(500);
-            $('label[for="inputGroupFile01"]').text('');
-        }
-
-        else{
-            $('label[for="inputGroupFile01"]').text($(this).val().split('\\').pop());
-            $('#display-img').fadeIn(500);
-            var reader = new FileReader();
-            reader.onload = function() {
-                var output = document.getElementById('display-img');
-                output.src = reader.result;
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-    });
     
 }());

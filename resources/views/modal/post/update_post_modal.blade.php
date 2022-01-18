@@ -92,7 +92,7 @@
 
                         <div class="form-group post-description  form-english">
                             <label>{{ __('home.post_description') }}</label>
-                            <textarea maxlength="600" id="description_update_en" name="description_en" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_{{$post->id}}_en" name="description_en" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description') }}">{{ $post->translate('en')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -115,7 +115,7 @@
 
                         <div class="form-group post-description  form-turkish">
                             <label>{{ __('home.post_description_tr') }}</label>
-                            <textarea maxlength="600" id="description_update_tr" name="description_tr" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_{{$post->id}}_tr" name="description_tr" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_tr') }}">{{ $post->translate('tr')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -139,7 +139,7 @@
 
                         <div class="form-group post-description  form-arabic">
                             <label>{{ __('home.post_description_ar') }}</label>
-                            <textarea maxlength="600" id="description_update_ar" name="description_ar" class="form-control form-control-lg"
+                            <textarea maxlength="600" id="description_update_{{$post->id}}_ar" name="description_ar" class="form-control form-control-lg"
                                 rows="3"
                                 placeholder=" {{ __('home.post_description_ar') }}">{{ $post->translate('ar')->description }}</textarea>
                             <div class="rmg-chracter"> {{ __('home.rmg_character') }} <span> </span> </div>
@@ -176,40 +176,20 @@
 <script>
     $(document).ready(function() {
 
-        var locales = <?php echo json_encode(config('translatable.locales')); ?>;
-        var localesLength = locales.length;
+        replaceEmptyLine(<?php echo json_encode(config('translatable.locales')); ?>, "#description_update_{{$post->id}}_");
+        
+        remainingCharacter('.post-description textarea', 'span');
+        remainingCharacter('.post-title', 'span');
+      
+        displayImage('#image{{ $post->id }}', '#dispaly-img-update{{ $post->id }}', 
+        'label[for="image-label{{ $post->id }}"]', "{{ __('home.choose_img') }}")
 
-        for (var i = 0; i < localesLength; i++) {
-            $('#description_update_' + locales[i]).on('focusout', function() {
-                var text = $(this).val();
-                var modifiedtext = text.replace(/\n/g, "");
-                $(this).val(modifiedtext);
-            });
-        }
 
         $('.nav-lang-flag .nav-item a').on('click', function(e) {
             e.preventDefault();
         })
 
-        $('#image{{ $post->id }}').on("change", function() {
 
-            if ($(this).val() == '') {
-                $('#dispaly-img-update{{ $post->id }}').fadeOut(500);
-                $('label[for="image-label{{ $post->id }}"]').text("{{ __('home.choose_img') }}");
-
-            } else {
-                $('#dispaly-img-update{{ $post->id }}').fadeIn(500);
-                $('label[for="image-label{{ $post->id }}"]').text($(this).val().split('\\').pop());
-                var reader = new FileReader();
-                reader.onload = function() {
-                    var output = document.getElementById('dispaly-img-update{{ $post->id }}');
-                    output.src = reader.result;
-                };
-                reader.readAsDataURL(event.target.files[0]);
-            }
-
-
-        });
 
 
         $('#btn-update-post{{ $post->id }}').on('click', function(e) {
@@ -235,11 +215,13 @@
                         processData: false,
 
                         beforeSend: function() {
-                            $('#load-bar').show();
+                            $("#spinnerModal").css('display', 'block');
+
                         },
 
                         complete: function() {
-                            $('#load-bar').hide();
+                            $("#spinnerModal").css('display', 'none');
+
                         },
 
 
