@@ -36,6 +36,7 @@
         $('.card-mobile').addClass('container');
     }
 
+    
    
 }());
 

@@ -9,7 +9,7 @@
         @if(  request()->query('search_post')  != "" )
             {{ request()->query('search_post') }} - {{ __('home.search_result') }}
         @else
-            {{ $category_name->name }} - {{ __('home.search_result') }}
+            {{ $category_name->name }} - {{ __('home.categories') }}
 
         @endif
 

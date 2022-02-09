@@ -20,7 +20,7 @@
                             <label>{{ __('login.full_name') }}</label>
                             <input id="name" type="text" class="form-control " name="name"
                                 value="{{ Auth::user()->name }}" placeholder="{{ __('login.full_name') }}">
-                            <strong class="form-text text-danger" id="name_error"></strong>
+                            <strong class="form-text text-danger" id="name_error_{{Auth::user()->id}}"></strong>
                         </div>
                     </div>
 
@@ -32,14 +32,14 @@
                             <span id="phone_error" style="color: Red; display: none">
                                 {{__('login.only_number')}}
                             </span>
-                        <strong class="form-text text-danger" id="phone_error"></strong>
+                        <strong class="form-text text-danger" id="phone_error_{{Auth::user()->id}}"></strong>
                     </div>
 
                     <div class="form-group">
                         <label>{{ __('login.address') }}</label>
                         <input id="address" type="text" class="form-control " name="address"
                             value="{{ Auth::user()->address }}" required placeholder="{{ __('login.address') }}">
-                        <strong class="form-text text-danger" id="address_error"></strong>
+                        <strong class="form-text text-danger" id="address_error_{{Auth::user()->id}}"></strong>
 
                     </div>
                 </div>
@@ -116,13 +116,14 @@
                                     response.msg,
                                     'error'
                                 )
+                               
                             }
                         },
                         error: function(reject) {
                             $('.form-group strong').text("");
                             var response = $.parseJSON(reject.responseText);
                             $.each(response.errors, function(key, val) {
-                                $('#' + key + '_error').text(val[0]);
+                                $('#' + key + '_error_' + '{{Auth::user()->id}}').text(val[0]);
                             });
                         }
                     });

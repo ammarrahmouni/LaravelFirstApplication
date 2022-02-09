@@ -24,7 +24,7 @@ class PostController extends MainController
 
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except(['gusetUser', 'specificCategory', 'searchPost']);
+        $this->middleware(['auth', 'verified'])->except(['gusetUser', 'specificCategory', 'searchPost', 'downloadPostImg']);
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
         $this->data_category['categories'] = $categories;
     }
@@ -238,6 +238,22 @@ class PostController extends MainController
             'status' => true,
             'msg'   => __('home.dislike_post'),
         ]);
+    }
+
+    public function downloadPostImg($post_id){
+
+        $post = Post::with(['postTranslations' => function($q){
+            $q->where('locale', app()->getLocale());
+        }])->findOrFail($post_id);
+
+        $file = public_path() . '/uploads/images/' . $post->image;
+        $name = $post->title . ".jpg";
+        $headers = array(
+            'Content-Type : application/jpg'
+        );
+
+        return response()->download($file, $name, $headers);
+        
     }
 
     public function searchPost(Request $request)

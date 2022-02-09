@@ -38,7 +38,11 @@ Route::prefix('home')->middleware(["auth", "verified"])->group(function () {
     Route::post('/update-post/{post_id}/{user_id}', [PostController::class, 'updatePost'])->name('update.post');
 
     Route::post('/delete-post/{post_id}', [PostController::class, 'deletePost'])->name('delete.post');
+
 });
+
+Route::get('download-post/{post_id}', [PostController::class, 'downloadPostImg'])->name('download.img.post');
+
 
 Route::get('search', [PostController::class, 'searchPost'])->name('search.post');
 
@@ -57,4 +61,7 @@ Route::get('profile/{user_id}', [UserController::class, 'myProfile'])->name('pro
 Route::prefix('profile')->group(function () {
     Route::post('/update-info/{user_id}', [UserController::class, 'editUserInfo'])->name('edit.user.info');
     Route::post('/update-img/{user_id}', [UserController::class, 'editUserImage'])->name('edit.user.image');
+    Route::get('download/{user_id}', [UserController::class, 'downloadImg'])->name('img.user.download');
 });
+
+Route::get('download/{user_id}', [UserController::class, 'downloadImgUser'])->name('img.user.visit.download');

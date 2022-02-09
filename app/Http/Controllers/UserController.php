@@ -16,7 +16,7 @@ class UserController extends MainController
 {
     public function __construct()
     {
-        $this->middleware(['auth', 'verified'])->except('visitUserProfile');
+        $this->middleware(['auth', 'verified'])->except('visitUserProfile', 'downloadImgUser');
         $categories = Category::select('id', 'name_' . app()->getLocale() . ' as name')->get();
         $this->data_category['categories'] = $categories;
     }
@@ -40,22 +40,22 @@ class UserController extends MainController
                 'status' => false,
                 'msg'    => __('login.update_not_done')
             ]);
-        } else {
-            $user_name = filter_var($request->name, FILTER_SANITIZE_STRING);
-            $user_phone = filter_var($request->phone, FILTER_SANITIZE_STRING);
-            $user_address = filter_var($request->address, FILTER_SANITIZE_STRING);
-            $user->update([
-                'name'  => $user_name,
-                'phone' => $user_phone,
-                'address' => $user_address
-            ]);
-            return response()->json([
-                'status' => true,
-                'msg'    => __('login.update_done'),
-                'done'   => __('home.done'),
-                'info'   => [$user_name, $user_phone, $user_address]
-            ]);
         }
+        
+        $user_name = filter_var($request->name, FILTER_SANITIZE_STRING);
+        $user_phone = filter_var($request->phone, FILTER_SANITIZE_STRING);
+        $user_address = filter_var($request->address, FILTER_SANITIZE_STRING);
+        $user->update([
+            'name'  => $user_name,
+            'phone' => $user_phone,
+            'address' => $user_address
+        ]);
+        return response()->json([
+            'status' => true,
+            'msg'    => __('login.update_done'),
+            'done'   => __('home.done'),
+            'info'   => [$user_name, $user_phone, $user_address]
+        ]);
     }
 
     public function editUserImage(Request $request, $user_id)
@@ -115,5 +115,33 @@ class UserController extends MainController
                 return view('user.visit_user_profile', compact('user', 'posts'), $this->data_category);
             }
         }
+    }
+
+    public function downloadImg($user_id)
+    {
+
+        if (Auth::user()->id != $user_id) {
+            return redirect()->back()->with('dont_have_premission', __('home.dont_have_premission'));
+        }
+
+        $file = public_path() . '/uploads/images/' . Auth::user()->image;
+        $headers = array(
+            'Content-Type : application/jpg'
+        );
+        $name = 'profile-img.jpg';
+        return response()->download($file, $name, $headers);
+    }
+
+    public function downloadImgUser($user_id)
+    {
+
+        $user = User::findOrFail($user_id);
+
+        $file = public_path() . '/uploads/images/' . $user->image;
+        $headers = array(
+            'Content-Type : application/jpg'
+        );
+        $name = $user->name . '.jpg';
+        return response()->download($file, $name, $headers);
     }
 }

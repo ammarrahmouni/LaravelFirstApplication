@@ -12,6 +12,11 @@
         <!-- The Close Button -->
         <span class="close-image-modal" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
 
+        {{-- The Download Button --}}
+        <a href="{{route('img.user.download', Auth::user()->id)}}" class="btn-download" target="_blank">
+            <i class="fas fa-download"></i>
+        </a>
+
         <!-- Modal Content (The Image) -->
         <img class="modal-content" id="img01">
 

@@ -21,7 +21,7 @@
 }
 #display-img {
     display: none;
-    width: 400px;
+    width: auto;
     height: 400px;
     margin-bottom: 20px;
     background-position: center;
@@ -99,7 +99,7 @@
 
 /* Style the Image Used to Trigger the Modal */
 #myImg {
-    border-radius: 5px;
+    border-radius: 50%;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -108,27 +108,13 @@
     opacity: 0.7;
 }
 
-/* The Modal (background) */
-.modall {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 100000; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
-}
-
 /* Modal Content (Image) */
 #img01 {
     margin: auto;
     display: block;
-    width: 80%;
     max-width: 700px;
 }
+
 
 /* Add Animation - Zoom in the Modal */
 #img01 {
@@ -136,6 +122,8 @@
     -webkit-animation-duration: 0.6s;
     animation-name: zoom;
     animation-duration: 0.6s;
+    border: none;
+    border-radius: 0;
 }
 
 @-webkit-keyframes zoom {
@@ -156,23 +144,6 @@
     }
 }
 
-/* The close-image-modal Button */
-.close-image-modal {
-    position: absolute;
-    top: 15px;
-    right: 35px;
-    color: #f1f1f1;
-    font-size: 40px;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.close-image-modal:hover,
-.close-image-modal:focus {
-    color: #bbb;
-    text-decoration: none;
-    cursor: pointer;
-}
 
 /* 100% Image Width on Smaller Screens */
 @media only screen and (max-width: 700px) {
@@ -180,4 +151,7 @@
         width: 100%;
     }
 }
+
 /* Style the Image Used to Trigger the Modal */
+
+

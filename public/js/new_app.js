@@ -51,7 +51,7 @@ function displayImage(inputImg, displayImg, labelChange, textChoose) {
 function imageModalClick(modalId, modalImg, displayImg) {
 
     $(modalImg).on('click', function() {
-        $(modalId).css('display', 'block');
+        $(modalId).css('display', 'flex');
         $(displayImg).attr('src', $(this).attr('src'));
 
     });
@@ -109,11 +109,12 @@ function changeNavbarDirection(){
 
     if(direction == 'rtl'){
         $('.navbar-nav').removeClass('ml-auto').addClass('mr-auto');
+        $('.user-dropdown').removeClass('dropdown-menu-right').addClass('mr-auto');
     }
 
     else if(direction == 'ltr'){
         $('.navbar-nav').removeClass('mr-auto').addClass('ml-auto');
-
+        $('.user-dropdown').addClass('dropdown-menu-right').removeClass('mr-auto');
     }
 }
 

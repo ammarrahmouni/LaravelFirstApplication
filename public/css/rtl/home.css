@@ -211,14 +211,14 @@ label {
 /* End Profile Page */
 
 /* Start Sniper bar */
-#load-bar, #spiner-bar{
+/* #load-bar, #spiner-bar{
     right: 50%;
     margin-right: -50px;
 }
 
 #spiner-bar{
     right: 56%;
-}
+} */
 
 /* End Sniper bar */
 

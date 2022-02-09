@@ -151,7 +151,7 @@
                     <img class="img-profile rounded-circle" src="{{ asset('uploads/images/' . Auth::user()->image) }}">
                 </a>
                 <!-- Dropdown - User Information -->
-                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in user-dropdown" aria-labelledby="userDropdown">
 
                     {{-- Profile Button --}}
                     <a class="dropdown-item" href="{{ route('profile', Auth::user()->id) }}">
